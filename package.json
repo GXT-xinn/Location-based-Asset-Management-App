@@ -1,0 +1,22 @@
+{
+  "name": "pwd",
+  "version": "1.0.0",
+  "description": "Basic starter code for UCL module CEGE0043 app development - includes a basic HTTP server and one end point",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://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@github.com/ucl-geospatial-21-22/cege0043-apps-21-22-GXT-xinn.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ucl-geospatial-21-22/cege0043-apps-21-22-GXT-xinn/issues"
+  },
+  "homepage": "https://github.com/ucl-geospatial-21-22/cege0043-apps-21-22-GXT-xinn#readme",
+  "dependencies": {
+    "express": "^4.17.2"
+  }
+}
