@@ -39,6 +39,26 @@ attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</
 tileSize: 512,
 zoomOffset: -1
  }).addTo(mymap);
+ 
+ // add a circle
+ L.circle([51.508, -0.11], 5000, { 
+ color: 'green',
+ fillColor: '#f03',
+ fillOpacity: 0.8
+ }).addTo(mymap).bindPopup("I am a circle.");
+ console.log("added a circle");
+ // add a polygon with 4 end points
+ var myPolygon = L.polygon([
+ [51.709, -0.10],
+ [51.703, 0.07],
+ [51.22, 0.07],
+ [51.22, -0.057]
+ ],{
+ color: 'orange',
+ fillColor: '#f03',
+ fillOpacity: 0.5
+ }).addTo(mymap).bindPopup("I am a polygon in 2022.");
+
 </script>
 </body>
 </html> 
