@@ -1,5 +1,4 @@
-<!-- the following script will load the map and set the default view and zoom, as well as loading the
-basemap tiles -->
+<!-- the following script will load the map and set the default view and zoom, as well as loading the basemap tiles -->
 var mymap; // global variable to store the map 
 
 // create a custom popup as a global variable 
@@ -11,7 +10,7 @@ var popup = L.popup();
  .setLatLng(e.latlng) 
  .setContent("You clicked the map at " + e.latlng.toString()) 
  .openOn(mymap); 
- }
+ };
 
 console.log("starting the loadLeafletMap function");
 function loadLeafletMap() {
@@ -32,7 +31,7 @@ zoomOffset: -1
 // now call the code to add the markers
  addBasicMarkers();
  console.log("Complete loadLeafletMap function");
-} //end code to add the leaflet map 
+}; //end code to add the leaflet map 
 
 console.log("starting the addBasicMarkers function");
  var testMarkerGreen = L.AwesomeMarkers.icon({icon: 'play', markerColor: 'green'}); 
@@ -81,4 +80,4 @@ function addBasicMarkers() {
  } 
  }).addTo(mymap).bindPopup("<b>"+geojsonFeature.properties.name+" "+geojsonFeature.properties.popupContent+"<b>"); 
  console.log("added a location pin")
-} // end code to add the basic markers
+}; // end code to add the basic markers

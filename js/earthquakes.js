@@ -6,7 +6,7 @@ function removeEarthquakeData() {
  mymap.removeLayer( earthquakelayer ); 
  } catch (err) { alert("Layer doesn’t exist :" + err); 
  } 
-} 
+} ;
 
 function getEarthquakeData() { 
  var layerURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson"; 
@@ -34,4 +34,4 @@ function getEarthquakeData() {
  mymap.fitBounds(earthquakelayer.getBounds()); 
  } // end of the inner function 
  }); // end of the ajax request 
-} // end of the getEarthquakeData function
+} ;// end of the getEarthquakeData function
