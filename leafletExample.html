@@ -45,8 +45,12 @@ var mymap; // global variable to store the map
 var earthquakeLayer; 
 
 function removeEarthquakeData() { 
- alert("remove the earthquake data here"); 
+ try { 
+ alert("Earthquake data will be removed"); 
+ mymap.removeLayer( earthquakelayer ); 
+ } catch (err) { alert("Layer doesn’t exist :" + err); 
  } 
+} 
 
 function getEarthquakeData() { 
  var layerURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson"; 
