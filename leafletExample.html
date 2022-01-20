@@ -11,6 +11,9 @@
 <link rel="stylesheet" href="css/ionicons.min.css"/> 
 <link rel="stylesheet" href="css/leaflet.awesome-markers.css"/> 
 <script src="js/leaflet.awesome-markers.js"></script> 
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" 
+ integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" 
+ crossorigin="anonymous"></script>
 <!-- the following CSS is used to set the size of the Map -->
  <style type="text/css">
  #mapid { height: 180px; }
@@ -33,6 +36,20 @@ My GitHub username is: GXT-xinn
 basemap tiles -->
  <script>
 var mymap; // global variable to store the map 
+var earthquakeLayer; 
+
+function getEarthquakeData() { 
+ var layerURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson"; 
+ $.ajax({url: layerURL, crossDomain: true,success: function(result){ 
+ console.log(result); // check that the data is correct 
+ // add the JSON layer onto the map - it will appear using the default icons 
+ earthquakelayer = L.geoJson(result).addTo(mymap); 
+ // change the map zoom so that all the data is shown 
+ mymap.fitBounds(earthquakelayer.getBounds()); 
+ } // end of the inner function 
+ }); // end of the ajax request 
+} // end of the getEarthquakeData function
+
 
 // create a custom popup as a global variable 
 var popup = L.popup(); 
@@ -67,7 +84,10 @@ zoomOffset: -1
 } //end code to add the leaflet map 
 
 console.log("starting the addBasicMarkers function");
+ var testMarkerGreen = L.AwesomeMarkers.icon({icon: 'play', markerColor: 'green'}); 
  var testMarkerPink = L.AwesomeMarkers.icon({icon: 'play', markerColor: 'pink' });
+ 
+ 
 function addBasicMarkers() {
  
 // add a circle
@@ -112,7 +132,13 @@ function addBasicMarkers() {
  console.log("added a location pin")
 } // end code to add the basic markers
 
-window.onload = loadLeafletMap; 
+document.addEventListener('DOMContentLoaded', function() { 
+ loadMap(); 
+}, false); 
+function loadMap() { 
+loadLeafletMap(); 
+ getEarthquakeData();
+} 
 
 </script>
 </body>
