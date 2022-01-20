@@ -33,12 +33,20 @@ My GitHub username is: GXT-xinn
 <!-- Earthquake data displays when click the button --> 
 <button id="loadEarthquakeData" name="loadEarthquakeData" onclick="getEarthquakeData 
 ()">Click here to load the Earthquake data </button>
+<!-- Remove the earthquake data when click the button --> 
+<button id="removeEarthquakeData" name="removeEarthquakeData" 
+onclick="removeEarthquakeData()">Click here to remove the Earthquake data </button> 
+
 
 <!-- the following script will load the map and set the default view and zoom, as well as loading the
 basemap tiles -->
  <script>
 var mymap; // global variable to store the map 
 var earthquakeLayer; 
+
+function removeEarthquakeData() { 
+ alert("remove the earthquake data here"); 
+ } 
 
 function getEarthquakeData() { 
  var layerURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson"; 
