@@ -17,6 +17,7 @@
  <!-- Reference the basicmap and earthquake function from separate file -->
  <script src="js/basicMap.js"></script> 
  <script src="js/earthquakes.js"></script> 
+ <script src="js/busstops.js"></script> 
 <!-- the following CSS is used to set the size of the Map -->
  <style type="text/css">
  #mapid { height: 180px; }
@@ -39,6 +40,13 @@ My GitHub username is: GXT-xinn
 <!-- Remove the earthquake data when click the button --> 
 <button id="removeEarthquakeData" name="removeEarthquakeData" 
 onclick="removeEarthquakeData()">Click here to remove the Earthquake data </button> 
+
+<!-- Busstop data displays when click the button --> 
+<button id="getBusstopsData" name="getBusstopsData" onclick="getBusstopsData 
+()">Click here to load the Busstop data </button>
+<!-- Remove the Busstop data when click the button --> 
+<button id="removeBusstopsData" name="removeBusstopsData" 
+onclick="removeBusstopsData()">Click here to remove the Busstop data </button> 
 
  <script>
 
