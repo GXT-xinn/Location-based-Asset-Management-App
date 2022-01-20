@@ -7,6 +7,10 @@
  <script src="https://unpkg.com/leaflet@1.1.0/dist/leaflet.js"
  integrity="sha512-mNqn2Wg7tSToJhvHcqfzLMU6J4mkOImSPTxVZAdo+lcPlk+GhZmYgACEe0x35K7YzW1zJ7XyJV/TT1MrdXvMcA=="
  crossorigin=""></script>
+ <!-- the following links incorporate the CSS required for custom icon creation --> 
+<link rel="stylesheet" href="css/ionicons.min.css"/> 
+<link rel="stylesheet" href="css/leaflet.awesome-markers.css"/> 
+<script src="js/leaflet.awesome-markers.js"></script> 
 <!-- the following CSS is used to set the size of the Map -->
  <style type="text/css">
  #mapid { height: 180px; }
@@ -63,7 +67,9 @@ zoomOffset: -1
 } //end code to add the leaflet map 
 
 console.log("starting the addBasicMarkers function");
-function addBasicMarkers() { 
+ var testMarkerPink = L.AwesomeMarkers.icon({icon: 'play', markerColor: 'pink' });
+function addBasicMarkers() {
+ 
 // add a circle
  L.circle([51.508, -0.11], 5000, { 
  color: 'green',
@@ -83,7 +89,7 @@ function addBasicMarkers() {
  fillColor: '#f03',
  fillOpacity: 0.5
  }).addTo(mymap).bindPopup("I am a polygon in 2022.");
- console.log("added a polygon")
+ console.log("added a polygon");
  
  // create a geoJSON feature -
  var geojsonFeature = {
@@ -98,8 +104,12 @@ function addBasicMarkers() {
  }
 };
  // and add it to the map
- L.geoJSON(geojsonFeature).addTo(mymap).bindPopup("<b>"+geojsonFeature.properties.name+" "+geojsonFeature.properties.popupContent+"<b>"); 
-console.log("added a location pin")
+ L.geoJSON(geojsonFeature, { 
+ pointToLayer: function (feature, latlng) { 
+ return L.marker(latlng, {icon:testMarkerPink}); 
+ } 
+ }).addTo(mymap).bindPopup("<b>"+geojsonFeature.properties.name+" "+geojsonFeature.properties.popupContent+"<b>"); 
+ console.log("added a location pin")
 } // end code to add the basic markers
 
 window.onload = loadLeafletMap; 
