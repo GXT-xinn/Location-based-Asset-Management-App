@@ -18,6 +18,7 @@
  <script src="js/basicMap.js"></script> 
  <script src="js/earthquakes.js"></script> 
  <script src="js/busstops.js"></script> 
+ <script src="js/ethernet.js"></script>
 <!-- the following CSS is used to set the size of the Map -->
  <style type="text/css">
  #mapid { height: 180px; }
@@ -47,6 +48,13 @@ onclick="removeEarthquakeData()">Click here to remove the Earthquake data </butt
 <!-- Remove the Busstop data when click the button --> 
 <button id="removeBusstopsData" name="removeBusstopsData" 
 onclick="removeBusstopsData()">Click here to remove the Busstop data </button> 
+
+<!-- Ethernet data displays when click the button --> 
+<button id="getEthernetData" name="getEthernetData" onclick="getEthernetData 
+()">Click here to load the Ethernet data </button>
+<!-- Remove the Ethernet data when click the button --> 
+<button id="removeEthernetData" name="removeEthernetData" 
+onclick="removeEthernetData()">Click here to remove the Ethernet data </button> 
 
  <script>
 
