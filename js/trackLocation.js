@@ -18,7 +18,7 @@ document.getElementById('showLocation').innerHTML = "Geolocation is not supporte
 function showPosition(position) {
 // add the new point into the array
 // the 'push' command
-trackLocationLayer.push(L.marker([position.coords.latitude,position.coords.longitude]).addTo(mymap));
+locations = trackLocationLayer.push(L.marker([position.coords.latitude,position.coords.longitude]).addTo(mymap));
 }
 
 
