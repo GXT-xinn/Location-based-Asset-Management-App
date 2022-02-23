@@ -11,6 +11,7 @@
  
  <script src="js/menu.js"></script>
  <script src="js/trackLocation.js"></script>
+ <script src="js/basicMap.js"></script>
  <script src="js/centennial.js"></script>
  <script src="js/graph.js"></script>
  
@@ -153,15 +154,15 @@
             </div>
           </div>
         </li>
-	
-	
-	<!-- Nav Item - Pages Collapse Menu -->
+		
+		
+		<!-- Nav Item - Pages Collapse Menu -->
 		<li class="nav-item d-none d-lg-block" >
-          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseONE" aria-expanded="true" aria-controls="collapseONE">
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseEight" aria-expanded="true" aria-controls="collapseEight">
             <i class="fas fa-fw fa-cog"></i>
             <span>Centennial</span>
           </a>
-          <div id="collapseONE" class="collapse navbar-collapse" aria-labelledby="collapseONE" data-parent="#accordionSidebar">
+          <div id="collapseEight" class="collapse navbar-collapse" aria-labelledby="collapseEight" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
               <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="getBuildings()">Load buildings</a>
               <a class="collapse-item"  data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="removeBuildings()">Remove buildings</a>
@@ -174,31 +175,28 @@
             </div>
           </div>
         </li>
-
-
+		
+		
 		<!-- Nav Item - Pages Collapse Menu -->
 		<li class="nav-item d-none d-md-block" >
-		  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+		  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseNine" aria-expanded="true" aria-controls="collapseNine">
             <i class="fas fa-fw fa-cog"></i>
             <span>Graphs</span>
           </a>
-          <div id="collapseTwo" class="collapse navbar-collapse" aria-labelledby="collapseTwo" data-parent="#accordionSidebar">
+          <div id="collapseNine" class="collapse navbar-collapse" aria-labelledby="collapseNine" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
               <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="getBuildings()"> Show Graph</a>
               <a class="collapse-item"  data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="removeBuildings()"> Remove Graph</a>
 			 </div>
           </div>
         </li>
-		<!-- Divider -->
-		<hr class="sidebar-divider">
-	
+		
+		
 
        </ul>
        <!-- End of Sidebar -->
 	   
-	<div id="graphWrapper" class="h-75 w-75 d-flex flex-column"
-	style="background-color: white; display: inlineblock;position:absolute; top:-9999;left:15%;">
-	<button type="button"class="close" aria-label="Close" onclick="closeGraph();">
+
 	   
 	
   <!-- the mapid div will hold the map -->
@@ -223,20 +221,6 @@
 
 <script>
 
-function loadMap() {
-      // load the map
- mymap = L.map('mapContainer').setView([51.505, -0.09], 9);
- // load the tiles
- L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
- maxZoom: 20,
-attribution: 'Map data &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors, ' +
- '<a href="http://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
- id: 'mapbox/streets-v11',
-tileSize: 512,
-zoomOffset: -1
- }).addTo(mymap);
-}
 
 document.addEventListener('DOMContentLoaded', function() {
   console.log("listener domcontentloaded");
