@@ -11,6 +11,8 @@
  
  <script src="js/menu.js"></script>
  <script src="js/trackLocation.js"></script>
+ <script src="js/centennial.js"></script>
+ <script src="js/graph.js"></script>
  
     <!-- Use correct character set. -->
     <meta charset="utf-8">
@@ -151,12 +153,52 @@
             </div>
           </div>
         </li>
+	
+	
+	<!-- Nav Item - Pages Collapse Menu -->
+		<li class="nav-item d-none d-lg-block" >
+          <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseONE" aria-expanded="true" aria-controls="collapseONE">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Centennial</span>
+          </a>
+          <div id="collapseONE" class="collapse navbar-collapse" aria-labelledby="collapseONE" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="getBuildings()">Load buildings</a>
+              <a class="collapse-item"  data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="removeBuildings()">Remove buildings</a>
+			  <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="getEthernet()">Load ethernet cables</a>
+			  <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="removeEthernet()">Remove ethernet cables</a>
+			  <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="getRooms()">Load rooms</a>
+			  <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="removeRooms()">Remove rooms</a>
+			  <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="getSensors()">Load sensors</a>
+			  <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="removeSensors()">Remove sensors</a>
+            </div>
+          </div>
+        </li>
 
+
+		<!-- Nav Item - Pages Collapse Menu -->
+		<li class="nav-item d-none d-md-block" >
+		  <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Graphs</span>
+          </a>
+          <div id="collapseTwo" class="collapse navbar-collapse" aria-labelledby="collapseTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+              <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="getBuildings()"> Show Graph</a>
+              <a class="collapse-item"  data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="removeBuildings()"> Remove Graph</a>
+			 </div>
+          </div>
+        </li>
+		<!-- Divider -->
+		<hr class="sidebar-divider">
+	
 
        </ul>
        <!-- End of Sidebar -->
 	   
-
+	<div id="graphWrapper" class="h-75 w-75 d-flex flex-column"
+	style="background-color: white; display: inlineblock;position:absolute; top:-9999;left:15%;">
+	<button type="button"class="close" aria-label="Close" onclick="closeGraph();">
 	   
 	
   <!-- the mapid div will hold the map -->
