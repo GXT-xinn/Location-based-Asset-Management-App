@@ -34,8 +34,7 @@ function showGraph() {
 		  .attr("transform", `translate(0,${height})`)
 		  .call(d3.axisBottom(x))
 		  .selectAll(".tick text")
-		  // 100 is the text width to limited, important to note that the width is hardcoded
-		  .call(wrap, 100);
+		  .call(wrap, x.bandwidth());
 
 	  g.append("g")
 		  .attr("class", "axis axis-y")
