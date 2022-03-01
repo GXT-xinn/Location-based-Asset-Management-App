@@ -34,6 +34,7 @@ function showGraph() {
 		  .attr("transform", `translate(0,${height})`)
 		  .call(d3.axisBottom(x))
 		  .selectAll(".tick text")
+		  // 100 is the text width to limited, important to note that the width is hardcoded
 		  .call(wrap, 100);
 
 	  g.append("g")
@@ -57,6 +58,10 @@ function showGraph() {
 			.style("font-weight", "bold")  
 			.text(`Couldn't open the data file: "${err}".`);
 	});
+
+// The wrap function was adapted from Mike Bostock's Block to achieve 
+// the goal of wrapping long place name for earthquake data
+// https://bl.ocks.org/mbostock/7555321 <--- Code link is here
 
 function wrap(text, width) {
   text.each(function() {
