@@ -5,7 +5,6 @@ function closeGraph() {
 
 // Create function to generate graph and display
 function showGraph() {
-	document.getElementById("graphWrapper").style.top = "300px";
 	document.getElementById("graphWrapper").style.top="15%"; 
 	console.log(document.getElementById("graphWrapper").style.top); 
 	var widtha = document.getElementById("graphWrapper").offsetWidth;
