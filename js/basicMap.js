@@ -2,7 +2,7 @@
 var mymap; // global variable to store the map 
 
 
-function loadMap() {
+function loadLeafletMap() {
       // load the map
  mymap = L.map('mapContainer').setView([51.505, -0.09], 9);
  // load the tiles
