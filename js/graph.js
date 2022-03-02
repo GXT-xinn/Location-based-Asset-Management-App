@@ -32,9 +32,7 @@ function showGraph() {
 	  g.append("g")
 		  .attr("class", "axis axis-x")
 		  .attr("transform", `translate(0,${height})`)
-		  .call(d3.axisBottom(x))
-		  .selectAll(".tick text")
-		  .call(wrap, x.bandwidth());
+		  .call(d3.axisBottom(x));
 
 	  g.append("g")
 		  .attr("class", "axis axis-y")
@@ -57,33 +55,4 @@ function showGraph() {
 			.style("font-weight", "bold")  
 			.text(`Couldn't open the data file: "${err}".`);
 	});
-
-// The wrap function was adapted from Mike Bostock's Block to achieve 
-// the goal of wrapping long place name for earthquake data
-// https://bl.ocks.org/mbostock/7555321 <--- Code link is here
-
-function wrap(text, width) {
-  text.each(function() {
-    var text = d3.select(this),
-        words = text.text().split(/\s+/).reverse(),
-        word,
-        line = [],
-        lineNumber = 0,
-        lineHeight = 1.1, // ems
-        y = text.attr("y"),
-        dy = parseFloat(text.attr("dy")),
-        tspan = text.text(null).append("tspan").attr("x", 0).attr("y", y).attr("dy", dy + "em")
-    while (word = words.pop()) {
-      line.push(word)
-      tspan.text(line.join(" "))
-      if (tspan.node().getComputedTextLength() > width) {
-        line.pop()
-        tspan.text(line.join(" "))
-        line = [word]
-        tspan = text.append("tspan").attr("x", 0).attr("y", y).attr("dy", `${++lineNumber * lineHeight + dy}em`).text(word)
-      }
-    }
-  })
-};
-	
 }
