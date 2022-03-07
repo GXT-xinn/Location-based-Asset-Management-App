@@ -1,25 +1,46 @@
-// global variable
-var roomsAJAX;
-// make sure the data api server is running before you run this test
-function getRoomData() {
- // get the root of the URL from the web page
- var theURL = document.location.origin + "/api/testCRUD"
- roomsAJAX = new XMLHttpRequest();
- // this is a GET request as we are retrieving data
- roomsAJAX.open("GET", theURL);
- // the function to run when the result is returned
- roomsAJAX.onreadystatechange = showRoomData;
-// send the request
- roomsAJAX.send(); }
  
-function showRoomData() {
- // check if the response has been received - if not, keep waiting
- if (roomsAJAX.readyState < 4)
- // while waiting response from server
- document.getElementById('responseDIV').innerHTML = "Loading...";
- else if (roomsAJAX.readyState === 4) {
-	 // 4 = Response from
-	 // server has been completely loaded.
-	 if (roomsAJAX.status > 199 && roomsAJAX.status < 300)
-	 // http status between 200 to 299 are all successful
-	 document.getElementById('responseDIV').innerHTML = roomsAJAX.responseText;} }
+function saveNewAsset() {
+	// now get the geometry values
+	var latitude = document.getElementById("latitude").value;
+	var longitude = document.getElementById("longitude").value;
+	postString = "latitude=" + latitude + "&longitude=" + longitude;
+	processData(postString);	
+}
+
+
+function deleteSingleAsset() {
+	var deleteID = document.getElementById("deleteID").value;
+	var deleteString = "id="+deleteID;
+	var serviceUrl= document.location.origin + "/api/testCRUD";
+	$.ajax({
+	    url: serviceUrl,
+	    crossDomain: true,
+	    type: "POST",
+	    success: function(data){console.log(data); dataDeleted(data);},
+	    data: deleteString
+});	
+}
+function dataDeleted(data){
+    document.getElementById("deleteAssetResponse").innerHTML = JSON.stringify(data);
+}
+
+
+
+function processData(postString) {
+	alert(postString);
+
+	var serviceUrl=  document.location.origin + "/api/testCRUD";
+	$.ajax({
+    url: serviceUrl,
+    crossDomain: true,
+    type: "POST",
+    data: postString,
+    success: function(data){console.log(data); dataUploaded(data);}
+
+}); 
+}
+// create the code to process the response from the data server
+function dataUploaded(data) {
+    // change the DIV to show the response
+    document.getElementById("responseDIV").innerHTML = JSON.stringify(data);
+}
