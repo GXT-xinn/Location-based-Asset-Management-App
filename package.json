@@ -17,6 +17,6 @@
   },
   "homepage": "https://github.com/ucl-geospatial-21-22/cege0043-apps-21-22-GXT-xinn#readme",
   "dependencies": {
-    "express": "^4.17.2"
+    "express": "^4.17.3"
   }
 }
