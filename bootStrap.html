@@ -33,14 +33,6 @@
 	<style type="text/css">
 	#mapContainer { height: 100%; }
 	</style>
-	 <!-- set the style for the bar graph -->
-	<style>
-	.bar {fill: #71EEB8;}
-	.bar:hover {fill: slateblue;}
-	.axis-x path {display: none;}
-	.axis text {font-weight: bold;}
-	</style>
-
   </head>
   <body id="page-top">
     <div id="wrapper">
@@ -64,7 +56,7 @@
           <div id="collapseONE" class="collapse navbar-collapse" aria-labelledby="collapseONE" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
               <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="bestCondition()">List of Assets in Best Condition</a>
-              <a class="collapse-item"  data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="removeBuildings()">Daily Reporting Rates Graph – All Users s</a>
+              <a class="collapse-item"  data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="dailyReportRate()">Daily Reporting Rates Graph – All Users</a>
             </div>
           </div>
         </li>
@@ -78,14 +70,14 @@
           </a>
           <div id="collapseTwo" class="collapse navbar-collapse" aria-labelledby="collapseTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-              <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="getBuildings()">Help</a>
-              <a class="collapse-item"  data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="removeBuildings()">User Ranking</a>
-			  <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="getEthernet()">Add Layer - 5 closest assets</a>
-			  <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="removeEthernet()">Remove Layer – 5 closest assets</a>
-			  <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="getRooms()">Add Layer – last 5 reports, colour coded</a>
-			  <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="removeRooms()">Remove layer – last 5 reports</a>
-			  <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="getSensors()">Add Layer – not rated in the last 3 days</a>
-			  <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="removeSensors()">Remove Layer – not rated in the last 3 days</a>
+              <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="help()">Help</a>
+              <a class="collapse-item"  data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="userRank()">User Ranking</a>
+			  <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="Show5Asset()">Add Layer - 5 closest assets</a>
+			  <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="Remove5Asset()">Remove Layer – 5 closest assets</a>
+			  <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="Show5Report()">Add Layer – last 5 reports, colour coded</a>
+			  <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="Remove5Report()">Remove layer – last 5 reports</a>
+			  <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="ShowRate()">Add Layer – not rated in the last 3 days</a>
+			  <a class="collapse-item" data-toggle="collapse" data-target=".navbar-collapse.show" href="#" onclick="RemoveRate()">Remove Layer – not rated in the last 3 days</a>
 			 </div>
           </div>
         </li>
