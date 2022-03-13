@@ -78,40 +78,40 @@ function getPopupHTML(){
 	var assetName = "balcony window3";
 	var UserID = "401";
 	var InstallationDate = "1924-11-11";
+	var previousCondition = 1
 	
 	
 	var htmlString = "<DIV id='popup_" + AssetID + "'><h3> Asset Condition Report </h3><br>";
 	htmlString = htmlString + "<h5> Asset ID: " + AssetID + "</h5>";
 	htmlString = htmlString + "<h5> Asset Name: " + assetName + "</h5>";
 	htmlString = htmlString + "<h5> Installation Date: " + InstallationDate + "</h5><br>";
-	htmlString = htmlString + '<h6>Which one of options below can best describe the condition of the asset?</h6>'+
-'<form>'+
-'	<div class="radio">'+
-'	<label for="option1">1 - Element is in very good condition</label>'+
-'	<input type="radio" name="conditionvalue" id="option1">'+
-'	</div>'+
-'	<br>'+
-'	<div class="radio">'+
-'	<label for="option2">2 - Some aesthetic defects, needs minor repair</label>'+
-'	<input type="radio" name="conditionvalue" id="option2">'+
-'	</div>'+
-'	<br>'+
-'	<div class="radio">'+
-'	<label for="option3">3 - Functional degradation of some parts, needs maintenance</label>'+
-'	<input type="radio" name="conditionvalue" id="option3">'+
-'	</div>'+
-'	<br>'+
-'	<div class="radio">'+
-'	<label for="option4">4 - Not working and maintenance must be done as soon as reasonably possible</label> '+
-'	<input type="radio" name="conditionvalue" id="option4">'+
-'	</div>'+
-'	<br>'+
-'	<div class="radio">'+
-'	<label for="option5">5 - Not working and needs immediate, urgent maintenance</label> '+
-'	<input type="radio" name="conditionvalue" id="option5">'+
-'	</div>'+
-'	<br>'+
-'</form>';
+	htmlString = htmlString + '<h6>Which one of options below can best describe the condition of the asset?</h6><br>'+
+	'<form>'+
+	'	<div class="radio">'+
+	'	<label for="option1">1 - Element is in very good condition</label>'+
+	'	<input type="radio" name="conditionvalue" id="option1">'+
+	'	</div>'+
+	'	<div class="radio">'+
+	'	<label for="option2">2 - Some aesthetic defects, needs minor repair</label>'+
+	'	<input type="radio" name="conditionvalue" id="option2">'+
+	'	</div>'+
+	'	<div class="radio">'+
+	'	<label for="option3">3 - Functional degradation of some parts, needs maintenance</label>'+
+	'	<input type="radio" name="conditionvalue" id="option3">'+
+	'	</div>'+
+	'	<div class="radio">'+
+	'	<label for="option4">4 - Not working and maintenance must be done as soon as reasonably possible</label> '+
+	'	<input type="radio" name="conditionvalue" id="option4">'+
+	'	</div>'+
+	'	<div class="radio">'+
+	'	<label for="option5">5 - Not working and needs immediate, urgent maintenance</label> '+
+	'	<input type="radio" name="conditionvalue" id="option5">'+
+	'	</div>'+
+	'</form>';
+	htmlString = htmlString + "<button class='btn btn-default' id='ConditionResult' onclick='checkCondition("+ AssetID +")'>Submit Condition</button>";
+	htmlString = htmlString + "<div id='previousConditionValue' style='display: none;'>"+previousCondition+"</div>";
+	htmlString = htmlString + "<div id='assetID' style='display: none;'>"+ AssetID +"</div>"; 
+	htmlString = htmlString + "<div id='conditionResult'></div>"; 
 	return htmlString;
 };
 
