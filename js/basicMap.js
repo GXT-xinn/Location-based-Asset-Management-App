@@ -117,15 +117,21 @@ function onMapClick(e) {
 };
 
 function basicFormHtml() {
-	var myvar = '<div class="box">'+
-	'<label class="label" for="assetName">Asset Name: </label><input type="text" size="25" id="assetName"/></div>'+
-	'<br />'+
-	'<div class="box">'+
-	'<label class="label" for="installDate">Installation Date: </label><input type="date" size="25" id="installDate"/></div>'+
-	'<br />'+
-	'<div class="box">'+
-	'<label class="label" for="userid">User ID: </label><input type="text" size="25" id="userid"/></div>'+
-	'<br />';
+	var myvar = '<form>'+
+	'	<div class="form-group">'+
+	'	<label class="label" for="assetName">Asset Name: </label>'+
+	'	<input type="text" class="form-control" size="25" id="assetName" placeholder="Enter asset name"></div>'+
+	'	<br>'+
+	'	<div class="form-group">'+
+	'	<label class="label" for="userid">User ID: </label>'+
+	'	<input type="text" class="form-control" size="25" id="userid" placeholder="Enter User ID"></div>'+
+	'	<br>'+
+	'	<div class="form-group">'+
+	'	<label class="label" for="installDate">Installation Date: </label>'+
+	'	<input type="date" class="form-control" size="25" id="installDate"/></div>'+
+	'	<br>'+
+	'	<button class="btn btn-default" id=" saveAsset" onclick="saveNewAsset()">Save Asset</button>'+
+	'</form>';
 	
 
 	return myvar;
