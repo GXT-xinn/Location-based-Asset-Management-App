@@ -14,88 +14,17 @@
 <meta charset="utf-8">
 <!-- Tell IE to use the latest, best version. -->
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-<style> 
-	.label {
-	font-weight: bold;
-	vertical-align: middle}
-	
-	.button {
-	border: none;
-	color: white;
-	display: inline-block;
-	font-size: 15px;
-	background-color: #008CBA;}
-	* {
-    margin: 0;
-    padding: 0;
+<style>
+
+form{
+    min-width: 100px;
+    display: inline-block;
 }
 
-#user-id-div
-{
- width:200px;
-margin:auto;    
+form label {
+  display: inline-block;
+  width: 600px;
 }
-
-body {
-    font-family: Helvetica, sans-serif;
-    }
-
-#page-wrap {    /*showing white background*/ 
-    width: 600px;
-    background: white;
-    padding: 20px 50px 20px 50px;
-    margin: 20px auto;
-    min-height: 500px;
-    height: auto !important;
-    height: 500px;
-}
-
-form, br {
-    clear: left;
-    margin: 0;
-    padding: 0;
-}
-
-input.form_element {
-    width: 221px;
-    background: transparent url('bg.jpg') no-repeat;
-    color : #747862;
-    height:20px;
-    border:0;
-    padding:4px 8px;
-    margin-bottom:0px;
-}
-
-.checkun{
-    width: 150px;
-    background: transparent url('bg.jpg') no-repeat;
-    color : #747862;
-    height:20px;
-    border:1px solid blue;
-    padding:4px 10px;
-    margin-bottom:0px;
-    position: right;
-}
-
-label, input {
-    width: 160px;
-    float: left;
-    font: 11px bold Tahoma, Arial, sans-serif;
-    margin: 1px;
-    padding: 2px;
-}
-
-label {
-    font: 14px bold Tahoma, Arial, sans-serif;
-    background: #eeeeee;
-}
-
-input {
-    width: 200px;
-    padding: 2px;
-    border: 1px solid #aaa;
-}
-
 </style>
 
 <div class="box">
@@ -108,17 +37,39 @@ input {
 <label class="label" for="userid">User ID: </label><input type="text" size="25" id="userid"/></div>
 <br />
 <br />
-<p>Which one of options below can best describe the condition of the asset?<p>
-1 - Element is in very good condition <input type="radio" name="conditionvalue" id="option1" /><br />
-2 - Some aesthetic defects, needs minor repair <input type="radio" name="conditionvalue" id="option2" /><br />
-3 - Functional degradation of some parts, needs maintenance <input type="radio" name="conditionvalue" id="option3" /><br />
-4 - Not working and maintenance must be done as soon as reasonably possible <input type="radio" name="conditionvalue" id="option4" /><br />
-5 - Not working and needs immediate, urgent maintenance <input type="radio" name="conditionvalue" id="option5" /><br />
+<p>Which one of options below can best describe the condition of the asset?</p>
+<form>
+	<div class="radio">
+	<label for="option1">1 - Element is in very good condition</label>
+	<input type="radio" name="conditionvalue" id="option1">
+	</div>
+	<br>
+	<div class="radio">
+	<label for="option2">2 - Some aesthetic defects, needs minor repair</label>
+	<input type="radio" name="conditionvalue" id="option2">
+	</div>
+	<br>
+	<div class="radio">
+	<label for="option3">3 - Functional degradation of some parts, needs maintenance</label>
+	<input type="radio" name="conditionvalue" id="option3">
+	</div>
+	<br>
+	<div class="radio">
+	<label for="option4">4 - Not working and maintenance must be done as soon as reasonably possible</label> 
+	<input type="radio" name="conditionvalue" id="option4">
+	</div>
+	<br>
+	<div class="radio">
+	<label for="option5">5 - Not working and needs immediate, urgent maintenance</label> 
+	<input type="radio" name="conditionvalue" id="option5">
+	</div>
+	<br>
+</form>
 <!-- Two hidden fields to hold the previous condition value and to hold the ID of the asset  -->
 <div id="previousConditionValue" style="display: none;">1</div>
 <div id="assetID" style="display: none;">2</div>
 <br />
-<button class="button" id="ConditionResult" onclick="saveConditionInformation()">Save Condition Report</button>
+<button class="btn btn-default" id="ConditionResult" onclick="saveConditionInformation()">Save Condition Report</button>
 <br />
 <br />
 <div id="conditionResult">The response of the condition report goes here</div>
