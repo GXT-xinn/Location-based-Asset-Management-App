@@ -106,10 +106,13 @@ function getPopupHTML(){
 	return htmlString;
 };
 
-
+var latitude
+var longitude
 
 function onMapClick(e) {
-	 var formHTML = basicFormHtml();
+	var formHTML = basicFormHtml();
+	latitude = String(e.latlng.lat);
+	longitude = String(e.latlng.lng);
 	 popup
 	 .setLatLng(e.latlng)
 	 .setContent("You clicked the map at " + e.latlng.toString()+"<br>"+formHTML)
