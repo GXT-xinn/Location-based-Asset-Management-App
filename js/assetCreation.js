@@ -33,5 +33,5 @@ function checkCondition(AssetID) {
 }
 
 function conditionData(data){
-	document.getElementById("conditionResult").innerHTML = JSON.stringify(data);
+	alert(JSON.stringify(data));
 }

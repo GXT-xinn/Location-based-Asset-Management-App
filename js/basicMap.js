@@ -29,19 +29,20 @@ function setMapClickEvent() {
 	// we use the bootstrap Medium and Large options for the asset location capture
 	// and the small and XS options for the condition option
 	// see here: https://www.w3schools.com/bootstrap/bootstrap_grid_system.asp
-	if (width < 992) { //the condition capture – 992px is defined as 'medium' by bootstrap
-	// cancel the map onclick event using off ..
-	mymap.off('click',onMapClick)
-	// set up a point with click functionality
-	setUpPointClick();
+	if (width < 992) { 
+		//the condition capture – 992px is defined as 'medium' by bootstrap
+		// cancel the map onclick event using off ..
+		mymap.off('click',onMapClick)
+		// set up a point with click functionality
+		setUpPointClick();
 	}
-	else { // the asset creation page
-	// remove the map point if it exists
-	if (mapPoint){
-	mymap.removeLayer(mapPoint);
-	 }
-	 // the on click functionality of the MAP should pop up a blank asset creation form
-	 mymap.on('click', onMapClick);
+	else { 
+		// the asset creation page
+		// remove the map point if it exists
+		if (mapPoint){
+		mymap.removeLayer(mapPoint);}
+		// the on click functionality of the MAP should pop up a blank asset creation form
+		mymap.on('click', onMapClick);
 	}
 };
 
@@ -81,37 +82,27 @@ function getPopupHTML(){
 	var previousCondition = 1
 	
 	
-	var htmlString = "<DIV id='popup_" + AssetID + "'><h3> Asset Condition Report </h3><br>";
-	htmlString = htmlString + "<h5> Asset ID: " + AssetID + "</h5>";
-	htmlString = htmlString + "<h5> Asset Name: " + assetName + "</h5>";
-	htmlString = htmlString + "<h5> Installation Date: " + InstallationDate + "</h5><br>";
-	htmlString = htmlString + '<h6>Which one of options below can best describe the condition of the asset?</h6><br>'+
-	'<form>'+
-	'	<div class="radio">'+
+	var htmlString = "<DIV id='popup_" + AssetID + "'><h4> Asset Condition Report </h4><br>";
+	htmlString = htmlString + "<h6> Asset ID: " + AssetID + "</h6>";
+	htmlString = htmlString + "<h6> Asset Name: " + assetName + "</h6>";
+	htmlString = htmlString + "<h6> Installation Date: " + InstallationDate + "</h6><br>";
+	htmlString = htmlString + '<h6>Which one of options below can best describe the condition of the asset?</h6>'+
+	'<br>'+
 	'	<label for="option1">1 - Element is in very good condition</label>'+
 	'	<input type="radio" name="conditionvalue" id="option1">'+
-	'	</div>'+
-	'	<div class="radio">'+
 	'	<label for="option2">2 - Some aesthetic defects, needs minor repair</label>'+
 	'	<input type="radio" name="conditionvalue" id="option2">'+
-	'	</div>'+
-	'	<div class="radio">'+
 	'	<label for="option3">3 - Functional degradation of some parts, needs maintenance</label>'+
 	'	<input type="radio" name="conditionvalue" id="option3">'+
-	'	</div>'+
-	'	<div class="radio">'+
 	'	<label for="option4">4 - Not working and maintenance must be done as soon as reasonably possible</label> '+
 	'	<input type="radio" name="conditionvalue" id="option4">'+
-	'	</div>'+
-	'	<div class="radio">'+
 	'	<label for="option5">5 - Not working and needs immediate, urgent maintenance</label> '+
 	'	<input type="radio" name="conditionvalue" id="option5">'+
-	'	</div>'+
-	'</form>';
+	'<br>';
+	
 	htmlString = htmlString + "<button class='btn btn-default' id='ConditionResult' onclick='checkCondition("+ AssetID +")'>Submit Condition</button>";
 	htmlString = htmlString + "<div id='previousConditionValue' style='display: none;'>"+previousCondition+"</div>";
 	htmlString = htmlString + "<div id='assetID' style='display: none;'>"+ AssetID +"</div>"; 
-	htmlString = htmlString + "<div id='conditionResult'></div>"; 
 	return htmlString;
 };
 
@@ -126,53 +117,16 @@ function onMapClick(e) {
 };
 
 function basicFormHtml() {
-	var myvar = '<label for="name">Name</label><input type="text" size="25" id="name"/><br />'+ 
-	'<label for="surname">Surname</label><input type="text" size="25" id="surname"/><br />'+
-	'<label for="module">Module</label><input type="text" size="25" id="module"/><br />'+
-	''+
-	''+
-	'<p>Would you like lectures in the morning or afternoon?</p>'+
-	' Morning: <input type="radio" name="amorpm" id="morning" /><br />'+
-	' Afternoon: <input type="radio" name="amorpm" id ="afternoon"/><br />'+
-	''+
-	''+
-	''+
-	'<p>Which modules are you taking?</p>'+
-	' CEGEG077: <input type="checkbox" name="modules" id = check1 value="CEGEG077" checked="yes" /><br />'+
-	' CEGEG129: <input type="checkbox" name="modules" id = check2 value="CEGEG129" /><br />'+
-	' CEGEG082: <input type="checkbox" name="modules" id = check3 value="CEGEG082" /><br />'+
-	' CEGEG034: <input type="checkbox" name="modules" id = check4 value="CEGEG034" /><br />'+
-	''+
-	'<p>What is your first language?</p>'+
-	'<select name="languageselectbox" id="languageselectbox">'+
-	' <option >English </option>'+
-	' <option>Mandarin</option>'+
-	' <option>Greek</option>'+
-	' <option>Italian</option>'+
-	' <option>Spanish</option>'+
-	' <option>Other</option>'+
-	''+
-	'</select>'+
+	var myvar = '<div class="box">'+
+	'<label class="label" for="assetName">Asset Name: </label><input type="text" size="25" id="assetName"/></div>'+
 	'<br />'+
+	'<div class="box">'+
+	'<label class="label" for="installDate">Installation Date: </label><input type="date" size="25" id="installDate"/></div>'+
 	'<br />'+
-	'<label for="latitude">Latitude</label><input type="text" size="25" id="latitude"/><br />'+
-	'<label for="longitude">Longitude</label><input type="text" size="25" id="longitude"/><br />'+
-	''+
-	''+
-	'<p>Click here to upload the data</p>'+
-	'<button id="startUpload" onclick="startDataUpload()">Start Data Upload</button>'+
-	'<br />'+
-	'<br />'+
-	'<div id="dataUploadResult">The result of the upload goes here</div>'+
-	'<br />'+
-	'<br />'+
-	''+
-	'<hr>'+
-	'<hr>'+
-	''+
-	'<label for="deleteID">Delete ID</label><input type="text" size="25" id="deleteID"/><br />'+
-	'<button id="startDelete" onclick="deleteRecord()">Delete Record</button>'+
-	'<div id="dataDeleteResult">The result of the upload goes here</div>';
+	'<div class="box">'+
+	'<label class="label" for="userid">User ID: </label><input type="text" size="25" id="userid"/></div>'+
+	'<br />';
+	
 
 	return myvar;
 }
