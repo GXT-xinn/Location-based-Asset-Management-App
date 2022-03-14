@@ -19,7 +19,7 @@ function checkCondition(AssetID) {
 	if (document.getElementById("option5_" + AssetID + "").checked){
         condition = 5;
     }
-	var postString = "AssetID = " + AssetID + "&currentcondition = " + condition + "&previousCondition = " + preCondition;
+	var postString = "&assetID = " + AssetID + "&currentcondition = " + condition + "&previousCondition = " + preCondition;
 	if (condition == preCondition) {
 		alert('The current selection is the same as the previous selection for the asset condition.');
 	}
