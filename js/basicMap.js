@@ -125,7 +125,7 @@ function onMapClick(e) {
 	longitude = String(e.latlng.lng);
 	 popup
 	 .setLatLng(e.latlng)
-	 .setContent("You clicked the map at " + e.latlng.toString()+"<br>"+formHTML)
+	 .setContent("You clicked the map at " + e.latlng.toString()+"<br>"+"<br>"+formHTML)
 	 .openOn(mymap);
 };
 
