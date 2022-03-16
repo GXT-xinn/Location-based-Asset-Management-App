@@ -23,6 +23,7 @@ function checkCondition(AssetID) {
 	if (condition == preCondition) {
 		alert('The current selection is the same as the previous selection for the asset condition.');
 	}
+	// Created an AJAX
 	var serviceUrl= document.location.origin + "/api/testCRUD";
 	$.ajax({
 	    url: serviceUrl,
@@ -38,15 +39,14 @@ function conditionData(data){
 }
 
 function saveNewAsset() {
-	// now get the geometry values
-	var userid = document.getElementById("userid").value;
+	// now get the values for userid, coordinates, installation date and asset name
 	postString = "latitude=" + latitude + "&longitude=" + longitude;
 	var assetName = document.getElementById("assetName").value;
 	postString = postString + "&AssetName=" + assetName;
 	var installDate = document.getElementById("installDate").value;
 	postString = postString + "&InstallationDate=" + installDate;
 	
-	
+	// Created an AJAX
 	var serviceUrl=  document.location.origin + "/api/testCRUD";
 	$.ajax({
     url: serviceUrl,
@@ -60,6 +60,6 @@ function saveNewAsset() {
 
 // create the code to process the response from the data server
 function dataUploaded(data) {
-    // change the DIV to show the response
+    // Raise the alert to display the inserted data
     alert(JSON.stringify(data));
 }
