@@ -72,17 +72,23 @@ function setUpPointClick() {
 };
 
 
+
 function getPopupHTML(){
 	// 
 	
 	var AssetID = "3"; // this will be the asset ID
 	var assetName = "balcony window3";
-	var UserID = "401";
 	var InstallationDate = "1924-11-11";
-	var previousCondition = "1"
-	
-	
-	
+	var previousCondition = "1";
+	var userID;
+	$.ajax({
+		url:document.location.origin + "/api/getUserId",
+		crossDomain: true,
+		async: false,
+		success: function (result) {
+		userID = JSON.stringify(result)}});	
+
+    
 	var htmlString = "<DIV id='popup_" + AssetID + "'><h4> Asset Condition Report </h4><br>";
 	htmlString = htmlString + "<h6> Asset Name: " + assetName + "</h6>";
 	htmlString = htmlString + "<h6> Asset ID: " + AssetID + "</h6><br>";
@@ -113,6 +119,7 @@ function getPopupHTML(){
 	htmlString = htmlString + "<button class='btn btn-primary' id='ConditionResult_" + AssetID + "' onclick='checkCondition("+ AssetID +")'>Submit Condition</button>";
 	htmlString = htmlString + "<div id='previousConditionValue' style='display: none;'>"+previousCondition+"</div>";
 	htmlString = htmlString + "<div id='assetID' style='display: none;'>"+ AssetID +"</div>"; 
+	htmlString = htmlString + "<div id='userID' style='display: none;'>"+ userID +"</div>"; 
 	return htmlString;
 };
 

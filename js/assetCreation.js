@@ -1,8 +1,11 @@
 
-
 function checkCondition(AssetID) {
 	var preCondition = document.getElementById("previousConditionValue").innerHTML;
 	var AssetID = document.getElementById("assetID").innerHTML;
+	var userID = JSON.parse(document.getElementById("userID").innerHTML);
+	for(var i = 0; i < userID.length; i++){
+    userID = userID[i]['user_id'];};
+	console.log(userID);
 	var condition = "";
 	if (document.getElementById("option1_" + AssetID + "").checked){
         condition = 1;
@@ -19,7 +22,8 @@ function checkCondition(AssetID) {
 	if (document.getElementById("option5_" + AssetID + "").checked){
         condition = 5;
     }
-	var postString = "&assetID = " + AssetID + "&currentcondition = " + condition + "&previousCondition = " + preCondition;
+	var postString = "&assetID = " + AssetID + "&currentcondition = " + condition 
+	+ "&previousCondition = " + preCondition + "&userID = " + userID;
 	if (condition == preCondition) {
 		alert('The current selection is the same as the previous selection for the asset condition.');
 	}
