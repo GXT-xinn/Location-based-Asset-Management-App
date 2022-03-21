@@ -3,8 +3,6 @@ var mymap; // global variable to store the map
 var width; // NB – keep this as a global variable
 var mapPoint; // store the geoJSON feature so that we can remove it if the screen is resized
 var popup = L.popup(); // create a custom popup as a global variable 
-// create an event detector to wait for the user's click event and then use the popup to show them where they clicked 
-// note that you don't need to do any complicated maths to convert screen coordinates to real world coordiantes - the Leaflet API does this for you 
 
 function loadLeafletMap() {
       // load the map
@@ -47,31 +45,41 @@ function setMapClickEvent() {
 };
 
 
+
+
 function setUpPointClick() {
 	// create a geoJSON feature (in your assignment code this will be replaced
-	// by an AJAX call to load the asset points on the map
-	var geojsonFeature = {
-	"type": "Feature",
-	"properties": {
-	"name": "London",
-	"popupContent": "This is where UCL is based"
-	},
-	"geometry": {
-	"type": "Point",
-	"coordinates": [-0.13263, 51.522449]
-	 }
- }
-	// the on click functionality of the POINT should pop up partially populated condition form so that the user can select the condition they require
-	var popUpHTML = getPopupHTML;
-	console.log(popUpHTML);
-	
-	// and add it to the map and zoom to that location
-	// use the mapPoint variable so that we can remove this point layer on
-   	mapPoint= L.geoJSON(geojsonFeature).addTo(mymap).bindPopup(popUpHTML); 
-   	mymap.setView([51.522449,-0.13263], 12);
-};
+	// by an AJAX call to load the asset points on the map 
 
+	$.ajax({url: document.location.origin + "/api/getUserId", 
+	crossDomain: true,success: function(result){
+		console.log(JSON.stringify(result));
+		var userID = JSON.stringify(result);
+		userID = JSON.parse(userID);
+		for(var i = 0; i < userID.length; i++){
+			userID = userID[i]['user_id'];};
+		console.log(userID);
+		pointURL = document.location.origin + "/api/geoJSONUserId/" + userID
+		console.log(pointURL)
+		$.ajax({url: pointURL, 
+		crossDomain: true,success: function(result){
+			console.log(JSON.stringify(result)); // check that the data is correct
 
+			// and add it to the map and zoom to that location
+			// use the mapPoint variable so that we can remove this point layer on
+		   	if(mymap.hasLayer(mapPoint)){
+		       console.log('the map had the point layer')
+		   	}
+			else{
+		   	mapPoint = L.geoJSON(result,{
+		   			pointToLayer: function (feature, latlng){
+		   				return L.marker(latlng);}
+		   		}).addTo(mymap);
+		   	mymap.fitBounds(mapPoint.getBounds());}
+		}
+		});
+	}});
+}
 
 function getPopupHTML(){
 	// 
@@ -137,17 +145,26 @@ function onMapClick(e) {
 };
 
 function basicFormHtml() {
+	var userID;
+	$.ajax({
+		url:document.location.origin + "/api/getUserId",
+		crossDomain: true,
+		async: false,
+		success: function (result) {
+		userID = JSON.stringify(result)}});	
+		
 	var myvar = '<form>'+
 	'	<div class="form-group">'+
-	'	<label class="label" for="assetName">Asset Name: </label>'+
-	'	<input type="text" class="form-control form-control-sm" size="25" id="assetName" placeholder="e.g. window"></div>'+
+	'	<label class="label" for="AssetName">Asset Name: </label>'+
+	'	<input type="text" class="form-control form-control-sm" size="25" id="AssetName" placeholder="e.g. window"></div>'+
 	'	<br>'+
 	'	<div class="form-group">'+
-	'	<label class="label" for="installDate">Installation Date: </label>'+
-	'	<input type="date" class="form-control form-control-sm" size="25" id="installDate"/></div>'+
+	'	<label class="label" for="InstallDate">Installation Date: </label>'+
+	'	<input type="date" class="form-control form-control-sm" id="InstallDate"/></div>'+
 	'	<br>'+
 	'	<button class="btn btn-primary" id=" saveAsset" onclick="saveNewAsset()">Save Asset</button>'+
-	'</form>';
+	'</form>' +
+	"<div id='userID' style='display: none;'>"+ userID +"</div>";
 	
 
 	return myvar;

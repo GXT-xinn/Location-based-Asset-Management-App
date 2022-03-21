@@ -2,10 +2,7 @@
 function checkCondition(AssetID) {
 	var preCondition = document.getElementById("previousConditionValue").innerHTML;
 	var AssetID = document.getElementById("assetID").innerHTML;
-	var userID = JSON.parse(document.getElementById("userID").innerHTML);
-	for(var i = 0; i < userID.length; i++){
-    userID = userID[i]['user_id'];};
-	console.log(userID);
+	var userID = document.getElementById("userID").innerHTML;
 	var condition = "";
 	if (document.getElementById("option1_" + AssetID + "").checked){
         condition = 1;
@@ -27,43 +24,40 @@ function checkCondition(AssetID) {
 	if (condition == preCondition) {
 		alert('The current selection is the same as the previous selection for the asset condition.');
 	}
+	processConditionData(postString)
+};
+	
+function processConditionData(postString) {
 	// Created an AJAX
 	var serviceUrl= document.location.origin + "/api/testCRUD";
 	$.ajax({
 	    url: serviceUrl,
 	    crossDomain: true,
 	    type: "POST",
-	    success: function(data){console.log(data); conditionData(data);},
+	    success: function(data){console.log(data); alert(JSON.stringify(data));},
 	    data: postString
-});	
+	});	
 }
+	
 
-function conditionData(data){
-	alert(JSON.stringify(data));
-}
 
 function saveNewAsset() {
 	// now get the values for userid, coordinates, installation date and asset name
-	postString = "latitude=" + latitude + "&longitude=" + longitude;
-	var assetName = document.getElementById("assetName").value;
-	postString = postString + "&AssetName=" + assetName;
-	var installDate = document.getElementById("installDate").value;
-	postString = postString + "&InstallationDate=" + installDate;
-	
-	// Created an AJAX
-	var serviceUrl=  document.location.origin + "/api/testCRUD";
+	var AssetName = document.getElementById("AssetName").value;
+	var postString = "AssetName=" + AssetName;
+	var InstallDate = document.getElementById("InstallDate").value;
+	postString = postString + "&InstallDate=" + InstallDate;
+	postString = postString + "&latitude=" + latitude + "&longitude=" + longitude;
+	processAssetData(postString);
+};
+
+function processAssetData(postString) {
+	var theURL= document.location.origin + "/api/insertAssetPoint";
 	$.ajax({
-    url: serviceUrl,
+    url: theURL,
     crossDomain: true,
     type: "POST",
-    data: postString,
-    success: function(data){console.log(data); dataUploaded(data);}
-	}); 
-}
-
-
-// create the code to process the response from the data server
-function dataUploaded(data) {
-    // Raise the alert to display the inserted data
-    alert(JSON.stringify(data));
+    success: function(data){console.log(data); alert(JSON.stringify(data));},
+	data: postString
+	});
 }
