@@ -48,34 +48,26 @@ function setMapClickEvent() {
 
 
 function setUpPointClick() {
-	// create a geoJSON feature (in your assignment code this will be replaced
-	// by an AJAX call to load the asset points on the map 
-
+	// Create an AJAX call for current user ID
 	$.ajax({url: document.location.origin + "/api/getUserId", 
 	crossDomain: true,success: function(result){
 		console.log(JSON.stringify(result));
 		var userID = JSON.stringify(result);
+		// Extract solely the ID number
 		userID = JSON.parse(userID);
 		for(var i = 0; i < userID.length; i++){
 			userID = userID[i]['user_id'];};
-		console.log(userID);
-		pointURL = document.location.origin + "/api/geoJSONUserId/" + userID
-		console.log(pointURL)
-		$.ajax({url: pointURL, 
-		crossDomain: true,success: function(result){
-			console.log(JSON.stringify(result)); // check that the data is correct
-
-			// and add it to the map and zoom to that location
-			// use the mapPoint variable so that we can remove this point layer on
-		   	if(mymap.hasLayer(mapPoint)){
-		       console.log('the map had the point layer')
-		   	}
-			else{
+		// AJAX call for assets inputted by specific user (current user)
+		pointURL = document.location.origin + "/api/geoJSONUserId/" + userID +"";
+		
+		$.ajax({url: pointURL, crossDomain: true,success: function(result){
+			console.log(result); // check that the data is correct
+			// Add points to map
 		   	mapPoint = L.geoJSON(result,{
 		   			pointToLayer: function (feature, latlng){
 		   				return L.marker(latlng);}
 		   		}).addTo(mymap);
-		   	mymap.fitBounds(mapPoint.getBounds());}
+		   	mymap.fitBounds(mapPoint.getBounds());
 		}
 		});
 	}});
