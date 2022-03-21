@@ -1,26 +1,31 @@
 
+var op1 = 'Element is in very good condition';
+var op2 = 'Some aesthetic defects, needs minor repair';
+var op3 = 'Functional degradation of some parts, needs maintenance';
+var op4 = 'Not working and maintenance must be done as soon as reasonably possible';
+var op5 = 'Not working and needs immediate, urgent maintenance';
+
 function checkCondition(AssetID) {
 	var preCondition = document.getElementById("previousConditionValue").innerHTML;
 	var AssetID = document.getElementById("assetID").innerHTML;
-	var userID = document.getElementById("userID").innerHTML;
 	var condition = "";
 	if (document.getElementById("option1_" + AssetID + "").checked){
-        condition = 1;
+        condition = op1;
     }
 	if (document.getElementById("option2_" + AssetID + "").checked){
-        condition = 2;
+        condition = op2;
     }
 	if (document.getElementById("option3_" + AssetID + "").checked){
-        condition = 3;
+        condition = op3;
     }
 	if (document.getElementById("option4_" + AssetID + "").checked){
-        condition = 4;
+        condition = op4;
     }
 	if (document.getElementById("option5_" + AssetID + "").checked){
-        condition = 5;
+        condition = op5;
     }
-	var postString = "&assetID = " + AssetID + "&currentcondition = " + condition 
-	+ "&previousCondition = " + preCondition + "&userID = " + userID;
+	var postString = "&AssetID = " + AssetID + "&currentcondition = " + condition 
+	+ "&previousCondition = " + preCondition;
 	if (condition == preCondition) {
 		alert('The current selection is the same as the previous selection for the asset condition.');
 	}
@@ -29,7 +34,7 @@ function checkCondition(AssetID) {
 	
 function processConditionData(postString) {
 	// Created an AJAX
-	var serviceUrl= document.location.origin + "/api/testCRUD";
+	var serviceUrl= document.location.origin + "/api/insertConditionInformation";
 	$.ajax({
 	    url: serviceUrl,
 	    crossDomain: true,

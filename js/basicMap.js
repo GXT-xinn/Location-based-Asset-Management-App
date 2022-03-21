@@ -65,7 +65,7 @@ function setUpPointClick() {
 			// Add points to map
 		   	mapPoint = L.geoJSON(result,{
 		   			pointToLayer: function (feature, latlng){
-		   				return L.marker(latlng);}
+		   				return L.marker(latlng).bindPopup(getPopupHTML(feature));}
 		   		}).addTo(mymap);
 		   	mymap.fitBounds(mapPoint.getBounds());
 		}
@@ -73,20 +73,13 @@ function setUpPointClick() {
 	}});
 }
 
-function getPopupHTML(){
+function getPopupHTML(feature){
 	// 
 	
-	var AssetID = "3"; // this will be the asset ID
-	var assetName = "balcony window3";
-	var InstallationDate = "1924-11-11";
-	var previousCondition = "1";
-	var userID;
-	$.ajax({
-		url:document.location.origin + "/api/getUserId",
-		crossDomain: true,
-		async: false,
-		success: function (result) {
-		userID = JSON.stringify(result)}});	
+	var AssetID = feature.properties.asset_id;
+	var assetName = feature.properties.asset_name;
+	var InstallationDate = feature.properties.installation_date;
+	var previousCondition = feature.properties.condition_description;
 
     
 	var htmlString = "<DIV id='popup_" + AssetID + "'><h4> Asset Condition Report </h4><br>";
@@ -119,7 +112,6 @@ function getPopupHTML(){
 	htmlString = htmlString + "<button class='btn btn-primary' id='ConditionResult_" + AssetID + "' onclick='checkCondition("+ AssetID +")'>Submit Condition</button>";
 	htmlString = htmlString + "<div id='previousConditionValue' style='display: none;'>"+previousCondition+"</div>";
 	htmlString = htmlString + "<div id='assetID' style='display: none;'>"+ AssetID +"</div>"; 
-	htmlString = htmlString + "<div id='userID' style='display: none;'>"+ userID +"</div>"; 
 	return htmlString;
 };
 
