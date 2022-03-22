@@ -1,4 +1,6 @@
-
+// Instead of value, previouscondition value is in text/string
+// in order to match, condition need to in text
+// preparing parameters for condition
 var op1 = 'Element is in very good condition';
 var op2 = 'Some aesthetic defects, needs minor repair';
 var op3 = 'Functional degradation of some parts, needs maintenance';
@@ -47,6 +49,15 @@ function checkCondition() {
 
 function saveNewAsset() {
 	// now get the values for userid, coordinates, installation date and asset name
+	
+	if(document.getElementById("AssetName").value.length == 0){
+		if(document.getElementById("InstallDate").value.length == 0){
+			alert("Please Enter the Asset Name and Installation Date")}
+		else{
+			alert("Please Enter an Asset Name")
+		}
+	};
+	
 	var AssetName = document.getElementById("AssetName").value;
 	var postString = "AssetName=" + AssetName;
 	var InstallDate = document.getElementById("InstallDate").value;

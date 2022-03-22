@@ -127,7 +127,7 @@ function onMapClick(e) {
 
 function basicFormHtml() {
 		
-	var myvar = '<form>'+
+	var myvar = '<form id="assetform">'+
 	'	<div class="form-group">'+
 	'	<label class="label" for="AssetName">Asset Name: </label>'+
 	'	<input type="text" class="form-control form-control-sm" size="25" id="AssetName" placeholder="e.g. window"></div>'+
@@ -144,7 +144,8 @@ function basicFormHtml() {
 }
 
 
-// Asset Point Creation: displaying existing asset point created by user
+// Asset Point Creation: 
+// - displaying existing asset point created by user
 function exsitingPointClick() {
 	// Create an AJAX call for current user ID
 	$.ajax({url: document.location.origin + "/api/getUserId", 
@@ -170,6 +171,7 @@ function exsitingPointClick() {
 		});
 	}});
 }
+// - read-only pop-up holding condition information
 
 function existingPopupHTML(feature){
 	
@@ -183,6 +185,7 @@ function existingPopupHTML(feature){
 	var htmlString = "<p><span class='bolded'>Asset ID</span>: " + asset_id + "</p>"
 	htmlString = htmlString + "<p><span class='bolded'>Asset Name</span>: " + asset_name + "</p>";
 	htmlString = htmlString + "<p><span class='bolded'>Installation Date</span>: " + installation_date + "</p>";
+	// - condition return 'No Condition Captured" when description is 'Unknown'
 	if (condition_description == 'Unknown'){
 		htmlString = htmlString + "<p><span class='bolded'>Condition</span>: No Condition Captured</p>";}
 	else{
