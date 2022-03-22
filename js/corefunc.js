@@ -183,7 +183,10 @@ function existingPopupHTML(feature){
 	var htmlString = "<p><span class='bolded'>Asset ID</span>: " + asset_id + "</p>"
 	htmlString = htmlString + "<p><span class='bolded'>Asset Name</span>: " + asset_name + "</p>";
 	htmlString = htmlString + "<p><span class='bolded'>Installation Date</span>: " + installation_date + "</p>";
-	htmlString = htmlString + "<p><span class='bolded'>Condition</span>: " + condition_description + "</p>";
+	if (condition_description == 'Unknown'){
+		htmlString = htmlString + "<p><span class='bolded'>Condition</span>: No Condition Captured</p>";}
+	else{
+		htmlString = htmlString + "<p><span class='bolded'>Condition</span>: " + condition_description + "</p>";}
 	return htmlString;
 };
 
