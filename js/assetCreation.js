@@ -59,13 +59,14 @@ function saveNewAsset() {
 	}
 	if(document.getElementById("InstallDate").value.length == 0){
 			alert("Please Enter the Installation Date")};
-			
+	else {		
 	var AssetName = document.getElementById("AssetName").value;
 	var postString = "AssetName=" + AssetName;
 	var InstallDate = document.getElementById("InstallDate").value;
 	postString = postString + "&InstallDate=" + InstallDate;
 	postString = postString + "&latitude=" + latitude + "&longitude=" + longitude;
 	processAssetData(postString);
+	}
 };
 
 function processAssetData(postString) {
