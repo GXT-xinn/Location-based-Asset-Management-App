@@ -1,6 +1,7 @@
 var width; // NB – keep this as a global variable
 var mapPoint; // store the geoJSON feature so that we can remove it if the screen is resized
 var popup = L.popup(); // create a custom popup as a global variable 
+var assets;
 
 
 function setMapClickEvent() {
@@ -11,6 +12,8 @@ function setMapClickEvent() {
 	// and the small and XS options for the condition option
 	// see here: https://www.w3schools.com/bootstrap/bootstrap_grid_system.asp
 	if (width < 992) { 
+		if (assets){
+		mymap.removeLayer(assets);}
 		//the condition capture – 992px is defined as 'medium' by bootstrap
 		// cancel the map onclick event using off ..
 		mymap.off('click',onMapClick)
@@ -23,56 +26,12 @@ function setMapClickEvent() {
 		if (mapPoint){
 		mymap.removeLayer(mapPoint);}
 		// the on click functionality of the MAP should pop up a blank asset creation form
-		exsitingPointClick()
 		mymap.on('click', onMapClick);
+		exsitingPointClick();
 	}
 };
 
 
-// Asset Point Creation: displaying existing asset point created by user
-function exsitingPointClick() {
-	// Create an AJAX call for current user ID
-	$.ajax({url: document.location.origin + "/api/getUserId", 
-	crossDomain: true,success: function(result){
-		console.log(JSON.stringify(result));
-		var userID = JSON.stringify(result);
-		// Extract solely the ID number
-		userID = JSON.parse(userID);
-		for(var i = 0; i < userID.length; i++){
-			userID = userID[i]['user_id'];};
-		// AJAX call for assets inputted by specific user (current user)
-		pointURL = document.location.origin + "/api/geoJSONUserId/" + userID +"";
-		
-		$.ajax({url: pointURL, crossDomain: true,success: function(result){
-			console.log(result); // check that the data is correct
-			// Add points to map
-		   	mapPoint = L.geoJSON(result,{
-		   			pointToLayer: function (feature, latlng){
-		   				return L.marker(latlng).bindPopup(existingPopupHTML(feature));}
-		   		}).addTo(mymap);
-		   	mymap.fitBounds(mapPoint.getBounds());
-		}
-		});
-	}});
-}
-
-function existingPopupHTML(feature){
-	
-	// Getting properties for specific asset from database
-	// Using feature.properties.xxxx
-	var asset_id = feature.properties.asset_id;
-	var asset_name = feature.properties.asset_name;
-	var installation_date = feature.properties.installation_date;
-	var condition_description = feature.properties.condition_description;
-
-    
-	
-	var htmlString = htmlString + "<h6> Asset ID: " + asset_id + "</h6><br>";
-	htmlString = htmlString + "<h6> Asset Name: " + asset_name + "</h6>";
-	htmlString = htmlString + "<h6> Installation Date: " + installation_date + "</h6>";
-	htmlString = htmlString + "<h6> Condition: " + condition_description + "</h6>";
-	return htmlString;
-};
 
 
 // Condition Assessment: User's asset point load automatically
@@ -183,5 +142,49 @@ function basicFormHtml() {
 
 	return myvar;
 }
+
+
+// Asset Point Creation: displaying existing asset point created by user
+function exsitingPointClick() {
+	// Create an AJAX call for current user ID
+	$.ajax({url: document.location.origin + "/api/getUserId", 
+	crossDomain: true,success: function(result){
+		console.log(JSON.stringify(result));
+		var userID = JSON.stringify(result);
+		// Extract solely the ID number
+		userID = JSON.parse(userID);
+		for(var i = 0; i < userID.length; i++){
+			userID = userID[i]['user_id'];};
+		// AJAX call for assets inputted by specific user (current user)
+		pointURL = document.location.origin + "/api/geoJSONUserId/" + userID +"";
+		
+		$.ajax({url: pointURL, crossDomain: true,success: function(result){
+			console.log(result); // check that the data is correct
+			// Add points to map
+		   	assets = L.geoJSON(result,{
+		   			pointToLayer: function (feature, latlng){
+		   				return L.marker(latlng).bindPopup(existingPopupHTML(feature));}
+		   		}).addTo(mymap);
+		   	mymap.fitBounds(assets.getBounds());
+		}
+		});
+	}});
+}
+
+function existingPopupHTML(feature){
+	
+	// Getting properties for specific asset from database
+	// Using feature.properties.xxxx
+	var asset_id = feature.properties.asset_id;
+	var asset_name = feature.properties.asset_name;
+	var installation_date = feature.properties.installation_date;
+	var condition_description = feature.properties.condition_description;
+	
+	var htmlString = htmlString + "<p> Asset ID: " + asset_id + "</p>";
+	htmlString = htmlString + "<p> Asset Name: " + asset_name + "</p>";
+	htmlString = htmlString + "<p> Installation Date: " + installation_date + "</p>";
+	htmlString = htmlString + "<p> Condition: " + condition_description + "</p>";
+	return htmlString;
+};
 
 //////////////////////////////
