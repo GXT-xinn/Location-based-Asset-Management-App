@@ -1,0 +1,132 @@
+var width; // NB – keep this as a global variable
+var mapPoint; // store the geoJSON feature so that we can remove it if the screen is resized
+var popup = L.popup(); // create a custom popup as a global variable 
+
+
+function setMapClickEvent() {
+	// get the window width
+	width = $(window).width();
+
+	// we use the bootstrap Medium and Large options for the asset location capture
+	// and the small and XS options for the condition option
+	// see here: https://www.w3schools.com/bootstrap/bootstrap_grid_system.asp
+	if (width < 992) { 
+		//the condition capture – 992px is defined as 'medium' by bootstrap
+		// cancel the map onclick event using off ..
+		mymap.off('click',onMapClick)
+		// set up a point with click functionality
+		setUpPointClick();
+	}
+	else { 
+		// the asset creation page
+		// remove the map point if it exists
+		if (mapPoint){
+		mymap.removeLayer(mapPoint);}
+		// the on click functionality of the MAP should pop up a blank asset creation form
+		mymap.on('click', onMapClick);
+	}
+};
+
+
+
+
+function setUpPointClick() {
+	// Create an AJAX call for current user ID
+	$.ajax({url: document.location.origin + "/api/getUserId", 
+	crossDomain: true,success: function(result){
+		console.log(JSON.stringify(result));
+		var userID = JSON.stringify(result);
+		// Extract solely the ID number
+		userID = JSON.parse(userID);
+		for(var i = 0; i < userID.length; i++){
+			userID = userID[i]['user_id'];};
+		// AJAX call for assets inputted by specific user (current user)
+		pointURL = document.location.origin + "/api/geoJSONUserId/" + userID +"";
+		
+		$.ajax({url: pointURL, crossDomain: true,success: function(result){
+			console.log(result); // check that the data is correct
+			// Add points to map
+		   	mapPoint = L.geoJSON(result,{
+		   			pointToLayer: function (feature, latlng){
+		   				return L.marker(latlng).bindPopup(getPopupHTML(feature));}
+		   		}).addTo(mymap);
+		   	mymap.fitBounds(mapPoint.getBounds());
+		}
+		});
+	}});
+}
+
+function getPopupHTML(feature){
+	
+	// Getting properties for specific asset from database
+	// Using feature.properties.xxxx
+	var asset_id = feature.properties.asset_id;
+	var asset_name = feature.properties.asset_name;
+	var installation_date = feature.properties.installation_date;
+	var condition_description = feature.properties.condition_description;
+
+    
+	var htmlString = "<DIV id='popup_" + asset_id + "'><h4> Asset Condition Report </h4><br>";
+	htmlString = htmlString + "<h6> Asset Name: " + asset_name + "</h6>";
+	htmlString = htmlString + "<h6> Asset ID: " + asset_id + "</h6><br>";
+	htmlString = htmlString + '<h6> Which one of options below can best describe the condition of the asset?</h6>'+
+	'<form>'+
+	'	<div class="radio">'+
+	'	<input type="radio" name="condition" id="option1">  1 - Element is in very good condition'+
+	'	</div>'+
+	'	<br>'+
+	'	<div class="radio">'+
+	'	<input type="radio" name="condition" id="option2">  2 - Some aesthetic defects, needs minor repair'+
+	'	</div>'+
+	'	<br>'+
+	'	<div class="radio">'+
+	'	<input type="radio" name="condition" id="option3">  3 - Functional degradation of some parts, needs maintenance'+
+	'	</div>'+
+	'	<br>'+
+	'	<div class="radio">'+
+	'	<input type="radio" name="condition" id="option4">  4 - Not working and maintenance must be done as soon as reasonably possible'+
+	'	</div>'+
+	'	<br>'+
+	'	<div class="radio">'+
+	'	<input type="radio" name="condition" id="option5">  5 - Not working and needs immediate, urgent maintenance'+
+	'	</div>'+
+	'	<br>'+
+	'</form>';
+	
+	htmlString = htmlString + "<button class='btn btn-primary' id='ConditionResult_" + asset_id + "' onclick='checkCondition()'>Submit Condition</button>";
+	htmlString = htmlString + "<div id='previousConditionValue' style='display: none;'>"+condition_description+"</div>";
+	htmlString = htmlString + "<div id='asset_id' style='display: none;'>"+ asset_id +"</div>"; 
+	htmlString = htmlString + "<div id='asset_name' style='display: none;'>"+ asset_name +"</div>"; 
+	return htmlString;
+};
+
+var latitude
+var longitude
+
+function onMapClick(e) {
+	var formHTML = basicFormHtml();
+	latitude = String(e.latlng.lat);
+	longitude = String(e.latlng.lng);
+	 popup
+	 .setLatLng(e.latlng)
+	 .setContent("You clicked the map at " + e.latlng.toString()+"<br>"+"<br>"+formHTML)
+	 .openOn(mymap);
+};
+
+function basicFormHtml() {
+		
+	var myvar = '<form>'+
+	'	<div class="form-group">'+
+	'	<label class="label" for="AssetName">Asset Name: </label>'+
+	'	<input type="text" class="form-control form-control-sm" size="25" id="AssetName" placeholder="e.g. window"></div>'+
+	'	<br>'+
+	'	<div class="form-group">'+
+	'	<label class="label" for="InstallDate">Installation Date: </label>'+
+	'	<input type="date" class="form-control form-control-sm" id="InstallDate"/></div>'+
+	'	<br>'+
+	'	<button class="btn btn-primary" id=" saveAsset" onclick="saveNewAsset()">Save Asset</button>'+
+	'</form>';
+	
+
+	return myvar;
+}
