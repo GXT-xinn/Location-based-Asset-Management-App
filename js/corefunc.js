@@ -19,6 +19,7 @@ function setMapClickEvent() {
 		mymap.off('click',onMapClick)
 		// set up a point with click functionality
 		setUpPointClick();
+		trackLocation();
 	}
 	else { 
 		// the asset creation page
@@ -31,7 +32,19 @@ function setMapClickEvent() {
 	}
 };
 
+// Condition Assessment: Track user's location automatically
+function trackLocation() {
+	if (navigator.geolocation) {
+		navigator.geolocation.watchPosition(showPosition);
+	}
+	else {
+		alert("Geolocation is not supported by this browser.");
+	}
+}
 
+function showPosition(position) {
+	console.log("Latitude: " + position.coords.latitude +", Longitude: " + position.coords.longitude)
+}
 
 
 // Condition Assessment: User's asset point load automatically

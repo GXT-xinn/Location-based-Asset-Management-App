@@ -58,7 +58,7 @@ function saveNewAsset() {
 		}
 	}
 	if(document.getElementById("InstallDate").value.length == 0){
-			alert("Please Enter the Installation Date")};
+			alert("Please Enter the Installation Date")}
 	else {		
 	var AssetName = document.getElementById("AssetName").value;
 	var postString = "AssetName=" + AssetName;
