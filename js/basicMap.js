@@ -76,42 +76,43 @@ function setUpPointClick() {
 function getPopupHTML(feature){
 	// 
 	
-	var AssetID = feature.properties.asset_id;
-	var assetName = feature.properties.asset_name;
-	var InstallationDate = feature.properties.installation_date;
-	var previousCondition = feature.properties.condition_description;
+	var asset_id = feature.properties.asset_id;
+	var asset_name = feature.properties.asset_name;
+	var installation_date = feature.properties.installation_date;
+	var condition_description = feature.properties.condition_description;
 
     
-	var htmlString = "<DIV id='popup_" + AssetID + "'><h4> Asset Condition Report </h4><br>";
-	htmlString = htmlString + "<h6> Asset Name: " + assetName + "</h6>";
-	htmlString = htmlString + "<h6> Asset ID: " + AssetID + "</h6><br>";
+	var htmlString = "<DIV id='popup_" + asset_id + "'><h4> Asset Condition Report </h4><br>";
+	htmlString = htmlString + "<h6> Asset Name: " + asset_name + "</h6>";
+	htmlString = htmlString + "<h6> Asset ID: " + asset_id + "</h6><br>";
 	htmlString = htmlString + '<h6> Which one of options below can best describe the condition of the asset?</h6>'+
 	'<form>'+
 	'	<div class="radio">'+
-	'	<input type="radio" name="conditionvalue" id="option1_'+ AssetID +'">  1 - Element is in very good condition'+
+	'	<input type="radio" name="condition" id="option1">  1 - Element is in very good condition'+
 	'	</div>'+
 	'	<br>'+
 	'	<div class="radio">'+
-	'	<input type="radio" name="conditionvalue" id="option2_'+ AssetID +'">  2 - Some aesthetic defects, needs minor repair'+
+	'	<input type="radio" name="condition" id="option2">  2 - Some aesthetic defects, needs minor repair'+
 	'	</div>'+
 	'	<br>'+
 	'	<div class="radio">'+
-	'	<input type="radio" name="conditionvalue" id="option3_'+ AssetID +'">  3 - Functional degradation of some parts, needs maintenance'+
+	'	<input type="radio" name="condition" id="option3">  3 - Functional degradation of some parts, needs maintenance'+
 	'	</div>'+
 	'	<br>'+
 	'	<div class="radio">'+
-	'	<input type="radio" name="conditionvalue" id="option4_'+ AssetID +'">  4 - Not working and maintenance must be done as soon as reasonably possible'+
+	'	<input type="radio" name="condition" id="option4">  4 - Not working and maintenance must be done as soon as reasonably possible'+
 	'	</div>'+
 	'	<br>'+
 	'	<div class="radio">'+
-	'	<input type="radio" name="conditionvalue" id="option5_'+ AssetID +'">  5 - Not working and needs immediate, urgent maintenance'+
+	'	<input type="radio" name="condition" id="option5">  5 - Not working and needs immediate, urgent maintenance'+
 	'	</div>'+
 	'	<br>'+
 	'</form>';
 	
-	htmlString = htmlString + "<button class='btn btn-primary' id='ConditionResult_" + AssetID + "' onclick='checkCondition("+ AssetID +")'>Submit Condition</button>";
-	htmlString = htmlString + "<div id='previousConditionValue' style='display: none;'>"+previousCondition+"</div>";
-	htmlString = htmlString + "<div id='assetID' style='display: none;'>"+ AssetID +"</div>"; 
+	htmlString = htmlString + "<button class='btn btn-primary' id='ConditionResult_" + asset_id + "' onclick='checkCondition()'>Submit Condition</button>";
+	htmlString = htmlString + "<div id='previousConditionValue' style='display: none;'>"+condition_description+"</div>";
+	htmlString = htmlString + "<div id='asset_id' style='display: none;'>"+ asset_id +"</div>"; 
+	htmlString = htmlString + "<div id='asset_name' style='display: none;'>"+ asset_name +"</div>"; 
 	return htmlString;
 };
 
@@ -129,13 +130,6 @@ function onMapClick(e) {
 };
 
 function basicFormHtml() {
-	var userID;
-	$.ajax({
-		url:document.location.origin + "/api/getUserId",
-		crossDomain: true,
-		async: false,
-		success: function (result) {
-		userID = JSON.stringify(result)}});	
 		
 	var myvar = '<form>'+
 	'	<div class="form-group">'+
@@ -147,8 +141,7 @@ function basicFormHtml() {
 	'	<input type="date" class="form-control form-control-sm" id="InstallDate"/></div>'+
 	'	<br>'+
 	'	<button class="btn btn-primary" id=" saveAsset" onclick="saveNewAsset()">Save Asset</button>'+
-	'</form>' +
-	"<div id='userID' style='display: none;'>"+ userID +"</div>";
+	'</form>';
 	
 
 	return myvar;

@@ -5,44 +5,43 @@ var op3 = 'Functional degradation of some parts, needs maintenance';
 var op4 = 'Not working and maintenance must be done as soon as reasonably possible';
 var op5 = 'Not working and needs immediate, urgent maintenance';
 
-function checkCondition(AssetID) {
-	var preCondition = document.getElementById("previousConditionValue").innerHTML;
-	var AssetID = document.getElementById("assetID").innerHTML;
+function checkCondition() {
+	var asset_id = document.getElementById("asset_id").innerHTML;
+	var postString = "&asset_id=" + asset_id;
+	var asset_name = document.getElementById('asset_name').innerHTML;
+	postString = postString + "&asset_name=" + asset_name;
 	var condition = "";
-	if (document.getElementById("option1_" + AssetID + "").checked){
+	if (document.getElementById("option1").checked){
         condition = op1;
     }
-	if (document.getElementById("option2_" + AssetID + "").checked){
+	if (document.getElementById("option2").checked){
         condition = op2;
     }
-	if (document.getElementById("option3_" + AssetID + "").checked){
+	if (document.getElementById("option3").checked){
         condition = op3;
     }
-	if (document.getElementById("option4_" + AssetID + "").checked){
+	if (document.getElementById("option4").checked){
         condition = op4;
     }
-	if (document.getElementById("option5_" + AssetID + "").checked){
+	if (document.getElementById("option5").checked){
         condition = op5;
-    }
-	var postString = "&AssetID = " + AssetID + "&currentcondition = " + condition 
-	+ "&previousCondition = " + preCondition;
-	if (condition == preCondition) {
+    };
+	var previousCondition = document.getElementById("previousConditionValue").innerHTML;
+	var postString = postString + "&condition=" + condition ;
+	postString = postString + "&previousCondition=" + previousCondition;
+	if (condition == previousCondition) {
 		alert('The current selection is the same as the previous selection for the asset condition.');
 	}
-	processConditionData(postString)
-};
-	
-function processConditionData(postString) {
-	// Created an AJAX
 	var serviceUrl= document.location.origin + "/api/insertConditionInformation";
 	$.ajax({
 	    url: serviceUrl,
 	    crossDomain: true,
 	    type: "POST",
-	    success: function(data){console.log(data); alert(JSON.stringify(data));},
-	    data: postString
+		data: postString,
+	    success: function(data){console.log(data); alert(JSON.stringify(data));}
 	});	
-}
+};
+
 	
 
 
