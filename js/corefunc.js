@@ -7,15 +7,15 @@ var assets;
 function setMapClickEvent() {
 	// get the window width
 	width = $(window).width();
-
-	// we use the bootstrap Medium and Large options for the asset location capture
-	// and the small and XS options for the condition option
-	// see here: https://www.w3schools.com/bootstrap/bootstrap_grid_system.asp
+	// Remove the asset layer called when maximize the screen
 	if (width < 992) { 
 		if (assets){
 		mymap.removeLayer(assets);}
-		//the condition capture – 992px is defined as 'medium' by bootstrap
-		// cancel the map onclick event using off ..
+	// we use the bootstrap Medium and Large options for the asset location capture
+	// and the small and XS options for the condition option
+	// see here: https://www.w3schools.com/bootstrap/bootstrap_grid_system.asp
+	//the condition capture – 992px is defined as 'medium' by bootstrap
+	// cancel the map onclick event using off ..
 		mymap.off('click',onMapClick)
 		// set up a point with click functionality
 		setUpPointClick();
@@ -119,11 +119,11 @@ function onMapClick(e) {
 	var formHTML = basicFormHtml();
 	latitude = String(e.latlng.lat);
 	longitude = String(e.latlng.lng);
-	 popup
+	popup
 	 .setLatLng(e.latlng)
 	 .setContent("You clicked the map at " + e.latlng.toString()+"<br>"+"<br>"+formHTML)
 	 .openOn(mymap);
-};
+}
 
 function basicFormHtml() {
 		
@@ -180,10 +180,10 @@ function existingPopupHTML(feature){
 	var installation_date = feature.properties.installation_date;
 	var condition_description = feature.properties.condition_description;
 	
-	var htmlString = htmlString + "<p> Asset ID: " + asset_id + "</p>";
-	htmlString = htmlString + "<p> Asset Name: " + asset_name + "</p>";
-	htmlString = htmlString + "<p> Installation Date: " + installation_date + "</p>";
-	htmlString = htmlString + "<p> Condition: " + condition_description + "</p>";
+	var htmlString = "<p><span class='bolded'>Asset ID</span>: " + asset_id + "</p>"
+	htmlString = htmlString + "<p><span class='bolded'>Asset Name</span>: " + asset_name + "</p>";
+	htmlString = htmlString + "<p><span class='bolded'>Installation Date</span>: " + installation_date + "</p>";
+	htmlString = htmlString + "<p><span class='bolded'>Condition</span>: " + condition_description + "</p>";
 	return htmlString;
 };
 
