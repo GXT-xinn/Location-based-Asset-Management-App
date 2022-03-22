@@ -23,12 +23,59 @@ function setMapClickEvent() {
 		if (mapPoint){
 		mymap.removeLayer(mapPoint);}
 		// the on click functionality of the MAP should pop up a blank asset creation form
+		exsitingPointClick()
 		mymap.on('click', onMapClick);
 	}
 };
 
 
+// Asset Point Creation: displaying existing asset point created by user
+function exsitingPointClick() {
+	// Create an AJAX call for current user ID
+	$.ajax({url: document.location.origin + "/api/getUserId", 
+	crossDomain: true,success: function(result){
+		console.log(JSON.stringify(result));
+		var userID = JSON.stringify(result);
+		// Extract solely the ID number
+		userID = JSON.parse(userID);
+		for(var i = 0; i < userID.length; i++){
+			userID = userID[i]['user_id'];};
+		// AJAX call for assets inputted by specific user (current user)
+		pointURL = document.location.origin + "/api/geoJSONUserId/" + userID +"";
+		
+		$.ajax({url: pointURL, crossDomain: true,success: function(result){
+			console.log(result); // check that the data is correct
+			// Add points to map
+		   	mapPoint = L.geoJSON(result,{
+		   			pointToLayer: function (feature, latlng){
+		   				return L.marker(latlng).bindPopup(existingPopupHTML(feature));}
+		   		}).addTo(mymap);
+		   	mymap.fitBounds(mapPoint.getBounds());
+		}
+		});
+	}});
+}
 
+function existingPopupHTML(feature){
+	
+	// Getting properties for specific asset from database
+	// Using feature.properties.xxxx
+	var asset_id = feature.properties.asset_id;
+	var asset_name = feature.properties.asset_name;
+	var installation_date = feature.properties.installation_date;
+	var condition_description = feature.properties.condition_description;
+
+    
+	
+	var htmlString = htmlString + "<h6> Asset ID: " + asset_id + "</h6><br>";
+	htmlString = htmlString + "<h6> Asset Name: " + asset_name + "</h6>";
+	htmlString = htmlString + "<h6> Installation Date: " + installation_date + "</h6>";
+	htmlString = htmlString + "<h6> Condition: " + condition_description + "</h6>";
+	return htmlString;
+};
+
+
+// Condition Assessment: User's asset point load automatically
 
 function setUpPointClick() {
 	// Create an AJAX call for current user ID
@@ -56,6 +103,7 @@ function setUpPointClick() {
 	}});
 }
 
+// Condition Assessment: Condition form appears in pop-up when click
 function getPopupHTML(feature){
 	
 	// Getting properties for specific asset from database
@@ -100,6 +148,11 @@ function getPopupHTML(feature){
 	return htmlString;
 };
 
+
+//////////////////////////////
+// Asset Point Creation
+// - Create an asset point
+// - save to database
 var latitude
 var longitude
 
@@ -130,3 +183,5 @@ function basicFormHtml() {
 
 	return myvar;
 }
+
+//////////////////////////////
