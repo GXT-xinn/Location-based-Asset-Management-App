@@ -50,15 +50,17 @@ function checkCondition() {
 function saveNewAsset() {
 	// now get the values for userid, coordinates, installation date and asset name
 	
-	if(document.getElementById("AssetName").value.length == 0){
-		if(document.getElementById("InstallDate").value.length == 0){
+	if(document.getElementById("AssetName").value !== null){
+		if(document.getElementById("InstallDate").value === null){
 			alert("Please Enter the Asset Name and Installation Date")}
 		else{
 			alert("Please Enter an Asset Name")
 		}
 	}
-	if(document.getElementById("InstallDate").value.length == 0){
+	
+	if(document.getElementById("InstallDate").value === null){
 			alert("Please Enter the Installation Date")}
+			
 	else {		
 	var AssetName = document.getElementById("AssetName").value;
 	var postString = "AssetName=" + AssetName;
