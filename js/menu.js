@@ -1,6 +1,10 @@
 
 function bestCondition() {
-	alert("This is the function showing a list of assets that have best condition in at least one report: "+ arguments.callee.name); 
+	$.ajax({url: document.location.origin + "/api/assetsInGreatCondition", 
+	crossDomain: true,success: function(result){
+		console.log(result);
+	}
+	})
 }
 
 function dailyReportRate() {
