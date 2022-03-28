@@ -19,7 +19,7 @@ function setMapClickEvent() {
 		mymap.off('click',onMapClick)
 		// set up a point with click functionality
 		setUpPointClick();
-		trackLocation();
+		getLocation();
 	}
 	else { 
 		// the asset creation page
@@ -33,7 +33,7 @@ function setMapClickEvent() {
 };
 
 // Condition Assessment: Track user's location automatically
-function trackLocation() {
+function getLocation() {
 	if (navigator.geolocation) {
 		navigator.geolocation.watchPosition(showPosition);
 	}
@@ -64,10 +64,59 @@ function setUpPointClick() {
 		
 		$.ajax({url: pointURL, crossDomain: true,success: function(result){
 			console.log(result); // check that the data is correct
+			// Prepare colour marker for the points
+			 var testMarkerPink = L.AwesomeMarkers.icon({ 
+			 icon: 'play', 
+			 markerColor: 'pink' 
+			 }); 
+			 var testMarkerRed = L.AwesomeMarkers.icon({ 
+			 icon: 'play', 
+			 markerColor: 'red' 
+			 });  
+			 var testMarkerGreen = L.AwesomeMarkers.icon({ 
+			 icon: 'play', 
+			 markerColor: 'green' 
+			 }); 
+			 var testMarkerBlack = L.AwesomeMarkers.icon({ 
+			 icon: 'play', 
+			 markerColor: 'black' 
+			 }); 
+			 var testMarkerYellow = L.AwesomeMarkers.icon({ 
+			 icon: 'play', 
+			 markerColor: 'yellow' 
+			 }); 
+			 var testMarkerPurple = L.AwesomeMarkers.icon({ 
+			 icon: 'play', 
+			 markerColor: 'purple' 
+			 }); 
 			// Add points to map
 		   	mapPoint = L.geoJSON(result,{
 		   			pointToLayer: function (feature, latlng){
-		   				return L.marker(latlng).bindPopup(getPopupHTML(feature));}
+						var condition = feature.properties.condition_description
+						var op1 = 'Element is in very good condition';
+						var op2 = 'Some aesthetic defects, needs minor repair';
+						var op3 = 'Functional degradation of some parts, needs maintenance';
+						var op4 = 'Not working and maintenance must be done as soon as reasonably possible';
+						var op5 = 'Not working and needs immediate, urgent maintenance';
+						if (condition == op1){
+							return L.marker(latlng, {icon: testMarkerGreen}).bindPopup(getPopupHTML(feature));
+						}
+						if (condition == op2){
+							return L.marker(latlng, {icon: testMarkerYellow}).bindPopup(getPopupHTML(feature));
+						}
+						if (condition == op3){
+							return L.marker(latlng, {icon: testMarkerPink}).bindPopup(getPopupHTML(feature));
+						}
+						if (condition == op4){
+							return L.marker(latlng, {icon: testMarkerPurple}).bindPopup(getPopupHTML(feature));
+						}
+						if (condition == op5){
+							return L.marker(latlng, {icon: testMarkerRed}).bindPopup(getPopupHTML(feature));
+						}
+						else {
+							return L.marker(latlng, {icon: testMarkerBlack}).bindPopup(getPopupHTML(feature));	
+						}
+		   			}
 		   		}).addTo(mymap);
 		   	mymap.fitBounds(mapPoint.getBounds());
 		}
@@ -203,6 +252,7 @@ function existingPopupHTML(feature){
 		htmlString = htmlString + "<p><span class='bolded'>Condition</span>: No Condition Captured</p>";}
 	else{
 		htmlString = htmlString + "<p><span class='bolded'>Condition</span>: " + condition_description + "</p>";}
+	
 	return htmlString;
 };
 
