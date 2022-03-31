@@ -1,11 +1,26 @@
+function closebestCondition() { 
+	document.getElementById("listContainer").style.top = "-9999px"; 
+}
 
 function bestCondition() {
+	document.getElementById("listContainer").style.top="15%";
+	 // keep the existing HTML as there is a button that is needed 
+	 document.getElementById("listContainer").innerHTML=document.getElementById("listContainer").innerHTML+'<div class="h-75 w-75"></div>'
 	$.ajax({url: document.location.origin + "/api/assetsInGreatCondition", 
 	crossDomain: true,success: function(result){
-		console.log(result);
-	}
-	})
-}
+                $.each(result[0]['array_to_json'], function(index, item){
+					$('#myTable').append(
+						"<tr>" +
+						"<td>" + item.asset_name + "</td>" +
+						"<td>" + item.installation_date + "</td>" +
+						"<td>" + item.user_id + "</td>" +
+						"<td>" + item.timestamp + "</td>" +
+						"</tr>" 
+					);
+				});
+                }
+            });
+        }
 
 function dailyReportRate() {
 	alert("This is the function showing the bar graph of daily reporting rate for the past week: "+ arguments.callee.name); 

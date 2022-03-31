@@ -116,18 +116,20 @@
   <!-- the mapid div will hold the map -->
        <div id="content-wrapper" class="d-flex flex-column">
         <div id="mapContainer" style="z-index:0;"></div>
-		<div id="listContainer" class="h-75 w-75 d-flex flex-column overflow-auto" style="background-color: white; display: inlineblock; position:absolute; top:-9999;left:15%;">
-			<table id="myTable">
-				<thead>
+		<div id="listContainer" class="h-75 w-85 d-flex flex-column overflow-auto" style="background-color: white; display: inlineblock; position:absolute; top:-9999;left:35%;">
+			<div align="right">
+			<button type="button" class="btn btn-secondary btn-sm" onclick="closebestCondition()"> X </button>
+			</div>
+			<table id="myTable" class="table">
+				<thead class="thead-light">
 					<tr>
-						<th>ID</th>
-						<th>Asset Name</th>
-						<th>Installation Data</th>
-						<th>User ID</th>
-						<th>Update Date</th>
+					  <th scope="col">Asset Name</th>
+					  <th scope="col">Installation Date</th>
+					  <th scope="col">User ID</th>
+					  <th scope="col">Update Date</th>
 					</tr>
 				</thead>
-				<tbody id="tbbody"></tbody>
+				<tbody></tbody>
 			</table>
 		</div>
       <!-- End of Main Content -->
