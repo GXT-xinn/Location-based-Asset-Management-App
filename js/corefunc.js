@@ -1,7 +1,7 @@
 var width; // NB – keep this as a global variable
 var mapPoint; // store the geoJSON feature so that we can remove it if the screen is resized
 var popup = L.popup(); // create a custom popup as a global variable 
-var assets;
+var assets; // holding asset point from user
 
 
 function setMapClickEvent() {
@@ -62,6 +62,7 @@ function setUpPointClick() {
 		// AJAX call for assets inputted by specific user (current user)
 		pointURL = document.location.origin + "/api/geoJSONUserId/" + userID +"";
 		
+		
 		$.ajax({url: pointURL, crossDomain: true,success: function(result){
 			console.log(result); // check that the data is correct
 			// Prepare colour marker for the points
@@ -90,6 +91,8 @@ function setUpPointClick() {
 			 markerColor: 'purple' 
 			 }); 
 			// Add points to map
+			if (mapPoint){mymap.removeLayer(mapPoint);}
+			
 		   	mapPoint = L.geoJSON(result,{
 		   			pointToLayer: function (feature, latlng){
 						var condition = feature.properties.condition_description
@@ -224,6 +227,7 @@ function exsitingPointClick() {
 		$.ajax({url: pointURL, crossDomain: true,success: function(result){
 			console.log(result); // check that the data is correct
 			// Add points to map
+			if (assets){mymap.removeLayer(assets);}
 		   	assets = L.geoJSON(result,{
 		   			pointToLayer: function (feature, latlng){
 		   				return L.marker(latlng).bindPopup(existingPopupHTML(feature));}
