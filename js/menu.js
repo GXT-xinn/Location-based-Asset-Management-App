@@ -34,69 +34,99 @@ function dailyReportRate() {
 	 document.getElementById("graphContainer").innerHTML=document.getElementById("graphContainer").innerHTML+'<div class="h-75 w-75"><svg width="'+widtha+'" height="'+heighta+'" id="svg1"></svg></div>'
 	 
 	 // Retrieve the daily report rate data to create bar graph
-	 const svg     = d3.select("#svg1"),
-		  margin  = {top: 20, right: 20, bottom: 30, left: 50},
-		  width   = +svg.attr("width")  - margin.left - margin.right,
-		  height  = +svg.attr("height") - margin.top  - margin.bottom,
-		  xScale0 = d3.scaleBand().range([0, width - margin.left - margin.right]),
-		  xScale1 = d3.scaleBand(),
-		  yScale = d3.scaleLinear().range([height - margin.top - margin.bottom, 0]),
-		  g       = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
-	
-	$.ajax({url: document.location.origin + "/api/dailyParticipationRates", 
-	crossDomain: true,success: function(result){
-		data = result[0]['array_to_json'];
-		data.forEach(function(d) {
-			xScale0.domain(data.map(d => d.day));
-			xScale1.domain(['reports_submitted','reports_not_working'].range([0, xScale0.bandwidth()]));
-			yScale.domain([0, d3.max(data, d => d.reports_submitted > d.reports_not_working ? d.reports_submitted : d.reports_not_working)])
-		
-			var days = svg.selectAll(".day")
-			  .data(data)
-			  .enter().append("g")
-			  .attr("class", "day")
-			  .attr("transform", d => `translate(${xScale0(d.day)},0)`);
-			  
-			// Add the X Axis
-			svg.append("g")
-				 .attr("class", "x axis")
-				 .attr("transform", `translate(0,${height - margin.top - margin.bottom})`)
-				 .call(xAxis);
-			// Add the Y Axis
-			svg.append("g")
-				 .attr("class", "y axis")
-				 .call(yAxis);
-			  
-			/* Add reports_submitted bars */
-			days.selectAll(".bar.reports_submitted")
-			  .data(d => [d])
-			  .enter()
-			  .append("rect")
-			  .attr("class", "bar reports_submitted")
-			.style("fill","blue")
-			  .attr("x", d => xScale1('reports_submitted'))
-			  .attr("y", d => yScale(d.reports_submitted))
-			  .attr("width", xScale1.bandwidth())
-			  .attr("height", d => {
-				return height - margin.top - margin.bottom - yScale(d.reports_submitted)
-			  });
-			  
-			/* Add reports_not_working bars */
-			days.selectAll(".bar.reports_not_working")
-			  .data(d => [d])
-			  .enter()
-			  .append("rect")
-			  .attr("class", "bar reports_not_working")
-			.style("fill","red")
-			  .attr("x", d => xScale1('reports_not_working'))
-			  .attr("y", d => yScale(d.reports_not_working))
-			  .attr("width", xScale1.bandwidth())
-			  .attr("height", d => {
-				return height - margin.top - margin.bottom - yScale(d.reports_not_working)
-			  });
-		})
-	}
+	const svg     = d3.select("#svg1"),
+	      margin  = {top: 20, right: 20, bottom: 30, left: 40},
+	      width   = +svg.attr("width")  - margin.left - margin.right,
+	      height  = +svg.attr("height") - margin.top  - margin.bottom,
+	      x0      = d3.scaleBand().rangeRound([0, width]).padding(0.2),
+	      x1      = d3.scaleBand(),
+	      y       = d3.scaleLinear().rangeRound([height, 0]),
+	      color   = d3.scaleOrdinal().range(["#0571b0", "#ca0020"]),
+	      g       = svg.append("g").attr("transform", `translate(${margin.left},${margin.top})`);
+		  
+	d3.json(document.location.origin + "/api/dailyParticipationRates").then(data => {
+		data = data[0].array_to_json;
+	  	//rebuild the data to dataset for combining the reports_submitted and reports_not_working
+	  	var dataset = [];
+		for(i = 0; i < data.length; i++ ) {
+		  dataset[i] = {
+		    day: data[i].day,
+		    rates: [
+		     {name: 'reports_submitted', value: data[i].reports_submitted},
+		     {name: 'reports_not_working', value: data[i].reports_not_working}
+		    ]
+		  };
+		}
+
+		x0.domain(dataset.map(d => d.day));
+		x1.domain(['reports_submitted','reports_not_working']).range([0,x0.bandwidth()]);
+		y.domain([0, d3.max(dataset, d => d.rates[0].value)]);
+
+		//set x axis
+		g.append("g")
+		  .attr("class", "axis axis-x")
+		  .attr("transform", `translate(0,${height})`)
+		  .call(d3.axisBottom(x0));
+
+		//set y axis
+		g.append("g")
+		    .attr("class", "axis axis-y")
+		    .call(d3.axisLeft(y).ticks(10).tickSize(8))
+		  .append("text") // add y axis label
+		    .attr("transform", "rotate(-90)")
+		    .attr("y", 6)
+		    .attr("dy", ".71em")
+		    .style("text-anchor", "end")
+		    .style("font-size", "15px")
+		    .style("fill", "#000000")
+		    .text("Number of reports");
+
+		//add bars
+		var day = svg.selectAll(".day")
+		  .data(dataset)
+		  .enter().append("g")
+		  .attr("class", "day")
+		  .attr("transform", d => `translate(${x0(d.day)+40},${margin.top})`);
+
+		day.selectAll("rect")
+		.data(d => d.rates)
+		.enter().append("rect")
+		  .attr("class", "bar")
+		  .attr("width", x1.bandwidth())
+		  .style("fill",d => color(d.name))
+		  .attr("x", d => x1(d.name))
+		  .attr("y", d => y(d.value))
+		  .attr("height", d => height - y(d.value));
+
+		//add legends
+		var legend = svg.selectAll(".legend")
+	      .data(['reports_submitted','reports_not_working'].slice())
+	      .enter().append("g")
+	      .attr("class", "legend")
+	      .attr("transform", d => `translate(${margin.left+325},0)`);
+
+	    legend.append("rect")
+	      .attr("x", function(d,i){return (margin.left +(180*i))})
+	      .attr("width", 18)
+	      .attr("height", 18)
+	      .style("fill", color);
+
+		legend.append("text")
+		  
+	      .attr("x", function(d,i){return (margin.left +(180*i) + 25)})
+	      .attr("y", 9)
+	      .attr("dy", ".35em")
+	      .style("text-left", "end")
+	      .text(d => d);
 	})
+	.catch(err => {
+	  svg.append("text")         
+	        .attr("y", 20)
+	        .attr("text-anchor", "left")  
+	        .style("font-size", "20px") 
+	        .style("font-weight", "bold")  
+	        .text(`Couldn't open the data file: "${err}".`);
+	});
 }
 
 function help() {
