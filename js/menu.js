@@ -1,5 +1,6 @@
 function closebestCondition() { 
 	document.getElementById("listContainer").style.top = "-9999px"; 
+	$('.nav-link').attr('disabled',false);
 }
 
 function closeGraph() { 
@@ -8,8 +9,8 @@ function closeGraph() {
 
 function bestCondition() {
 	document.getElementById("listContainer").style.top="15%";
-	 // keep the existing HTML as there is a button that is needed 
-	 document.getElementById("listContainer").innerHTML=document.getElementById("listContainer").innerHTML+'<div class="h-75 w-75"></div>'
+	// keep the existing HTML as there is a button that is needed 
+	document.getElementById("listContainer").innerHTML=document.getElementById("listContainer").innerHTML+'<div class="h-75 w-75"></div>'
 	$.ajax({url: document.location.origin + "/api/assetsInGreatCondition", 
 	crossDomain: true,success: function(result){
                 $.each(result[0]['array_to_json'], function(index, item){
