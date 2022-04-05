@@ -156,7 +156,19 @@ function userRank() {
 		pointURL = document.location.origin + "/api/userRanking/" + userID +"";
 		
 		$.ajax({url: pointURL, crossDomain: true,success: function(result){
-			alert("You are ranked at "+ result[0].array_to_json[0].rank + " place in total number of submitted reports in the database");		
+			ranking = result[0].array_to_json[0].rank
+			if (ranking == 1){
+				alert("You are ranked at the "+ result[0].array_to_json[0].rank + "st place in total number of submitted reports in the database");					
+			}
+			if (ranking == 2){
+				alert("You are ranked at the "+ result[0].array_to_json[0].rank + "nd place in total number of submitted reports in the database");					
+			}
+			if (ranking == 3){
+				alert("You are ranked at the "+ result[0].array_to_json[0].rank + "rd place in total number of submitted reports in the database");					
+			}
+			else {
+				alert("You are ranked at the "+ result[0].array_to_json[0].rank + "th place in total number of submitted reports in the database");
+			}
 		}
 		});
 	}}); 
