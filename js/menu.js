@@ -1,6 +1,5 @@
 function closebestCondition() { 
-	document.getElementById("listContainer").style.top = "-9999px"; 
-	$('.nav-link').attr('disabled',false);
+	document.getElementById("listContainer").style.top = "-9999px";
 }
 
 function closeGraph() { 
@@ -145,7 +144,22 @@ function help() {
 }
 
 function userRank() {
-	alert("This is the function: "+ arguments.callee.name); 
+	$.ajax({url: document.location.origin + "/api/getUserId", 
+	crossDomain: true,success: function(result){
+		console.log(JSON.stringify(result));
+		var userID = JSON.stringify(result);
+		// Extract solely the ID number
+		userID = JSON.parse(userID);
+		for(var i = 0; i < userID.length; i++){
+			userID = userID[i]['user_id'];};
+		// AJAX call for assets inputted by specific user (current user)
+		pointURL = document.location.origin + "/api/userRanking/" + userID +"";
+		
+		$.ajax({url: pointURL, crossDomain: true,success: function(result){
+			alert("You are ranked at "+ result[0].array_to_json[0].rank + " place in total number of submitted reports in the database");		
+		}
+		});
+	}}); 
 }
 
 
