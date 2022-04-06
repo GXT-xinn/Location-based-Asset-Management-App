@@ -146,7 +146,6 @@ function help() {
 function userRank() {
 	$.ajax({url: document.location.origin + "/api/getUserId", 
 	crossDomain: true,success: function(result){
-		console.log(JSON.stringify(result));
 		var userID = JSON.stringify(result);
 		// Extract solely the ID number
 		userID = JSON.parse(userID);
@@ -206,7 +205,6 @@ var the5reports
 function Show5Report() {
 	$.ajax({url: document.location.origin + "/api/getUserId", 
 	crossDomain: true,success: function(result){
-		console.log(JSON.stringify(result));
 		var userID = JSON.stringify(result);
 		// Extract solely the ID number
 		userID = JSON.parse(userID);
@@ -280,9 +278,17 @@ function Show5Report() {
 		});
 	}});  
 }
+
 function Remove5Report() {
-	alert("This is the function removing the last 5 reports created by the user: "+ arguments.callee.name); 
+	try {
+	 mymap.removeLayer( the5reports ); 
+	 } 
+	catch (err) { alert("Layer doesn’t exist :" + err); 
+	 } 
 }
+
+
+
 function ShowRate() {
 	alert("This is the function showing assets and that user hasn't rated in the last 3 days : "+ arguments.callee.name); 
 }
