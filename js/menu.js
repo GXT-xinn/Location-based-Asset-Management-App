@@ -175,8 +175,17 @@ function userRank() {
 }
 
 
-function Show5Asset() {
-	alert("This is the function showing the 5 assets closest to the user’s current location: "+ arguments.callee.name); 
+function Show5Asset(position) {
+	// AJAX call for assets inputted by specific user (current user)
+		pointURL = document.location.origin + "/api/fiveClosestAssets/" + lat +"/"+ lon +"";
+		console.log(pointURL)
+		
+		$.ajax({url: pointURL, crossDomain: true,success: function(result){
+			
+			if (mapPoint){mymap.removeLayer(mapPoint);}
+			if (assets){mymap.removeLayer(assets);}
+		}
+		});
 }
 
 function Remove5Asset() {
@@ -194,4 +203,23 @@ function ShowRate() {
 }
 function RemoveRate() {
 	alert("This is the function removing assets and that user hasn't rated in the last 3 days : "+ arguments.callee.name); 
+}
+
+// Created empty variables to hold user's coordinates
+var lon
+var lat
+// Condition Assessment: Track user's location automatically
+function getLocation() {
+	if (navigator.geolocation) {
+		navigator.geolocation.watchPosition(showPosition);
+	}
+	else {
+		alert("Geolocation is not supported by this browser.");
+	}
+}
+
+function showPosition(position) {
+	lon = position.coords.latitude
+	lat = position.coords.longitude
+	console.log("Latitude: " + position.coords.latitude +", Longitude: " + position.coords.longitude)
 }

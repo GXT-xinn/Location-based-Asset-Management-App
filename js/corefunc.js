@@ -32,20 +32,6 @@ function setMapClickEvent() {
 	}
 };
 
-// Condition Assessment: Track user's location automatically
-function getLocation() {
-	if (navigator.geolocation) {
-		navigator.geolocation.watchPosition(showPosition);
-	}
-	else {
-		alert("Geolocation is not supported by this browser.");
-	}
-}
-
-function showPosition(position) {
-	console.log("Latitude: " + position.coords.latitude +", Longitude: " + position.coords.longitude)
-}
-
 
 // Condition Assessment: User's asset point load automatically
 
