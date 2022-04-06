@@ -35,7 +35,7 @@ function dailyReportRate() {
 	 
 	 // Retrieve the daily report rate data to create bar graph
 	const svg     = d3.select("#svg1"),
-	      margin  = {top: 20, right: 20, bottom: 80, left: 40},
+	      margin  = {top: 80, right: 20, bottom: 20, left: 40},
 	      width   = +svg.attr("width")  - margin.left - margin.right,
 	      height  = +svg.attr("height") - margin.top  - margin.bottom,
 	      x0      = d3.scaleBand().rangeRound([0, width]).padding(0.2),
@@ -103,7 +103,7 @@ function dailyReportRate() {
 	      .data(['reports_submitted','reports_not_working'].slice())
 	      .enter().append("g")
 	      .attr("class", "legend")
-	      .attr("transform", d => `translate(${margin.left+325},${margin.top+30})`);
+	      .attr("transform", d => `translate(${margin.left+325},${margin.top-40})`);
 
 	    legend.append("rect")
 	      .attr("x", function(d,i){return (margin.left +(180*i))})
@@ -123,7 +123,7 @@ function dailyReportRate() {
 		// add title
 		g.append("text")
 		   .attr("x", margin.left+500)
-		   .attr("y", margin.top-15)
+		   .attr("y", margin.top-135)
 		   .attr("text-anchor", "middle")
 		   .style("font-size", "25px")
 		   .style("font-weight", "bold")
