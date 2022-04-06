@@ -184,6 +184,7 @@ function Show5Asset(position) {
 			if (mapPoint){mymap.removeLayer(mapPoint);}
 			if (assets){mymap.removeLayer(assets);}
 			if (the5assets){mymap.removeLayer(the5assets);}
+			if (the5reports){mymap.removeLayer(the5reports);}
 			the5assets = L.geoJSON(result,{
 		   			pointToLayer: function (feature, latlng){
 		   				return L.marker(latlng).bindPopup(getPopupHTML(feature));}
@@ -201,8 +202,83 @@ function Remove5Asset() {
 	 } 
 }
 
+var the5reports
 function Show5Report() {
-	alert("This is the function showing the last 5 reports created by the user: "+ arguments.callee.name); 
+	$.ajax({url: document.location.origin + "/api/getUserId", 
+	crossDomain: true,success: function(result){
+		console.log(JSON.stringify(result));
+		var userID = JSON.stringify(result);
+		// Extract solely the ID number
+		userID = JSON.parse(userID);
+		for(var i = 0; i < userID.length; i++){
+			userID = userID[i]['user_id'];};
+		// AJAX call for assets inputted by specific user (current user)
+		pointURL = document.location.origin + "/api/lastFiveConditionReports/" + userID +"";
+		
+		$.ajax({url: pointURL, crossDomain: true,success: function(result){
+			if (mapPoint){mymap.removeLayer(mapPoint);}
+			if (assets){mymap.removeLayer(assets);}
+			if (the5assets){mymap.removeLayer(the5assets);}
+			if (the5reports){mymap.removeLayer(the5reports);}
+			 var testMarkerPink = L.AwesomeMarkers.icon({ 
+			 icon: 'play', 
+			 markerColor: 'pink' 
+			 }); 
+			 var testMarkerRed = L.AwesomeMarkers.icon({ 
+			 icon: 'play', 
+			 markerColor: 'red' 
+			 });  
+			 var testMarkerGreen = L.AwesomeMarkers.icon({ 
+			 icon: 'play', 
+			 markerColor: 'green' 
+			 }); 
+			 var testMarkerBlack = L.AwesomeMarkers.icon({ 
+			 icon: 'play', 
+			 markerColor: 'black' 
+			 }); 
+			 var testMarkerYellow = L.AwesomeMarkers.icon({ 
+			 icon: 'play', 
+			 markerColor: 'yellow' 
+			 }); 
+			 var testMarkerPurple = L.AwesomeMarkers.icon({ 
+			 icon: 'play', 
+			 markerColor: 'purple' 
+			 }); 
+			// Add points to map
+			if (the5reports){mymap.removeLayer(the5reports);}
+			
+		   	the5reports = L.geoJSON(result,{
+		   			pointToLayer: function (feature, latlng){
+						var condition = feature.properties.condition_description
+						var op1 = 'Element is in very good condition';
+						var op2 = 'Some aesthetic defects, needs minor repair';
+						var op3 = 'Functional degradation of some parts, needs maintenance';
+						var op4 = 'Not working and maintenance must be done as soon as reasonably possible';
+						var op5 = 'Not working and needs immediate, urgent maintenance';
+						if (condition == op1){
+							return L.marker(latlng, {icon: testMarkerGreen}).bindPopup(getPopupHTML(feature));
+						}
+						if (condition == op2){
+							return L.marker(latlng, {icon: testMarkerYellow}).bindPopup(getPopupHTML(feature));
+						}
+						if (condition == op3){
+							return L.marker(latlng, {icon: testMarkerPink}).bindPopup(getPopupHTML(feature));
+						}
+						if (condition == op4){
+							return L.marker(latlng, {icon: testMarkerPurple}).bindPopup(getPopupHTML(feature));
+						}
+						if (condition == op5){
+							return L.marker(latlng, {icon: testMarkerRed}).bindPopup(getPopupHTML(feature));
+						}
+						else {
+							return L.marker(latlng, {icon: testMarkerBlack}).bindPopup(getPopupHTML(feature));	
+						}
+		   			}
+		   		}).addTo(mymap);
+		   	mymap.fitBounds(the5reports.getBounds());
+		}
+		});
+	}});  
 }
 function Remove5Report() {
 	alert("This is the function removing the last 5 reports created by the user: "+ arguments.callee.name); 
