@@ -10,7 +10,9 @@ function setMapClickEvent() {
 	// Remove the asset layer called when maximize the screen
 	if (width < 992) { 
 		if (assets){
-		mymap.removeLayer(assets);}
+			mymap.removeLayer(assets);}
+		if (the5assets){
+			mymap.removeLayer(the5assets);}
 	// we use the bootstrap Medium and Large options for the asset location capture
 	// and the small and XS options for the condition option
 	// see here: https://www.w3schools.com/bootstrap/bootstrap_grid_system.asp
