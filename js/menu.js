@@ -184,6 +184,7 @@ function Show5Asset(position) {
 			if (assets){mymap.removeLayer(assets);}
 			if (the5assets){mymap.removeLayer(the5assets);}
 			if (the5reports){mymap.removeLayer(the5reports);}
+			if (ratelayer){mymap.removeLayer(ratelayer);}
 			the5assets = L.geoJSON(result,{
 		   			pointToLayer: function (feature, latlng){
 		   				return L.marker(latlng).bindPopup(getPopupHTML(feature));}
@@ -218,6 +219,7 @@ function Show5Report() {
 			if (assets){mymap.removeLayer(assets);}
 			if (the5assets){mymap.removeLayer(the5assets);}
 			if (the5reports){mymap.removeLayer(the5reports);}
+			if (ratelayer){mymap.removeLayer(ratelayer);}
 			 var testMarkerPink = L.AwesomeMarkers.icon({ 
 			 icon: 'play', 
 			 markerColor: 'pink' 
@@ -288,9 +290,24 @@ function Remove5Report() {
 }
 
 
-
+var ratelayer
 function ShowRate() {
-	alert("This is the function showing assets and that user hasn't rated in the last 3 days : "+ arguments.callee.name); 
+	// AJAX call for assets inputted by specific user (current user)
+		pointURL = document.location.origin + "/api/conditionReportMissing/" + userID +"";
+		
+		$.ajax({url: pointURL, crossDomain: true,success: function(result){
+			if (mapPoint){mymap.removeLayer(mapPoint);}
+			if (assets){mymap.removeLayer(assets);}
+			if (the5assets){mymap.removeLayer(the5assets);}
+			if (the5reports){mymap.removeLayer(the5reports);}
+			if (ratelayer){mymap.removeLayer(ratelayer);}
+			ratelayer = L.geoJSON(result,{
+		   			pointToLayer: function (feature, latlng){
+		   				return L.marker(latlng).bindPopup(getPopupHTML(feature));}
+		   		}).addTo(mymap);
+		   	mymap.fitBounds(ratelayer.getBounds());
+		}
+		});
 }
 function RemoveRate() {
 	alert("This is the function removing assets and that user hasn't rated in the last 3 days : "+ arguments.callee.name); 
