@@ -194,7 +194,11 @@ function Show5Asset(position) {
 }
 
 function Remove5Asset() {
-	alert("This is the function removing the 5 assets closest to the user’s current location: "+ arguments.callee.name); 
+	try {
+	 mymap.removeLayer( the5assets ); 
+	 } 
+	catch (err) { alert("Layer doesn’t exist :" + err); 
+	 } 
 }
 
 function Show5Report() {

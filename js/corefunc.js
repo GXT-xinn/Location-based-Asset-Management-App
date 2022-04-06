@@ -33,6 +33,7 @@ function setMapClickEvent() {
 };
 
 
+
 // Condition Assessment: User's asset point load automatically
 
 function setUpPointClick() {
@@ -124,7 +125,7 @@ function getPopupHTML(feature){
 	var condition_description = feature.properties.condition_description;
 
     
-	var htmlString = "<DIV id='popup_" + asset_id + "'><h4> Asset Condition Report </h4><br>";
+	var htmlString = "<DIV id='popup'><h4> Asset Condition Report </h4><br>";
 	htmlString = htmlString + "<h6> Asset Name: " + asset_name + "</h6>";
 	htmlString = htmlString + "<h6> Asset ID: " + asset_id + "</h6><br>";
 	htmlString = htmlString + '<h6> Which one of options below can best describe the condition of the asset?</h6>'+
@@ -151,7 +152,7 @@ function getPopupHTML(feature){
 	'	<br>'+
 	'</form>';
 	
-	htmlString = htmlString + "<button class='btn btn-primary' id='ConditionResult_" + asset_id + "' onclick='checkCondition()'>Submit Condition</button>";
+	htmlString = htmlString + "<button class='btn btn-primary' id='ConditionResult' onclick='checkCondition()'>Submit Condition</button>";
 	htmlString = htmlString + "<div id='previousConditionValue' style='display: none;'>"+condition_description+"</div>";
 	htmlString = htmlString + "<div id='asset_id' style='display: none;'>"+ asset_id +"</div>"; 
 	htmlString = htmlString + "<div id='asset_name' style='display: none;'>"+ asset_name +"</div>"; 
