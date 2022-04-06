@@ -174,16 +174,21 @@ function userRank() {
 	}}); 
 }
 
-
+var the5assets
 function Show5Asset(position) {
 	// AJAX call for assets inputted by specific user (current user)
 		pointURL = document.location.origin + "/api/fiveClosestAssets/" + lat +"/"+ lon +"";
-		console.log(pointURL)
 		
 		$.ajax({url: pointURL, crossDomain: true,success: function(result){
 			
 			if (mapPoint){mymap.removeLayer(mapPoint);}
 			if (assets){mymap.removeLayer(assets);}
+			if (the5assets){mymap.removeLayer(the5assets);}
+			the5assets = L.geoJSON(result,{
+		   			pointToLayer: function (feature, latlng){
+		   				return L.marker(latlng).bindPopup(getPopupHTML(feature));}
+		   		}).addTo(mymap);
+		   	mymap.fitBounds(the5assets.getBounds());
 		}
 		});
 }
