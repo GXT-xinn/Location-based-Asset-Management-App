@@ -140,7 +140,12 @@ function dailyReportRate() {
 }
 
 function help() {
-	alert("This is the function: "+ arguments.callee.name); 
+	setUpPointClick()
+	if (mapPoint){mymap.removeLayer(mapPoint);}
+	if (assets){mymap.removeLayer(assets);}
+	if (the5assets){mymap.removeLayer(the5assets);}
+	if (the5reports){mymap.removeLayer(the5reports);}
+	if (ratelayer){mymap.removeLayer(ratelayer);}
 }
 
 function userRank() {
@@ -293,9 +298,18 @@ function Remove5Report() {
 var ratelayer
 function ShowRate() {
 	// AJAX call for assets inputted by specific user (current user)
+		$.ajax({url: document.location.origin + "/api/getUserId", 
+	crossDomain: true,success: function(result){
+		var userID = JSON.stringify(result);
+		// Extract solely the ID number
+		userID = JSON.parse(userID);
+		for(var i = 0; i < userID.length; i++){
+			userID = userID[i]['user_id'];};
+		// AJAX call for assets inputted by specific user (current user)
 		pointURL = document.location.origin + "/api/conditionReportMissing/" + userID +"";
 		
 		$.ajax({url: pointURL, crossDomain: true,success: function(result){
+			
 			if (mapPoint){mymap.removeLayer(mapPoint);}
 			if (assets){mymap.removeLayer(assets);}
 			if (the5assets){mymap.removeLayer(the5assets);}
@@ -308,9 +322,14 @@ function ShowRate() {
 		   	mymap.fitBounds(ratelayer.getBounds());
 		}
 		});
+	}}); 
 }
 function RemoveRate() {
-	alert("This is the function removing assets and that user hasn't rated in the last 3 days : "+ arguments.callee.name); 
+	try {
+	 mymap.removeLayer( ratelayer ); 
+	 } 
+	catch (err) { alert("Layer doesn’t exist :" + err); 
+	 } 
 }
 
 // Created empty variables to hold user's coordinates
