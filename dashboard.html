@@ -1,0 +1,119 @@
+<DOCTYPE html>
+<!-- The template is adapted from https://mdbootstrap.com/snippets/jquery/marta-szymanska/514898, created by Marta Szymanska --> 
+<html lang="en">
+	<head>
+		<!-- the following links incorporate the CSS required for custom icon creation --> 
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.0/css/all.css">
+		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap">
+		<link rel="stylesheet" href="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/css/mdb.min.css">
+		<link rel="stylesheet" href="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/docs-app/css/compiled-addons-4.20.0.min.css">	
+		<!-- Use correct character set. -->
+		<meta charset="utf-8">
+		<!-- Tell IE to use the latest, best version. -->
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<title>Dashboard</title>
+		<style>
+			.double-nav .breadcrumb-dn {
+				color: #fff;
+			}
+			.side-nav.wide.slim .sn-ad-avatar-wrapper a span {
+			  display: none;
+			}
+		</style>
+		<style>
+		/* Chart.js */
+		@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}
+		</style>
+	</head>
+		<body class="fixed-sn mdb-skin">
+		  <!--Double navigation-->
+		  <header>
+			<!-- Sidebar navigation -->
+			<div id="slide-out" class="side-nav fixed wide sn-bg-1" style="width: 240px;">
+			  <ul class="custom-scrollbar">
+				<!-- Logo -->
+				<li>
+				  <div class="logo-wrapper sn-ad-avatar-wrapper">
+					<a href="#">
+					<img src="css/images/dashboardprofile.jpg" class="rounded-circle" width="300" height="300"><span>Xintong Guan</span></a>
+				  </div>
+				</li>
+				<!--/. Logo -->
+				<!-- Side navigation links -->
+				<li>
+				  <ul class="collapsible collapsible-accordion">
+					<li><a class="collapsible-header waves-effect arrow-r active"><i class="sv-slim-icon fas fa-map fa-fw me-3"></i> Cesium Map</a>
+					</li>
+					<li><a class="collapsible-header waves-effect arrow-r active"><i class="sv-slim-icon fas fa-chart-column fa-fw me-3"></i> Bar Graph</a>
+					</li>
+					<li><a class="collapsible-header waves-effect arrow-r active"><i class="sv-slim-icon fas fa-table-list fa-fw me-3"></i> Table</a>
+					</li>
+					<li><a id="toggle" class="waves-effect"><i class="sv-slim-icon fas fa-angle-double-left"></i>Minimize menu</a>
+					</li>
+				  </ul>
+				</li>
+				<!--/. Side navigation links -->
+			  </ul>
+			  <div class="sidenav-bg rgba-blue-strong" style="width: 240px;"></div>
+			</div>
+			<!--/. Sidebar navigation -->
+			<!-- Navbar -->
+			<nav class="navbar fixed-top navbar-toggleable-md navbar-expand-lg scrolling-navbar double-nav" style="padding-left: unset;">
+			  <!-- SideNav slide-out button -->
+			  <div class="float-left">
+				<a href="#" data-activates="slide-out" class="button-collapse"><i class="fas fa-bars"></i></a>
+			  </div>
+			  <!-- Breadcrumb-->
+			  <div class="breadcrumb-dn mr-auto">
+				<p>Asset Management Dashboard</p>
+			  </div>
+			  <ul class="nav navbar-nav nav-flex-icons ml-auto">
+				<li class="nav-item">
+				  <a class="nav-link waves-effect waves-light"><i class="fas fa-envelope"></i> <span class="clearfix d-none d-sm-inline-block">Contact</span></a>
+				</li>
+				<li class="nav-item">
+				  <a class="nav-link waves-effect waves-light"><i class="fas fa-comments"></i> <span class="clearfix d-none d-sm-inline-block">Support</span></a>
+				</li>
+				<li class="nav-item">
+				  <a class="nav-link waves-effect waves-light"><i class="fas fa-user"></i> <span class="clearfix d-none d-sm-inline-block">Account</span></a>
+				</li>
+			  </ul>
+			</nav>
+			<!-- /.Navbar -->
+		  </header>
+		  <!--/.Double navigation-->
+
+		  <!--Main Layout-->
+		  <main>
+			<div class="container-fluid mt-5">
+			  <h2>Advanced Double Navigation with slim Side-nav nad fixed Navbar:</h2>
+			  <br>
+			  <h5>1. Fixed slim Side-nav, hidden on small devices.</h5>
+			  <h5>2. Fixed Navbar. It will always stay visible on the top, even when you scroll down.</h5>
+			  <div style="height: 2000px"></div>
+			</div>
+		  </main>
+		  <!--Main Layout-->
+	
+		</body>
+
+<script type="text/javascript" src="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/js/jquery.min.js"></script>
+<script type="text/javascript" src="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/js/popper.min.js"></script>
+<script type="text/javascript" src="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/js/mdb.min.js"></script>
+<script type="text/javascript" src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/docs-app/js/bundles/4.20.0/compiled-addons.min.js"></script>
+<script type="text/javascript" src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/js/plugins/mdb-plugins-gathered.min.js"></script>
+
+<script type="text/javascript">
+{$(document).ready(function() {
+  // SideNav Initialization
+  $(".button-collapse").sideNav({
+		slim: true});
+  new WOW().init();})}
+</script>
+
+<div class="hiddendiv common"></div>
+<div class="drag-target" style="left: 0px;"></div>
+
+</html>
