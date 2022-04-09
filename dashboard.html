@@ -8,6 +8,7 @@
 		<link rel="stylesheet" href="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/css/mdb.min.css">
 		<link rel="stylesheet" href="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/docs-app/css/compiled-addons-4.20.0.min.css">	
+		<script src="Build/Cesium/Cesium.js"></script>
 		<!-- Use correct character set. -->
 		<meta charset="utf-8">
 		<!-- Tell IE to use the latest, best version. -->
@@ -25,8 +26,17 @@
 		/* Chart.js */
 		@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}
 		</style>
-		<style type="text/css">
-			#mapContainer { height: 100%; }
+		<style>
+			 @import url(Build/Cesium/Widgets/widgets.css);
+			  html, body, #cesiumContainer {
+				  width: 100%; height: 96%; margin: 0; padding: 0; overflow: hidden;
+			  }
+				   .toolbar-left {
+					display: block;
+					position: absolute;
+					top: 5px;
+					left: 5px;
+				}
 		</style>
 	</head>
 		<body class="fixed-sn mdb-skin">
@@ -88,11 +98,12 @@
 		  <!--/.Double navigation-->
 
 		  <!--Main Layout-->
-		    <div id="content-wrapper" class="d-flex flex-column">
-			
-				<div id="mapContainer" style="z-index:0;">
-					<div class="container-fluid mt-5">
+		  <main>
+		    <div class="container-fluid mt-5">
+				<div id="mapContainer">
+					<div>
 					  <h2>Cesium Map</h2>
+					  <p>Assets inputted and rated by user are displayed in the map</p>
 					  <br>
 					  <div id="cesiumContainer"></div>
 					</div>
@@ -101,6 +112,7 @@
 				
 			  <!-- End of Main Content -->
 		    </div>
+		  </main>
 		  <!--Main Layout-->
 	
 		</body>
@@ -127,7 +139,6 @@ function loadVectorLayer(){
 					// AJAX call for assets inputted by specific user (current user)
 					pointURL = document.location.origin + "/api/geoJSONUserId/" + userID +"";
 					$.ajax({url: pointURL, crossDomain: true,success: function(result){
-
 						var geoJSONOptions = {
 							  stroke: Cesium.Color.RED,
 							  fill: Cesium.Color.RED ,
@@ -137,7 +148,7 @@ function loadVectorLayer(){
 						var dataSource = new Cesium.GeoJsonDataSource(result[0]);
 							  dataSource.clampToGround=false;
 							  viewer.dataSources.add(dataSource);
-							  dataSource.load(layerURL,geoJSONOptions).then(function(dataSource){
+							  dataSource.load(result[0],geoJSONOptions).then(function(dataSource){
 								  viewer.flyTo(dataSource);});
 						}
 					})
@@ -147,11 +158,8 @@ function loadVectorLayer(){
 
 
 </script>
-<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script> 
 
 <script>
-Cesium.Ion.defaultAccessToken ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI3NmQ2NmVmNy0zZGY4LTQ1ZDAtYmUwOC03MjkzM2JjNzQ2OTQiLCJpZCI6MTU2NjMsInNjb3BlcyI6WyJhc3IiLCJnYyJdLCJpYXQiOjE1Njg1MjQwNTl9.siDvMt3fH91XzE39FU_xqVrx-i6M1wWOBl_2vCrY6Xo';
-
 Cesium.Ion.defaultAccessToken ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI3NmQ2NmVmNy0zZGY4LTQ1ZDAtYmUwOC03MjkzM2JjNzQ2OTQiLCJpZCI6MTU2NjMsInNjb3BlcyI6WyJhc3IiLCJnYyJdLCJpYXQiOjE1Njg1MjQwNTl9.siDvMt3fH91XzE39FU_xqVrx-i6M1wWOBl_2vCrY6Xo';
 
 var imageryProviders = Cesium.createDefaultImageryProviderViewModels();
