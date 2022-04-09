@@ -25,6 +25,9 @@
 		/* Chart.js */
 		@-webkit-keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}@keyframes chartjs-render-animation{from{opacity:0.99}to{opacity:1}}.chartjs-render-monitor{-webkit-animation:chartjs-render-animation 0.001s;animation:chartjs-render-animation 0.001s;}
 		</style>
+		<style type="text/css">
+			#mapContainer { height: 100%; }
+		</style>
 	</head>
 		<body class="fixed-sn mdb-skin">
 		  <!--Double navigation-->
@@ -85,15 +88,19 @@
 		  <!--/.Double navigation-->
 
 		  <!--Main Layout-->
-		  <main>
-			<div class="container-fluid mt-5">
-			  <h2>Advanced Double Navigation with slim Side-nav nad fixed Navbar:</h2>
-			  <br>
-			  <h5>1. Fixed slim Side-nav, hidden on small devices.</h5>
-			  <h5>2. Fixed Navbar. It will always stay visible on the top, even when you scroll down.</h5>
-			  <div style="height: 2000px"></div>
-			</div>
-		  </main>
+		    <div id="content-wrapper" class="d-flex flex-column">
+			
+				<div id="mapContainer" style="z-index:0;">
+					<div class="container-fluid mt-5">
+					  <h2>Cesium Map</h2>
+					  <br>
+					  <div id="cesiumContainer"></div>
+					</div>
+				
+				</div>
+				
+			  <!-- End of Main Content -->
+		    </div>
 		  <!--Main Layout-->
 	
 		</body>
@@ -104,6 +111,63 @@
 <script type="text/javascript" src="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/js/mdb.min.js"></script>
 <script type="text/javascript" src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/docs-app/js/bundles/4.20.0/compiled-addons.min.js"></script>
 <script type="text/javascript" src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/js/plugins/mdb-plugins-gathered.min.js"></script>
+
+<script>
+
+
+function loadVectorLayer(){
+			$.ajax({url: document.location.origin + "/api/getUserId", 
+				crossDomain: true,success: function(result){
+					console.log(JSON.stringify(result));
+					var userID = JSON.stringify(result);
+					// Extract solely the ID number
+					userID = JSON.parse(userID);
+					for(var i = 0; i < userID.length; i++){
+						userID = userID[i]['user_id'];};
+					// AJAX call for assets inputted by specific user (current user)
+					pointURL = document.location.origin + "/api/geoJSONUserId/" + userID +"";
+					$.ajax({url: pointURL, crossDomain: true,success: function(result){
+
+						var geoJSONOptions = {
+							  stroke: Cesium.Color.RED,
+							  fill: Cesium.Color.RED ,
+							  strokeWidth: 3,
+							  markerSymbol: '*',
+						}
+						var dataSource = new Cesium.GeoJsonDataSource(result[0]);
+							  dataSource.clampToGround=false;
+							  viewer.dataSources.add(dataSource);
+							  dataSource.load(layerURL,geoJSONOptions).then(function(dataSource){
+								  viewer.flyTo(dataSource);});
+						}
+					})
+				}
+			})
+		}
+
+
+</script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script> 
+
+<script>
+Cesium.Ion.defaultAccessToken ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI3NmQ2NmVmNy0zZGY4LTQ1ZDAtYmUwOC03MjkzM2JjNzQ2OTQiLCJpZCI6MTU2NjMsInNjb3BlcyI6WyJhc3IiLCJnYyJdLCJpYXQiOjE1Njg1MjQwNTl9.siDvMt3fH91XzE39FU_xqVrx-i6M1wWOBl_2vCrY6Xo';
+
+Cesium.Ion.defaultAccessToken ='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI3NmQ2NmVmNy0zZGY4LTQ1ZDAtYmUwOC03MjkzM2JjNzQ2OTQiLCJpZCI6MTU2NjMsInNjb3BlcyI6WyJhc3IiLCJnYyJdLCJpYXQiOjE1Njg1MjQwNTl9.siDvMt3fH91XzE39FU_xqVrx-i6M1wWOBl_2vCrY6Xo';
+
+var imageryProviders = Cesium.createDefaultImageryProviderViewModels();
+var selectedImageryProviderIndex = 7;  // MapBox Street is 5th in the list.
+
+var viewer = new Cesium.Viewer('cesiumContainer', {
+    imageryProviderViewModels: imageryProviders,
+    selectedImageryProviderViewModel: imageryProviders[selectedImageryProviderIndex]
+});
+
+
+// only load the layer when the cesium basemap has been created
+document.addEventListener('DOMContentLoaded', function() {
+   loadVectorLayer();
+}, false);
+</script>
 
 <script type="text/javascript">
 {$(document).ready(function() {
