@@ -4,10 +4,13 @@
 	<head>
 		<!-- the following links incorporate the CSS required for custom icon creation --> 
 		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.1.0/css/all.css">
+		<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.0/css/all.css">
 		<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&amp;display=swap">
 		<link rel="stylesheet" href="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/css/mdb.min.css">
-		<link rel="stylesheet" href="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/docs-app/css/compiled-addons-4.20.0.min.css">	
+		<link rel="stylesheet" href="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/docs-app/css/compiled-addons-4.20.0.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/4.1.0/echarts-en.common.min.js"></script>
+		<script src="https://d3js.org/d3.v5.min.js"></script>
 		<!-- Use correct character set. -->
 		<meta charset="utf-8">
 		<!-- Tell IE to use the latest, best version. -->
@@ -57,9 +60,9 @@
 				  <ul class="collapsible collapsible-accordion">
 					<li><a class="collapsible-header waves-effect arrow-r active" onclick="showMap()"><i class="sv-slim-icon fas fa-map fa-fw me-3"></i> Cesium Map</a>
 					</li>
-					<li><a class="collapsible-header waves-effect arrow-r active"><i class="sv-slim-icon fas fa-chart-column fa-fw me-3"></i> Bar Graph</a>
+					<li><a class="collapsible-header waves-effect arrow-r active" onclick="graphs()"><i class="sv-slim-icon fas fa-chart-column fa-fw me-3"></i> Graphs</a>
 					</li>
-					<li><a class="collapsible-header waves-effect arrow-r active"><i class="sv-slim-icon fas fa-table-list fa-fw me-3"></i> Table</a>
+					<li><a class="collapsible-header waves-effect arrow-r active"><i class="sv-slim-icon fas fa-table-list fa-fw me-3"></i> Tables</a>
 					</li>
 					<li><a id="toggle" class="waves-effect"><i class="sv-slim-icon fas fa-angle-double-left"></i>Minimize menu</a>
 					</li>
@@ -99,33 +102,31 @@
 		  <!--Main Layout-->
 		  <main id="content-wrapper">
 		   <div class="container-fluid">
-				<h2>Cesium Map</h2>
+				<h2><strong>Cesium Map</strong></h2>
 			    <p>Assets inputted and rated by user are displayed in the map</p>
 				<br>
 				<div id="mapContainer" class="h-75 shadow mb-5 bg-white rounded">
 					  <div id="cesiumContainer">
 					  </div>
 				</div>
-				
-			  <!-- End of Main Content -->
 		   </div>
 		  </main>
+		  <!-- End of Main Content -->
 		  <!--Main Layout-->
-	
 		</body>
-	<script src="Build/Cesium/Cesium.js"></script>
-	<script src="js/dashboard.js"></script>
 	<script type="text/javascript" src="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/js/jquery.min.js"></script>
 	<script type="text/javascript" src="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/js/popper.min.js"></script>
 	<script type="text/javascript" src="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/js/mdb.min.js"></script>
 	<script type="text/javascript" src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/docs-app/js/bundles/4.20.0/compiled-addons.min.js"></script>
 	<script type="text/javascript" src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/js/plugins/mdb-plugins-gathered.min.js"></script>
+	<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
 
 <script>
 // only load the layer when the cesium basemap has been created
 document.addEventListener('DOMContentLoaded', function() {
    loadVectorLayer();
+   graphs();
 }, false);
 </script>
 
@@ -136,7 +137,8 @@ document.addEventListener('DOMContentLoaded', function() {
 		slim: true});
   new WOW().init();})}
 </script>
-
+<script src="Build/Cesium/Cesium.js"></script>
+<script src="js/dashboard.js"></script>
 <div class="hiddendiv common"></div>
 <div class="drag-target" style="left: 0px;"></div>
 
