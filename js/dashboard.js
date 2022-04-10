@@ -33,7 +33,7 @@ function loadVectorLayer(){
 					var dataSource = new Cesium.GeoJsonDataSource();
 						dataSource.load(result[0]).then(function (dataSource){
 							viewer.dataSources.add(dataSource);
-							viewer.flyTo(dataSource);
+							viewer.zoomTo(dataSource);
 							var p = dataSource.entities.values;
 							for (var i = 0; i < p.length; i++) {
 								var entity = p[i];
@@ -93,4 +93,19 @@ function loadVectorLayer(){
 			}
 		});
 }
+
+//storing the original content of cesium map
+var mapElement = document.getElementById("content-wrapper").innerHTML;
+
+// show the cesium map on the main content 
+function showMap() {
+	//returing to original content - mapContainer
+	document.getElementById("content-wrapper").innerHTML = mapElement;
+	// load the cesium base map and asset point
+	loadVectorLayer();
+}
+
+// Showing bar plot with asset name as x-axis and condition as y-axis
+// chart code is adpated from https://canvasjs.com/javascript-charts/json-data-api-ajax-chart/
+var dataPoints = [];
 

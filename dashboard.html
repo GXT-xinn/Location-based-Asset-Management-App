@@ -8,8 +8,6 @@
 		<link rel="stylesheet" href="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/css/bootstrap.min.css">
 		<link rel="stylesheet" href="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/css/mdb.min.css">
 		<link rel="stylesheet" href="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/docs-app/css/compiled-addons-4.20.0.min.css">	
-		<script src="Build/Cesium/Cesium.js"></script>
-		<script src="js/dashboard.js"></script>
 		<!-- Use correct character set. -->
 		<meta charset="utf-8">
 		<!-- Tell IE to use the latest, best version. -->
@@ -57,7 +55,7 @@
 				<!-- Side navigation links -->
 				<li>
 				  <ul class="collapsible collapsible-accordion">
-					<li><a class="collapsible-header waves-effect arrow-r active"><i class="sv-slim-icon fas fa-map fa-fw me-3"></i> Cesium Map</a>
+					<li><a class="collapsible-header waves-effect arrow-r active" onclick="showMap()"><i class="sv-slim-icon fas fa-map fa-fw me-3"></i> Cesium Map</a>
 					</li>
 					<li><a class="collapsible-header waves-effect arrow-r active"><i class="sv-slim-icon fas fa-chart-column fa-fw me-3"></i> Bar Graph</a>
 					</li>
@@ -99,29 +97,30 @@
 		  <!--/.Double navigation-->
 
 		  <!--Main Layout-->
-		  <main>
-		    <div class="container-fluid h-full overflow-y-auto">
+		  <main id="content-wrapper">
+		   <div class="container-fluid">
 				<h2>Cesium Map</h2>
 			    <p>Assets inputted and rated by user are displayed in the map</p>
 				<br>
-				<div id="mapContainer" class="h-75 overflow-hidden">
+				<div id="mapContainer" class="h-75 shadow mb-5 bg-white rounded">
 					  <div id="cesiumContainer">
 					  </div>
 				</div>
 				
 			  <!-- End of Main Content -->
-		    </div>
+		   </div>
 		  </main>
 		  <!--Main Layout-->
 	
 		</body>
-
-<script type="text/javascript" src="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/js/jquery.min.js"></script>
-<script type="text/javascript" src="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/js/popper.min.js"></script>
-<script type="text/javascript" src="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/js/bootstrap.min.js"></script>
-<script type="text/javascript" src="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/js/mdb.min.js"></script>
-<script type="text/javascript" src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/docs-app/js/bundles/4.20.0/compiled-addons.min.js"></script>
-<script type="text/javascript" src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/js/plugins/mdb-plugins-gathered.min.js"></script>
+	<script src="Build/Cesium/Cesium.js"></script>
+	<script src="js/dashboard.js"></script>
+	<script type="text/javascript" src="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/js/jquery.min.js"></script>
+	<script type="text/javascript" src="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/js/popper.min.js"></script>
+	<script type="text/javascript" src="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/js/mdb.min.js"></script>
+	<script type="text/javascript" src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/docs-app/js/bundles/4.20.0/compiled-addons.min.js"></script>
+	<script type="text/javascript" src="https://mdbootstrap.com/wp-content/themes/mdbootstrap4/js/plugins/mdb-plugins-gathered.min.js"></script>
 
 <script>
 // only load the layer when the cesium basemap has been created
