@@ -323,6 +323,7 @@ function rankUser() {
 		
 		$.ajax({url: pointURL, crossDomain: true,success: function(result){
 			ranking = result[0].array_to_json[0].rank
+			console.log(result)
 			document.getElementById("userRank").innerHTML = ranking;
 		}
 		});
@@ -330,10 +331,32 @@ function rankUser() {
 }
 
 
+function sumReports(){
+	$.ajax({url: document.location.origin + "/api/getUserId", 
+	crossDomain: true,success: function(result){
+		console.log(JSON.stringify(result));
+		var userID = JSON.stringify(result);
+		// Extract solely the ID number
+		userID = JSON.parse(userID);
+		for(var i = 0; i < userID.length; i++){
+			userID = userID[i]['user_id'];};
+		// AJAX call for assets inputted by specific user (current user)
+		pointURL = document.location.origin + "/api/userConditionReports/" + userID +"";
+		
+		$.ajax({url: pointURL, crossDomain: true,success: function(result){
+			reports = result[0].array_to_json[0].num_reports
+			document.getElementById("NumberofReport").innerHTML = reports;
+		}
+		});
+	}});
+}
+
+
 function graphs(){
 	bargraph(),
 	linegraph(),
-	rankUser()
+	rankUser(),
+	sumReports()
 }
 
 	
