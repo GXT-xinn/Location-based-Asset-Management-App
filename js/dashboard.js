@@ -147,10 +147,6 @@ var graph = '<h2><strong>Graphs</strong></h2>'+
 '</div>';
 	
 
-	
-
-	
-
 function bargraph() {
     // init the bar chart by binding a certain div
 	document.getElementById("content-wrapper").innerHTML = graph;
@@ -314,9 +310,30 @@ function linegraph() {
 }
 
 
+function rankUser() {
+	$.ajax({url: document.location.origin + "/api/getUserId", 
+	crossDomain: true,success: function(result){
+		var userID = JSON.stringify(result);
+		// Extract solely the ID number
+		userID = JSON.parse(userID);
+		for(var i = 0; i < userID.length; i++){
+			userID = userID[i]['user_id'];};
+		// AJAX call for assets inputted by specific user (current user)
+		pointURL = document.location.origin + "/api/userRanking/" + userID +"";
+		
+		$.ajax({url: pointURL, crossDomain: true,success: function(result){
+			ranking = result[0].array_to_json[0].rank
+			document.getElementById("userRank").innerHTML = ranking;
+		}
+		});
+	}}); 
+}
+
+
 function graphs(){
 	bargraph(),
-	linegraph()
+	linegraph(),
+	rankUser()
 }
 
 	
