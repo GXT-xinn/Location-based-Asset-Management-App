@@ -179,9 +179,12 @@ function userRank() {
 }
 
 var the5assets
+// Created empty variables to hold user's coordinates
+var lon;
+var lat;
 function Show5Asset(position) {
 	// AJAX call for assets inputted by specific user (current user)
-		pointURL = document.location.origin + "/api/fiveClosestAssets/" + lat +"/"+ lon +"";
+		pointURL = document.location.origin + "/api/fiveClosestAssets/" + lon +"/"+ lat +"";
 		
 		$.ajax({url: pointURL, crossDomain: true,success: function(result){
 			
@@ -330,23 +333,4 @@ function RemoveRate() {
 	 } 
 	catch (err) { alert("Layer doesn’t exist :" + err); 
 	 } 
-}
-
-// Created empty variables to hold user's coordinates
-var lon
-var lat
-// Condition Assessment: Track user's location automatically
-function getLocation() {
-	if (navigator.geolocation) {
-		navigator.geolocation.watchPosition(showPosition);
-	}
-	else {
-		alert("Geolocation is not supported by this browser.");
-	}
-}
-
-function showPosition(position) {
-	lon = position.coords.latitude
-	lat = position.coords.longitude
-	console.log("Latitude: " + position.coords.latitude +", Longitude: " + position.coords.longitude)
 }

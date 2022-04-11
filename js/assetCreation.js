@@ -50,7 +50,9 @@ function processconditionData(postString) {
 			crossDomain: true,
 			async:false,
 			type: "POST",
-			success: function(data){console.log(data); alert(JSON.stringify(data));},
+			success: function(data){
+				console.log(data);
+				location.reload();},
 			data: postString
 		});
 }

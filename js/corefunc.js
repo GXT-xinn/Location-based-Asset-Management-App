@@ -11,8 +11,8 @@ function setMapClickEvent() {
 	if (width < 992) { 
 		if (assets){
 			mymap.removeLayer(assets);}
-		if (the5assets){
-			mymap.removeLayer(the5assets);}
+		if (mapPoint){
+		mymap.removeLayer(mapPoint);}
 	// we use the bootstrap Medium and Large options for the asset location capture
 	// and the small and XS options for the condition option
 	// see here: https://www.w3schools.com/bootstrap/bootstrap_grid_system.asp
@@ -21,16 +21,18 @@ function setMapClickEvent() {
 		mymap.off('click',onMapClick)
 		// set up a point with click functionality
 		setUpPointClick();
-		getLocation();
 	}
 	else { 
 		// the asset creation page
 		// remove the map point if it exists
 		if (mapPoint){
 		mymap.removeLayer(mapPoint);}
+		if (assets){
+			mymap.removeLayer(assets);}
 		// the on click functionality of the MAP should pop up a blank asset creation form
 		mymap.on('click', onMapClick);
 		exsitingPointClick();
+		removePositionPoints();
 	}
 };
 
@@ -111,6 +113,8 @@ function setUpPointClick() {
 		   			}
 		   		}).addTo(mymap);
 		   	mymap.fitBounds(mapPoint.getBounds());
+			getLocation();
+			closestFormPoint();
 		}
 		});
 	}});
