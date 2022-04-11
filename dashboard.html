@@ -100,8 +100,8 @@
 		  <!--/.Double navigation-->
 
 		  <!--Main Layout-->
-		  <main id="content-wrapper">
-		   <div class="container-fluid">
+		  <main>
+		   <div id="content-wrapper" class="container-fluid">
 				<h2><strong>Cesium Map</strong></h2>
 			    <p>Assets inputted and rated by user are displayed in the map</p>
 				<br>
@@ -112,6 +112,10 @@
 		   </div>
 		  </main>
 		  <!-- End of Main Content -->
+		  
+		  
+		  
+		  
 		  <!--Main Layout-->
 		</body>
 	<script type="text/javascript" src="https://mdbootstrap.com/api/snippets/static/download/MDB-Pro_4.20.0/js/jquery.min.js"></script>
@@ -126,7 +130,6 @@
 // only load the layer when the cesium basemap has been created
 document.addEventListener('DOMContentLoaded', function() {
    loadVectorLayer();
-   graphs();
 }, false);
 </script>
 

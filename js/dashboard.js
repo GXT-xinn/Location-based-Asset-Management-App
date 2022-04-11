@@ -3,7 +3,7 @@
 var op1 = "Element is in very good condition";
 var op2 = "Some aesthetic defects, needs minor repair";
 var op3 = "Functional degradation of some parts, needs maintenance";
-var op4 = "Not working and maintenance must be done as soon as reasonably possibl";
+var op4 = "Not working and maintenance must be done as soon as reasonably possible";
 var op5 = "Not working and needs immediate, urgent maintenance";
 
 		
@@ -77,32 +77,83 @@ function showMap() {
 
 // Showing bar plot with asset name as x-axis and condition as y-axis
 // card template adapted from Michal Szymanski
-// https://mdbootstrap.com/snippets/standard/ascensus/3330482?view=side#js-tab-view
-// get string http://pojo.sodhanalibrary.com/ConvertToVariable
-function graphs() {
-	var graph = '<section class="">'+
-		'			<div class="row gx-lg-5">'+
-		'			  <div class="col-lg-8 col-md-12 mb-4 mb-lg-0">'+
-		'				<div class="bg-glass shadow-4-strong rounded-6 h-50">'+
-		'				  <div class="p-4 border-bottom">'+
-		'					<div class="row align-items-center">'+
-		'					  <div class="col-6 mb-4 mb-md-0">'+
-		'						<h4><strong>Bar Plot</strong></h4>'+
-		'					  </div>'+
-		'					</div>'+
-		'				  </div>'+
-		'				  <div class="p-4">'+
-		'					<canvas id="barchart"></canvas>'+
-		'				  </div>'+
-		'				</div>'+
-		'			</div>'+
-		'		  </section>';
-    // init the bar chart by binding a certain div
-	document.getElementById("content-wrapper").innerHTML = graph
-    var barChart = echarts.init(document.getElementById('barchart'));
+// echart function is adpated from dyclassroom.com, link below
+// https://dyclassroom.com/chartjs/chartjs-how-to-draw-bar-graph-using-data-from-mysql-table-and-php
+// get string http://pojo.sodhanalibrary.com
 
-    // a local variable used to store the data and the option of the bar chart
-    var option1;
+
+
+var graph = '<h2><strong>Graphs</strong></h2>'+
+'<p>Information of user assets are displayed below</p>'+
+'<br>'+
+'<div class="row">'+
+'	<div class="col-sm-4">'+
+'		<div class="card">'+
+'			<div class="card-body">'+
+'				<h5 class="card-title text-mute">User Rank</h5>'+
+'				<p class="mb-0 h5 me-2" id="userRank"></p>'+
+'			</div>'+
+'		</div>'+
+'	</div>'+
+'	<div class="col-sm-4">'+
+'		<div class="card">'+
+'			<div class="card-body">'+
+'				<h5 class="card-title text-mute">Total Asset</h5>'+
+'				<p class="mb-0 h5 me-2" id="NumberofAsset"></p>'+
+'			</div>'+
+'		</div>'+
+'	</div>'+
+'	<div class="col-sm-4">'+
+'		<div class="card">'+
+'			<div class="card-body">'+
+'				<h5 class="card-title text-mute">Total Report</h5>'+
+'				<p class="mb-0 h5 me-2" id="NumberofReport"></p>'+
+'			</div>'+
+'		</div>'+
+'	</div>'+
+'</div>'+
+'<br>'+
+'<br>'+
+'<div class="row">'+
+'  <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">'+
+'	<div class="shadow rounded h-100">'+
+'	  <div class="p-4 border-bottom">'+
+'		<div class="row align-items-center">'+
+'		  <div class="col-6 mb-4 mb-md-0">'+
+'			<h5 class="mb-2">Asset Condition</h5>'+
+'		  </div>'+
+'		</div>'+
+'	  </div>'+
+'	  <div class="p-4">'+
+'		<canvas id="barchart" height="200px"></canvas>'+
+'	  </div>'+
+'	</div>'+
+'  </div>'+
+''+
+'  <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">'+
+'	<div class="shadow rounded h-100">'+
+'	  <div class="p-4 border-bottom">'+
+'		<div class="row align-items-center">'+
+'		  <div class="col-6 mb-4 mb-md-0">'+
+'			<h5 class="mb-2">Daily Report Rate</h5>'+
+'		  </div>'+
+'		</div>'+
+'	  </div>'+
+'	  <div class="p-4">'+
+'		<canvas id="linegraph" height="200px"></canvas>'+
+'	  </div>'+
+'	</div>'+
+'  </div>'+
+'</div>';
+	
+
+	
+
+	
+
+function bargraph() {
+    // init the bar chart by binding a certain div
+	document.getElementById("content-wrapper").innerHTML = graph;
 
     $.ajax({url: document.location.origin + "/api/getUserId", 
 			crossDomain: true,success: function(result){
@@ -116,52 +167,99 @@ function graphs() {
 				pointURL = document.location.origin + "/api/geoJSONUserId/" + userID +"";
 				$.ajax({url: pointURL, crossDomain: true,success: function(result){
             var data = result[0].features;
+			document.getElementById("NumberofAsset").innerHTML = data.length;
             // lists used to store the x and y data
             x = [];
 			y = [];
+			backcolor = [];
             // for each asset point
             for (var i = 0; i < data.length; i++) {
+				var chartColors = {
+				  case1: 'rgba(255, 99, 132, 0.7)',
+				  case2: 'rgba(54, 162, 235, 0.7)',
+				  case3: 'rgba(255, 206, 86, 0.7)',
+				  case4: 'rgba(75, 192, 192, 0.7)',
+				  case5: 'rgba(153, 102, 255, 0.7)'
+				};
                 // push the name to the x
                 x.push(data[i].properties.asset_name);
                 // push the condition 
                 var condition_value = data[i].properties.condition_description;
                 if (condition_value == op1) {
                     y.push(1);
+					backcolor.push(chartColors.case1);
                 }
                 else if (condition_value == op2) {
                     y.push(2);
+					backcolor.push(chartColors.case2);
                 }
                 else if (condition_value == op3) {
                     y.push(3);
+					backcolor.push(chartColors.case3);
                 }
                 else if (condition_value == op4) {
                     y.push(4);
+					backcolor.push(chartColors.case4);
                 }
                 else if (condition_value == op5) {
                     y.push(5);
+					backcolor.push(chartColors.case5);
                 }
                 else {
                     y.push(0);
+					backcolor.push(chartColors.case5);
                 }
             }
-            var chartdata = {
-				labels: x,
-				datasets : [
-				  {
-					label: 'Condition',
-					backgroundColor: 'rgba(200, 200, 200, 0.75)',
-					borderColor: 'rgba(200, 200, 200, 0.75)',
-					hoverBackgroundColor: 'rgba(200, 200, 200, 1)',
-					hoverBorderColor: 'rgba(200, 200, 200, 1)',
-					data: y
-				  }
-				]
-			  };
-            var ctx = document.getElementById('barchart');
-
+			var ctx = document.getElementById('barchart').getContext("2d");
 		    var barGraph = new Chart(ctx, {
 				type: 'bar',
-				data: chartdata
+				data: {
+						labels: x,
+						datasets : [
+						  {
+							label: 'Condition',
+							backgroundColor: backcolor,
+							data: y
+						  }]
+					},
+				 options: {
+					 tooltip: {},
+					  legend: {
+						display: false
+					  },
+					  scales: {
+						xAxes: [{
+							stacked: false,
+							beginAtZero: true,
+							ticks: {
+								stepSize: 1,
+								min: 0,
+								autoSkip: false
+							},
+							scaleLabel: {
+								display: true,
+								labelString: 'Asset Name',
+								fontStyle: 'italic',
+								fontSize: 12
+							  }
+						}],
+						yAxes: [{
+							stacked: false,
+							beginAtZero: true,
+							ticks: {
+								stepSize: 1,
+								min: 0,
+								autoSkip: false
+							},
+							scaleLabel: {
+								display: true,
+								labelString: 'Condition Value',
+								fontStyle: 'italic',
+								fontSize: 12
+							  }
+						}]
+					}
+				  }
 			  });
 			}
 		});
@@ -169,3 +267,56 @@ function graphs() {
 	});
 }
 
+
+function linegraph() {
+    // init the bar chart by binding a certain div
+	document.getElementById("content-wrapper").innerHTML = graph;
+
+
+		pointURL = document.location.origin + "/api/dailyParticipationRates";
+		$.ajax({url: pointURL, crossDomain: true,success: function(result){
+            var dataset = result[0].array_to_json;
+            // lists used to store the x and y data
+            x = [];
+			y = [];
+			y1 = [];
+            // for each asset point
+            for (var i = 0; i < dataset.length; i++) {
+				x.push(dataset[i].day);
+				y.push(dataset[i].reports_submitted);
+				y1.push(dataset[i].reports_not_working);
+            }
+			console.log(y);
+			console.log(y1);
+			var ctx = document.getElementById('linegraph').getContext("2d");
+		    var lineGraph = new Chart(ctx, {
+				type: 'line',
+				data: {
+						labels: x,
+						datasets :  [
+                        {
+                            label: "reports_submitted",
+                            fill: true,
+                            borderColor: "rgba(78, 171, 235, 0.6)",
+                            data: y
+                        },
+                        {
+                            label: "reports_not_working",
+							fill: true,
+                            borderColor: "rgba(255, 124, 152, 0.6)",
+                            data: y1
+                        }
+                    ]
+					}
+			  });
+			}
+		});
+}
+
+
+function graphs(){
+	bargraph(),
+	linegraph()
+}
+
+	
