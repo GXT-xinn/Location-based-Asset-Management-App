@@ -37,9 +37,8 @@ function checkCondition() {
 	else {
 		alert('The current selection has changed comparing to the previous selection for this asset condition')
 	}
-	
-	processconditionData(postString)
-	sumReports()
+	sumReports();
+	processconditionData(postString);
 };
 
 
@@ -51,8 +50,7 @@ function processconditionData(postString) {
 			async:false,
 			type: "POST",
 			success: function(data){
-				console.log(data);
-				location.reload();},
+				console.log(data);},
 			data: postString
 		});
 }
@@ -70,7 +68,8 @@ function sumReports(){
 		pointURL = document.location.origin + "/api/userConditionReports/" + userID +"";
 		
 		$.ajax({url: pointURL, crossDomain: true,success: function(result){
-			alert("You have submitted "+ result[0].array_to_json[0].num_reports + " reports in total");		
+				alert("You have submitted "+ result[0].array_to_json[0].num_reports + " reports in total");
+				location.reload();
 		}
 		});
 	}});
