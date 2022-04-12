@@ -140,12 +140,7 @@ function dailyReportRate() {
 }
 
 function help() {
-	setUpPointClick()
-	if (mapPoint){mymap.removeLayer(mapPoint);}
-	if (assets){mymap.removeLayer(assets);}
-	if (the5assets){mymap.removeLayer(the5assets);}
-	if (the5reports){mymap.removeLayer(the5reports);}
-	if (ratelayer){mymap.removeLayer(ratelayer);}
+	alert("help page is under construction")
 }
 
 function userRank() {
@@ -198,6 +193,7 @@ function Show5Asset(position) {
 		   				return L.marker(latlng).bindPopup(getPopupHTML(feature));}
 		   		}).addTo(mymap);
 		   	mymap.fitBounds(the5assets.getBounds());
+			removePositionPoints()
 		}
 		});
 }
@@ -205,6 +201,7 @@ function Show5Asset(position) {
 function Remove5Asset() {
 	try {
 	 mymap.removeLayer( the5assets ); 
+	 setUpPointClick()
 	 } 
 	catch (err) { alert("Layer doesn’t exist :" + err); 
 	 } 
@@ -287,11 +284,13 @@ function Show5Report() {
 		}
 		});
 	}});  
+	removePositionPoints()
 }
 
 function Remove5Report() {
 	try {
 	 mymap.removeLayer( the5reports ); 
+	 setUpPointClick()
 	 } 
 	catch (err) { alert("Layer doesn’t exist :" + err); 
 	 } 
@@ -326,10 +325,12 @@ function ShowRate() {
 		}
 		});
 	}}); 
+	removePositionPoints()
 }
 function RemoveRate() {
 	try {
 	 mymap.removeLayer( ratelayer ); 
+	 setUpPointClick()
 	 } 
 	catch (err) { alert("Layer doesn’t exist :" + err); 
 	 } 
