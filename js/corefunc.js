@@ -75,7 +75,7 @@ function setUpPointClick() {
 			 }); 
 			 var testMarkerYellow = L.AwesomeMarkers.icon({ 
 			 icon: 'play', 
-			 markerColor: 'yellow' 
+			 markerColor: 'orange' 
 			 }); 
 			 var testMarkerPurple = L.AwesomeMarkers.icon({ 
 			 icon: 'play', 

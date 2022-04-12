@@ -2,26 +2,105 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <meta name="description" content="My Page Description">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 		<link rel="stylesheet" href="css/styles.css?v=1.0">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<!-- CSS files -->
+		<link rel="stylesheet" type="text/css" href="jquery.tocify.css">
+		<link type="text/css" rel="stylesheet" href="bootstrap.css" />
+		<!-- Js Files -->
+		<script src="jquery-1.7.2.min.js"></script>
+		<script src="jquery-ui-1.9.1.custom.min.js"></script>
+		<script src="jquery.tocify.min.js"></script>
         <title>User Guide</title>
 		<style>
-		body {
-			  width: 100%; height: 100%; margin: 5; padding: 15; overflow: auto;
-			  background-color: #DBF9FC;
-		 }
+		   h1 {font-size: 34px;}
+		   h1.title {font-size: 38px;}
+		   h2 {font-size: 30px;}
+		   h3 {font-size: 24px;}
+		   h4 {font-size: 18px;}
+		   h5 {font-size: 16px;}
+		   h6 {font-size: 12px;}
+		   code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+		   pre:not([class]) { background-color: white }
 		</style>
+		<style type="text/css">
+		  code{white-space: pre-wrap;}
+		  span.smallcaps{font-variant: small-caps;}
+		  span.underline{text-decoration: underline;}
+		  div.column{display: inline-block; vertical-align: top; width: 50%;}
+		  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+		  ul.task-list{list-style: none;}
+		</style>
+		
     </head>
     <body>
-		<div align="center">
-			<h1><strong>User Guide</strong></h1>
-			<p></p>
+		<div class="container-fluid main-container">
+			<div class="row">
+				<div class="col-xs-12 col-sm-4 col-md-3">
+					<nav>
+						<div id="TOC" class="tocify">
+							<ul id="tocify-header0" class="tocify-header list-group">
+								<li class="tocify-item list-group-item active" data-unique="mainFunc" ><a href="#mainFunc"><strong>1. Main Function</strong></a></li>
+								<ul class="tocify-subheader list-group" data-tag="3">
+									<li class="tocify-item list-group-item" data-unique="11_mainFunc_"><a href="#11_mainFunc_">1.1 Introduction</a></li>
+									<li class="tocify-item list-group-item" data-unique="12_mainFunc"><a href="#12_mainFunc">1.2 Rate Asset</a></li>
+								</ul>
+							</ul>
+							<ul id="tocify-header1" class="tocify-header list-group">
+								<li class="tocify-item list-group-item active" data-unique="addFunc"><a href="#addFunc"><strong>2. Additional Function</strong></a></li>
+								<ul class="tocify-subheader list-group" data-tag="3">
+									<li class="tocify-item list-group-item" data-unique="11_addFunc"><a href="#11_addFunc">2.1 User Ranking</a></li>
+									<li class="tocify-item list-group-item" data-unique="12_addFunc"><a href="#12_addFunc">2.2 Layer: 5 closest assets</a></li>
+									<li class="tocify-item list-group-item" data-unique="13_addFunc"><a href="#13_addFunc">2.3 layer: 5 lastest reports</a></li>
+									<li class="tocify-item list-group-item" data-unique="14_addFunc"><a href="#14_addFunc">2.4 layer: non-rated assets (in last 3 days)</a></li>
+								</ul>
+							</ul>
+						</div>
+					</nav>
+				</div>
+				<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+					<div id="header">
+						<h1 class="title toc-ignore">User Guide for Bootstrap</h1>
+						<hr>
+					</div>
+					<div id="mainFunction" class="section level2" align="left">
+						<div id="mainFunc" data-unique="mainFunc"></div><h2><strong>1. Main Function</strong></h2>
+							<div id="intro" class="section level3" align="left">
+							<div id="11_mainFunc_" data-unique="11_mainFunc_"></div><h4>1.1 Introduction</h4>
+							</div>
+						<div id="assetRate" class="section level3" align="left">
+							<div id="12_mainFunc" data-unique="12_mainFunc"></div><h4>1.2 Rate Asset</h4>
+						</div>
+					</div>
+					<div id="addtFunction" class="section level2" align="left">
+						<div id="addFunc" data-unique="addFunc"></div>
+						<h2><strong>2. Addtional Function</strong></h2>
+						<div id="userRank" class="section level3" align="left">
+							<div id="11_addFunc" data-unique="11_addFunc"></div><h4>2.1 User Ranking</h4>
+						</div>
+						<div id="closest5A" class="section level3" align="left">
+							<div id="12_addFunc" data-unique="12_addFunc"></div><h4>2.2 Layer: 5 closest assets</h4>
+						</div>
+						<div id="last5C" class="section level3" align="left">
+							<div id="13_addFunc" data-unique="13_addFunc"></div><h4>2.3 layer: 5 lastest reports</h4>
+						</div>
+						<div id="nonrate3D" class="section level3" align="left">
+							<div id="14_addFunc" data-unique="14_addFunc"></div><h4>2.4 layer: non-rated assets (in last 3 days)</h4>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
-		<p class="font_8" style="font-size:28px; line-height:1.5em; text-align:center;">
-			<span style="font-family:droid-serif-w01-regular,droid-serif-w02-regular,droid-serif-w10-regular,serif;">
-				<span style="font-size:25px;"> Main Function: <span class="text-muted"></span></span>
-			</span>
-		</p>
+		<footer align="center">
+		  <p>Right reserved by Xintong Guan</p>
+		  <p>CEGE, University College London</p>
+		</footer>
     </body>
+<script type="text/javascript">
+$(document).ready(function() {
+  //Calls the tocify method on your HTML div.
+  $("#TOC").tocify();});
+</script>
+
 </html>
