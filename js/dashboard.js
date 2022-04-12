@@ -115,34 +115,30 @@ var graph = '<h2><strong>Graphs</strong></h2>'+
 '<br>'+
 '<br>'+
 '<div class="row">'+
-'  <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">'+
-'	<div class="shadow rounded h-100">'+
-'	  <div class="p-4 border-bottom">'+
-'		<div class="row align-items-center">'+
-'		  <div class="col-6 mb-4 mb-md-0">'+
-'			<h5 class="mb-2">Asset Condition</h5>'+
-'		  </div>'+
-'		</div>'+
-'	  </div>'+
-'	  <div class="p-4">'+
-'		<canvas id="barchart" height="200px"></canvas>'+
-'	  </div>'+
-'	</div>'+
-'  </div>'+
-''+
-'  <div class="col-lg-6 col-md-12 mb-4 mb-lg-0">'+
-'	<div class="shadow rounded h-100">'+
-'	  <div class="p-4 border-bottom">'+
-'		<div class="row align-items-center">'+
-'		  <div class="col-6 mb-4 mb-md-0">'+
-'			<h5 class="mb-2">Daily Report Rate</h5>'+
-'		  </div>'+
-'		</div>'+
-'	  </div>'+
-'	  <div class="p-4">'+
-'		<canvas id="linegraph" height="200px"></canvas>'+
-'	  </div>'+
-'	</div>'+
+'  <div class="col-lg-12 col-md-12 mb-4 mb-lg-0">'+
+'		<div class="card">'+
+'        <div class="card-header">'+
+'          <ul class="nav nav-tabs card-header-tabs" id="bologna-list" role="tablist">'+
+'            <li class="nav-item">'+
+'              <a class="nav-link active" href="#bar" role="tab" aria-controls="bar" aria-selected="true" onclick="bargraph()">Bar</a>'+
+'            </li>'+
+'            <li class="nav-item">'+
+'              <a class="nav-link"  href="#Line" role="tab" aria-controls="Line" aria-selected="false" onclick="linegraph()">Line</a>'+
+'            </li>'+
+'            <li class="nav-item">'+
+'              <a class="nav-link" href="#Doughnut" role="tab" aria-controls="Doughnut" aria-selected="false">Doughnut</a>'+
+'            </li>'+
+'          </ul>'+
+'        </div>'+
+'        <div id="canvasContainer" class="card-body">'+
+'          <h4 class="card-title" align="center">Asset Condition</h4>      '+
+'           <div class="tab-content mt-3">'+
+'            <div class="tab-pane active" role="tabpanel">'+
+'				<canvas id="barchart" height="200px"></canvas>'+
+'            </div>'+
+'          </div>'+
+'        </div>'+
+'      </div>'+
 '  </div>'+
 '</div>';
 	
@@ -153,7 +149,6 @@ function bargraph() {
 
     $.ajax({url: document.location.origin + "/api/getUserId", 
 			crossDomain: true,success: function(result){
-				console.log(JSON.stringify(result));
 				var userID = JSON.stringify(result);
 				// Extract solely the ID number
 				userID = JSON.parse(userID);
@@ -206,7 +201,7 @@ function bargraph() {
 					backcolor.push(chartColors.case5);
                 }
             }
-			var ctx = document.getElementById('barchart').getContext("2d");
+			var ctx = document.getElementById('barchart');
 		    var barGraph = new Chart(ctx, {
 				type: 'bar',
 				data: {
@@ -263,11 +258,15 @@ function bargraph() {
 	});
 }
 
-
+var lineChar = '<h4 class="card-title" align="center">Daily Report Rate</h4>      '+
+'   <div class="tab-content mt-3">'+
+'	<div class="tab-pane active" id="Line" role="tabpanel">'+
+'		<canvas id="linegraph" height="200px"></canvas>'+
+'	</div>'+
+'  </div>';
 function linegraph() {
     // init the bar chart by binding a certain div
-	document.getElementById("content-wrapper").innerHTML = graph;
-
+	document.getElementById("canvasContainer").innerHTML = lineChar;
 
 		pointURL = document.location.origin + "/api/dailyParticipationRates";
 		$.ajax({url: pointURL, crossDomain: true,success: function(result){
@@ -323,18 +322,15 @@ function rankUser() {
 		
 		$.ajax({url: pointURL, crossDomain: true,success: function(result){
 			ranking = result[0].array_to_json[0].rank
-			console.log(result)
 			document.getElementById("userRank").innerHTML = ranking;
 		}
 		});
 	}}); 
 }
 
-
 function sumReports(){
 	$.ajax({url: document.location.origin + "/api/getUserId", 
 	crossDomain: true,success: function(result){
-		console.log(JSON.stringify(result));
 		var userID = JSON.stringify(result);
 		// Extract solely the ID number
 		userID = JSON.parse(userID);
@@ -351,12 +347,30 @@ function sumReports(){
 	}});
 }
 
-
+function totalAsset(){
+	$.ajax({url: document.location.origin + "/api/getUserId", 
+			crossDomain: true,success: function(result){
+				var userID = JSON.stringify(result);
+				// Extract solely the ID number
+				userID = JSON.parse(userID);
+				for(var i = 0; i < userID.length; i++){
+					userID = userID[i]['user_id'];};
+				// AJAX call for assets inputted by specific user (current user)
+				pointURL = document.location.origin + "/api/geoJSONUserId/" + userID +"";
+				$.ajax({url: pointURL, crossDomain: true,success: function(result){
+					var data = result[0].features;
+					document.getElementById("NumberofAsset").innerHTML = data.length;
+				}
+				})
+			}
+	})
+}
+				
 function graphs(){
 	bargraph(),
-	linegraph(),
 	rankUser(),
 	sumReports()
+	totalAsset()
 }
 
 	
