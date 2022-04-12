@@ -4,11 +4,11 @@ Simple overview of use/purpose.
 
 ## Table of Contents
 
-1. [1. System Requirements](#1)
-2. [2. Deployment](#2)
-2. [3. Testing](#3)
-2. [4. File description](#4)
-2. [5. Code reference & Acknowledgments](#5)
+1. [System Requirements](#1)
+2. [Deployment](#2)
+3. [Testing](#3)
+4. [File description](#4)
+5. [Code reference & Acknowledgments](#5)
 
 ## Getting Started
 
