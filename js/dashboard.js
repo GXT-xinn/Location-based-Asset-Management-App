@@ -118,7 +118,7 @@ var graph = '<h2><strong>Graphs</strong></h2>'+
 '  <div class="col-lg-12 col-md-12 mb-4 mb-lg-0">'+
 '		<div class="card">'+
 '        <div class="card-header">'+
-'          <ul class="nav nav-tabs card-header-tabs" id="bologna-list" role="tablist">'+
+'          <ul class="nav nav-tabs card-header-tabs" id="navTab" role="tablist">'+
 '            <li class="nav-item">'+
 '              <a class="nav-link active" href="#bar" role="tab" aria-controls="bar" aria-selected="true" onclick="bargraph()">Bar</a>'+
 '            </li>'+
@@ -309,6 +309,14 @@ function linegraph() {
 }
 
 
+var pieChar = '<h4 class="card-title" align="center">Pie Chart on Asset Condition</h4>      '+
+'   <div class="tab-content mt-3">'+
+'	<div class="tab-pane active" id="Doughnut" role="tabpanel">'+
+'		<canvas id="douChart" height="200px"></canvas>'+
+'	</div>'+
+'  </div>';
+
+
 function rankUser() {
 	$.ajax({url: document.location.origin + "/api/getUserId", 
 	crossDomain: true,success: function(result){
@@ -373,4 +381,3 @@ function graphs(){
 	totalAsset()
 }
 
-	

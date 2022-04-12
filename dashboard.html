@@ -134,17 +134,18 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <script type="text/javascript">
-{$(document).ready(function() {
+$(document).ready(function() {
   // SideNav Initialization
   $(".button-collapse").sideNav({
 		slim: true});
-  new WOW().init();})}
+  new WOW().init();
+  
+});
 </script>
 <script type="text/javascript">
-$('#bologna-list a').on('click', function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
+$(document).on('click','#navTab a', function (e) {  e.preventDefault();
+  $(this).tab('show');
+});
 </script>
 <script src="Build/Cesium/Cesium.js"></script>
 <script src="js/dashboard.js"></script>
