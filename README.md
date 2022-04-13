@@ -38,7 +38,7 @@ All assets are displayed as POINTS on the Leaflet map.
 <a name="2"></a>
 ### 2. Deployment
 
-* Procedures to deploy this app:
+* **Procedures to deploy this app**:
 
 1. Clone the source code of this asset condition assessment app from Github to CEGE server at ```home/studentuser/code``` by typing in the command line (terminal) window for Ubuntu: 
 
@@ -76,7 +76,7 @@ node app.js
 <a name="3"></a>
 ### 3. Testing
 
-* Procedures to test this app:
+* ***Procedures to test this app***:
 
 1. Make sure your device is connected to UCL Wifi or UCL VPN.
 2. Make sure the Node JS server is active.
@@ -100,7 +100,7 @@ The files associated to the Asset Condition Assessment App are located in the ``
 		* DIV
 
 		|       id       |    description   |
-		| :------------: | :--------------  |
+		|  ------------  |  --------------  |
 		|wrapper         |  Hold all divs.  |
 		|sidebar         |  Hold the accordion Sidebar and buttons corresponding to their functions.|
 		|content-wrapper |  Hold content interconnected to the sidebar buttons. |
@@ -111,7 +111,7 @@ The files associated to the Asset Condition Assessment App are located in the ``
 		* NAV-LINKS
 		
 		|                 name                  |    description   |
-		|    :----------------------------:     | :--------------  |
+		|     ----------------------------      |  --------------  |
 		|List of Assets in Best Condition       |  Display D3 table showing a list of assets with least one best condition report.  |
 		|Daily Reporting Rates Graph – All Users|  Display D3 multibar chart showing daily reporting rates for the past week for all user. Values are categorized to two types: reports_submitted and reports_not_working (known as reports with the worst condition values) |
 		|Help                                   |  Link to the User Guide webpage for the step-by-step guideline on Condition Assessment App. |
@@ -133,7 +133,7 @@ The files associated to the Asset Condition Assessment App are located in the ``
 	* ```basicMap.js```: ```loadLeafletMap()``` loads the leaflet map and set the default view and zoom, as well as loading the basemap tiles
 	
 	* ```calculatedist.js```: Functions are designed to consistently track user's location and calculate the closest asset (as proximity alert)
-		
+	| :------------: | :--------------: |
 	| function       |   description    |
 	| ------------   |  --------------  |
 	|getLocation()         |  Consistently Tracking user's location  |
@@ -143,7 +143,7 @@ The files associated to the Asset Condition Assessment App are located in the ``
 	|removePositionPoints()   |  Disables the location tracking to remove all points created through tracking. |
 	
 	* ```assetCreation.js```: Save information submitted through Asset Creation App and Condition Assessment App.
-	
+	| :------------: | :--------------: |
 	| function       |   description    |
 	| ------------   |  --------------  |
 	|checkCondition()         |  Prepares the values entered through condition form for database insertion and raise alert for user to double check their condition selection and comparing to the previous condition selection.   |
@@ -152,9 +152,33 @@ The files associated to the Asset Condition Assessment App are located in the ``
 	|saveNewAsset()    |  Prepare the values entered through asset form for database insertion.|
 	|processAssetData()   |  Ajax call to insert new asset information to the PostgreSQL database. |
 	
-	* ```corefunc.js```
+	* ```corefunc.js```: Functions create the default map layers for the asset condition assessment app.
+	| :------------: | :--------------: |
+	| function       |   description    |
+	| ------------   |  --------------  |
+	|setMapClickEvent()   |  Recognizes the window size and activate corresponding app. For window width smaller than 992px, Condition Assessment App will be activate, and vice versa.  |
+	|setUpPointClick()    |  Loads User's asset points and Creates colour-code markers based on latest codition value for Condition Assessment app. |
+	|getPopupHTML()       |  Creates the condition asessment form. This function also holds the condition value before submission as an hidden variable. |
+	|onMapClick()         |  Gets coordinates when users click on the map. |
+	|basicFormHtml()      |  Creates the asset creation form. |
+	|exsitingPointClick() |  Loads and creates all assets created by user as points to the map for the Asset Creation app.|
+	|existingPopupHTML()  |  Creates a read-only form as a popup when users click on the marker under the Asset Creation app.|
 	
-	* ```menu.js```
+	* ```menu.js```: This covers all that Advance Functionality 2 is asked in assignment 5.
+	| :------------: | :--------------: |
+	| function       |   description    |
+	| ------------   |  --------------  |
+	|bestCondition()         |  Retreives assets' information which have at least one report with the best condition value and displays the information on a table.|
+	|closebestCondition()    |  Removes the table window. |
+	|dailyReportRate()       |  Retreives the reporting acitivity for the past week and displays information in a multibar graph.  |
+	|closeGraph()            |  Removes the graph window|
+	|userRank()              |  Raises an alert message informing user their ranking based on number of condition reports created. |
+	|Show5Asset()            |  Creates a map layer showing the 5 assets, added by any user, thats are closest to the user's current location. |
+	|Remove5Asset()          |  Remove the 5 closest assets layer and return to the default map layer.|
+	|Show5Report()           |  Creates a map layer showing the last 5 reports with color, in respect of their condition description, created by the user. |
+	|Remove5Report()         |  Remove the 5 latest reports layer and return to the default map layer.|
+	|ShowRate()              |  Creates a map layer showing assets which user has not rated in last 3 days. |
+	|RemoveRate()            |  Remove the layer containing assets that are not rated in last 3 days and return to the default map layer. |
 
 
 * ```~/cege0043-apps-21-22-GXT-xinn/css```
