@@ -80,14 +80,14 @@ node app.js
 
 1. Make sure your device is connected to UCL Wifi or UCL VPN.
 2. Make sure the Node JS server is active.
-3.1. Asset Creation App
+3. **Asset Creation App**
 	* Make sure operating hardware has a width of the screen **Larger** than 994px
-3.2. Condition Assessment App
+4. **Condition Assessment App**
 	* Make sure operating hardware has a width of the screen **Smaller** than 994px
-4. In a browser that supports geolocation access via http connection (such as Chrome or Firefox),
+5. In a browser that supports geolocation access via http connection (such as Chrome or Firefox),
 type the following address to use the asset condition assessment app:
 https://cege0043-2022-45.cs.ucl.ac.uk/app/bootStrap.html
-5. While testing the functionality of this map, use of Inspect or Developer mode of the browser to see if any error occurs.
+6. While testing the functionality of this map, use of Inspect or Developer mode of the browser to see if any error occurs.
 
 [Go to Top](#top)
 
@@ -95,18 +95,71 @@ https://cege0043-2022-45.cs.ucl.ac.uk/app/bootStrap.html
 ## 4. File description
 
 The files associated to the Asset Condition Assessment App are located in the ```cege0043-apps-21-22-GXT-xinn``` folder and its subfolders.
-* ~/cege0043-apps-21-22-GXT-xinn
-	* ```bootStrap.html```: The main html file of this app, through which user could use both Asset Creation App and Condition Assessment App on demand. This file interconnects most resources within the ```~/cege0043-apps-21-22-GXT-xinn```(except the ```~/Build``` and ```dashboard.html```). This file constains several divs and menu buttons.
+* ```~/cege0043-apps-21-22-GXT-xinn```
+	* ```bootStrap.html```: The main html file of this app, through which user could use both Asset Creation App and Condition Assessment App on demand. This file interconnects most resources within the ```~/cege0043-apps-21-22-GXT-xinn```(except the ```~/Build``` and ```dashboard.html```). This file constains several divs and menu links.
 		* DIV
 
 		|       id       |    description   |
 		| :------------: | :--------------  |
 		|wrapper         |  Hold all divs.  |
-		|sidebar         |  Hold the accordion Sidebar to disply list of assets with least one best condition report and D3 chart containing user's daily report rate for Asset Creation App. Hold the accordion Sidebar to add and remove layer for 5 closest asset, last 5 reports, or assets unrated in last 3 days. Additionally, User Rank message link and Help link for user guide webpage.|
+		|sidebar         |  Hold the accordion Sidebar and buttons corresponding to their functions.|
 		|content-wrapper |  Hold content interconnected to the sidebar buttons. |
 		|mapContainer    |  Hold the leaf map.|
-		|listContainer   |  Hold D3 table containing a list of assets with least one best condition report. |
+		|listContainer   |  Hold D3 table showing a list of assets with least one best condition report. |
 		|graphContainer  |  Hold D3 multibar chart showing daily reporting rates for the past week. |
+		
+		* NAV-LINKS
+		
+		|                 name                  |    description   |
+		|    :----------------------------:     | :--------------  |
+		|List of Assets in Best Condition       |  Display D3 table showing a list of assets with least one best condition report.  |
+		|Daily Reporting Rates Graph – All Users|  Display D3 multibar chart showing daily reporting rates for the past week for all user. Values are categorized to two types: reports_submitted and reports_not_working (known as reports with the worst condition values) |
+		|Help                                   |  Link to the User Guide webpage for the step-by-step guideline on Condition Assessment App. |
+		|User Ranking                           |  Alert message telling user their rank based on the total number of reports submitted comparing to other users in the database. |
+		|Add Layer - 5 closest assets           |  Load map layer showing the 5 assets closest to the user's current location, added by any user. |
+		|Remove Layer - 5 closest assets        |  Remove the 5 closest assets layer and return to the default map layer. |
+		|Add Layer – last 5 reports, colour coded    |  Load map layer showing the last 5 reports created by the user (colour coded depending on the condition value). |
+		|Remove layer – last 5 reports          |  Remove the 5 reports layer and return to the default map layer. |
+		|Add Layer – not rated in the last 3 days    |  Load map layer that shows assets and that user hasn't rated in the last 3 days. |
+		|Remove Layer – not rated in the last 3 days |  Remove the unrated assets layer and return to the default map layer. |
+	
+	* ```UserGuide.html```: The step-by-step guideline for user to use the Condition Assessment App. This links to the Help navigation link on the side menu.
+
+* ```~/cege0043-apps-21-22-GXT-xinn/js```: Containing Javascript files required by ```bootStrap.html``` and ```UserGuide.html```.
+	* ```leaflet.awesome-markers.js``` : Add colorful iconic markers for Leaflet.
+	
+	* ```sb-admin-2.js```: Activate sidebar functionalities
+	
+	* ```basicMap.js```: ```loadLeafletMap()``` loads the leaflet map and set the default view and zoom, as well as loading the basemap tiles
+	
+	* ```calculatedist.js```: Functions are designed to consistently track user's location and calculate the closest asset (as proximity alert)
+		
+	| function       |   description    |
+	| ------------   |  --------------  |
+	|getLocation()         |  Consistently Tracking user's location  |
+	|showPosition()         |  Extracts the coordinates of user's location and uses coordinates to perform ```closestFormPoint()```. |
+	|closestFormPoint() |  Loops through the points on the default map layer and use ```calculateDistance()``` function to finds the closest asset point and automatically pops up the condition form. It requires two parameters: user's latitude and user's longitude.|
+	|calculateDistance()    |  Calculates the distance between two points, requires 5 parameters: lat1, lon1, lat2, lon2, and unit.|
+	|removePositionPoints()   |  Disables the location tracking to remove all points created through tracking. |
+	
+	* ```assetCreation.js```: Save information submitted through Asset Creation App and Condition Assessment App.
+	
+	| function       |   description    |
+	| ------------   |  --------------  |
+	|checkCondition()         |  Prepares the values entered through condition form for database insertion and raise alert for user to double check their condition selection and comparing to the previous condition selection.   |
+	|processconditionData()         |  Ajax call to insert condition information to the PostgreSQL database. |
+	|sumReports() |  Raise alert message to inform user their total report submittion. |
+	|saveNewAsset()    |  Prepare the values entered through asset form for database insertion.|
+	|processAssetData()   |  Ajax call to insert new asset information to the PostgreSQL database. |
+	
+	* ```corefunc.js```
+	
+	* ```menu.js```
+
+
+* ```~/cege0043-apps-21-22-GXT-xinn/css```
+	* Setting up styles of ```bootStrap.html``` (such as fonts and margins) and incorporating the CSS required for custom icon creation.
+	* ```~/css/images```: containing the images required for the custom icon creation and default user image for ```dashboard.html```.
 
 
 [Go to Top](#top)
