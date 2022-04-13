@@ -133,7 +133,7 @@ The files associated to the Asset Condition Assessment App are located in the ``
 	* ```basicMap.js```: ```loadLeafletMap()``` loads the leaflet map and set the default view and zoom, as well as loading the basemap tiles
 	
 	* ```calculatedist.js```: Functions are designed to consistently track user's location and calculate the closest asset (as proximity alert)
-	| :------------: | :--------------: |
+	
 	| function       |   description    |
 	| ------------   |  --------------  |
 	|getLocation()         |  Consistently Tracking user's location  |
@@ -143,7 +143,7 @@ The files associated to the Asset Condition Assessment App are located in the ``
 	|removePositionPoints()   |  Disables the location tracking to remove all points created through tracking. |
 	
 	* ```assetCreation.js```: Save information submitted through Asset Creation App and Condition Assessment App.
-	| :------------: | :--------------: |
+	
 	| function       |   description    |
 	| ------------   |  --------------  |
 	|checkCondition()         |  Prepares the values entered through condition form for database insertion and raise alert for user to double check their condition selection and comparing to the previous condition selection.   |
@@ -153,7 +153,7 @@ The files associated to the Asset Condition Assessment App are located in the ``
 	|processAssetData()   |  Ajax call to insert new asset information to the PostgreSQL database. |
 	
 	* ```corefunc.js```: Functions create the default map layers for the asset condition assessment app.
-	| :------------: | :--------------: |
+	
 	| function       |   description    |
 	| ------------   |  --------------  |
 	|setMapClickEvent()   |  Recognizes the window size and activate corresponding app. For window width smaller than 992px, Condition Assessment App will be activate, and vice versa.  |
@@ -165,7 +165,7 @@ The files associated to the Asset Condition Assessment App are located in the ``
 	|existingPopupHTML()  |  Creates a read-only form as a popup when users click on the marker under the Asset Creation app.|
 	
 	* ```menu.js```: This covers all that Advance Functionality 2 is asked in assignment 5.
-	| :------------: | :--------------: |
+	
 	| function       |   description    |
 	| ------------   |  --------------  |
 	|bestCondition()         |  Retreives assets' information which have at least one report with the best condition value and displays the information on a table.|
