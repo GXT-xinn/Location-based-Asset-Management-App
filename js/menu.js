@@ -139,9 +139,6 @@ function dailyReportRate() {
 	});
 }
 
-function help() {
-	alert("help page is under construction")
-}
 
 function userRank() {
 	$.ajax({url: document.location.origin + "/api/getUserId", 
