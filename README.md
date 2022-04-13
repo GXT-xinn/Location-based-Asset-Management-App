@@ -1,6 +1,6 @@
 # Asset Condition Assessment App
 
-A technical guide for an asset condition assessment app. The asset condition assessment app contains two parts: Asset Creation App and Condition Assessment App. Asset Creation App only available on large or extra large screen devices, like browser. Condition Assessment App is only activated on a small or medium screen devices, like smartphone. This app allows the user to create a new asset by clicking on the map (through browser) and allows the user to capture the condition of an asset (through phone) by press on a marker on a Leaflet map. Asset Creation App is able to save new assets information,including location, asset name, and installation date, to the database. It is also able to retrieve asset information to serve the Condition Assessment App. The Condition Assessment App is able to save new condition report to the database and retrieve the conditions of existed assets information from the database.
+A technical guide for an asset condition assessment app. The asset condition assessment app contains two parts: Asset Creation App and Condition Assessment App. Asset Creation App only available on large or extra large screen devices, like browser. Condition Assessment App is only activated on a small or medium screen devices, like smartphone. This app allows the user to create a new asset by clicking on the map (through browser) and allows the user to capture the condition of an asset (through phone) by press on a marker on a Leaflet map. Asset Creation App is able to save new assets information, including location, asset name, and installation date, to the database. It is also able to retrieve asset information to serve the Condition Assessment App. The Condition Assessment App is able to save new condition report to the database and retrieve the conditions of existed assets information from the database.
 
 All assets are displayed as POINTS on the Leaflet map.
 
@@ -39,36 +39,36 @@ All assets are displayed as POINTS on the Leaflet map.
 
 * Procedures to deploy this app:
 
-1. Clone the source code of this asset condition assessment app from Github to CEGE server at ```home/studentuser/code``` by typing in the command line (terminal) window for Ubuntu: 
+	1. Clone the source code of this asset condition assessment app from Github to CEGE server at ```home/studentuser/code``` by typing in the command line (terminal) window for Ubuntu: 
 
-```
-cd /home/studentuser/code 
-git clone https://github.com/ucl-geospatial-21-22/cege0043-apps-21-22-GXT-xinn.git
-```
-
-
-2. Clone the source code of the corresponding Node JS server from Github to CEGE server at ```home/studentuser/code```.
-
-```
-cd /home/studentuser/code
-git clone https://github.com/ucl-geospatial-21-22/cege0043-api-21-22-GXT-xinn.git
-```
+	```
+	cd /home/studentuser/code 
+	git clone https://github.com/ucl-geospatial-21-22/cege0043-apps-21-22-GXT-xinn.git
+	```
 
 
-3. Go to the cege0043-api-21-22-GXT-xinn folder and start the Node JS server.
+	2. Clone the source code of the corresponding Node JS server from Github to CEGE server at ```home/studentuser/code```.
 
-```
-cd /home/studentuser/code/cege0043-api-21-22-GXT-xinn
-pm2 start dataAPI.js
-```
+	```
+	cd /home/studentuser/code
+	git clone https://github.com/ucl-geospatial-21-22/cege0043-api-21-22-GXT-xinn.git
+	```
 
 
-4. Make sure the Node JS server is successfully started. If any error occurs, you could enter the debug mode through the command line window by typing
+	3. Go to the cege0043-api-21-22-GXT-xinn folder and start the Node JS server.
 
-```
-cd /home/studentuser/code/cege0043-apps-21-22-GXT-xinn
-node app.js
-```
+	```
+	cd /home/studentuser/code/cege0043-api-21-22-GXT-xinn
+	pm2 start dataAPI.js
+	```
+
+
+	4. Make sure the Node JS server is successfully started. If any error occurs, you could enter the debug mode through the command line window by typing
+
+	```
+	cd /home/studentuser/code/cege0043-apps-21-22-GXT-xinn
+	node app.js
+	```
 
 
 <a name="3"></a>
@@ -76,10 +76,12 @@ node app.js
 
 * Procedures to test this app:
 
-1. Make sure your device is connected to UCL Wifi or UCL VPN.
-2. Make sure the Node JS server is active.
-3. In a browser that supports geolocation access via http connection (such as Chrome or Firefox),type the following address to use the asset condition assessment app. https://cege0043-2022-45.cs.ucl.ac.uk/app/bootStrap.html
-4. While testing the functionality of this map, use of Inspect or Developer mode of the browser to see if any error occurs.
+	1. Make sure your device is connected to UCL Wifi or UCL VPN.
+	2. Make sure the Node JS server is active.
+	3. In a browser that supports geolocation access via http connection (such as Chrome or Firefox),
+	type the following address to use the asset condition assessment app:
+	https://cege0043-2022-45.cs.ucl.ac.uk/app/bootStrap.html
+	4. While testing the functionality of this map, use of Inspect or Developer mode of the browser to see if any error occurs.
 
 
 <a name="4"></a>
