@@ -126,7 +126,7 @@ var graph = '<h2><strong>Graphs</strong></h2>'+
 '              <a class="nav-link"  href="#Line" role="tab" aria-controls="Line" aria-selected="false" onclick="linegraph()">Line</a>'+
 '            </li>'+
 '            <li class="nav-item">'+
-'              <a class="nav-link" href="#Doughnut" role="tab" aria-controls="Doughnut" aria-selected="false">Doughnut</a>'+
+'              <a class="nav-link" href="#Radar" role="tab" aria-controls="Radar" aria-selected="false" onclick="Radar()" >Radar</a>'+
 '            </li>'+
 '          </ul>'+
 '        </div>'+
@@ -142,11 +142,16 @@ var graph = '<h2><strong>Graphs</strong></h2>'+
 '  </div>'+
 '</div>';
 	
+var barChar = '<h4 class="card-title" align="center">Asset Condition</h4>      '+
+'   <div class="tab-content mt-3">'+
+'	<div class="tab-pane active" id="Line" role="tabpanel">'+
+'		<canvas id="barchart" height="200px"></canvas>'+
+'	</div>'+
+'  </div>';
 
 function bargraph() {
     // init the bar chart by binding a certain div
-	document.getElementById("content-wrapper").innerHTML = graph;
-
+	document.getElementById("canvasContainer").innerHTML = barChar;
     $.ajax({url: document.location.origin + "/api/getUserId", 
 			crossDomain: true,success: function(result){
 				var userID = JSON.stringify(result);
@@ -158,7 +163,6 @@ function bargraph() {
 				pointURL = document.location.origin + "/api/geoJSONUserId/" + userID +"";
 				$.ajax({url: pointURL, crossDomain: true,success: function(result){
             var data = result[0].features;
-			document.getElementById("NumberofAsset").innerHTML = data.length;
             // lists used to store the x and y data
             x = [];
 			y = [];
@@ -281,8 +285,6 @@ function linegraph() {
 				y.push(dataset[i].reports_submitted);
 				y1.push(dataset[i].reports_not_working);
             }
-			console.log(y);
-			console.log(y1);
 			var ctx = document.getElementById('linegraph').getContext("2d");
 		    var lineGraph = new Chart(ctx, {
 				type: 'line',
@@ -309,13 +311,94 @@ function linegraph() {
 }
 
 
-var pieChar = '<h4 class="card-title" align="center">Pie Chart on Asset Condition</h4>      '+
+var douChart = '<h4 class="card-title" align="center">Radar Chart on Asset Condition</h4>      '+
 '   <div class="tab-content mt-3">'+
-'	<div class="tab-pane active" id="Doughnut" role="tabpanel">'+
+'	<div class="tab-pane active" id="Radar" role="tabpanel">'+
 '		<canvas id="douChart" height="200px"></canvas>'+
 '	</div>'+
 '  </div>';
 
+function Radar(){
+	    // init the bar chart by binding a certain div
+	document.getElementById("canvasContainer").innerHTML = douChart;
+
+	$.ajax({url: document.location.origin + "/api/getUserId", 
+			crossDomain: true,success: function(result){
+				var userID = JSON.stringify(result);
+				// Extract solely the ID number
+				userID = JSON.parse(userID);
+				for(var i = 0; i < userID.length; i++){
+					userID = userID[i]['user_id'];};
+				// AJAX call for assets inputted by specific user (current user)
+				pointURL = document.location.origin + "/api/geoJSONUserId/" + userID +"";
+				$.ajax({url: pointURL, crossDomain: true,success: function(result){
+            var data = result[0].features;
+            // lists used to store the x and y data
+            x = [];
+			y = [];
+			y1 = [];
+			y2 = [];
+			y3 = [];
+			y4 = [];
+			y5 = [];
+            // for each asset point
+            for (var i = 0; i < data.length; i++) {
+				a = 0
+                // push the condition 
+				var condition_value = ["Element is in very good condition", "Some aesthetic defects, needs minor repair",
+				"Functional degradation of some parts, needs maintenance","Not working and maintenance must be done as soon as reasonably possible",
+				"Not working and needs immediate, urgent maintenance", "Unknown"]
+                var condition = data[i].properties.condition_description;
+                if (condition == op1) {
+					a += 1;
+                    y1.push(a.length);
+					
+                }
+                else if (condition == op2) {
+					a += 1;
+                    y2.push(a);
+                }
+                else if (condition == op3) {
+					a += 1;
+                    y3.push(a);
+                }
+                else if (condition == op4) {
+					a += 1;
+                    y4.push(a);
+                }
+                else if (condition == op5) {
+					a += 1;
+                    y5.push(a);
+                }
+                else {
+					a += 1;
+                    y.push(a);
+                }
+            }
+			var ctx = document.getElementById('douChart');
+		    var douChart = new Chart(ctx, {
+				type: 'radar',
+				data: {
+						labels: condition_value,
+						datasets : [
+						  {
+							label: "Number of Assets in Each Condition",
+							fill: true,
+							backgroundColor: 'rgba(54, 162, 235, 0.2)',
+							borderColor: 'rgb(54, 162, 235)',
+							pointBackgroundColor: 'rgb(54, 162, 235)',
+							pointBorderColor: '#fff',
+							pointHoverBackgroundColor: '#fff',
+							pointHoverBorderColor: 'rgb(54, 162, 235)',
+							data: [y1.length, y2.length, y3.length, y4.length, y5.length, y.length]
+						  }]
+					}
+			  });
+			}
+		});
+	} 
+	});
+}
 
 function rankUser() {
 	$.ajax({url: document.location.origin + "/api/getUserId", 
@@ -375,9 +458,9 @@ function totalAsset(){
 }
 				
 function graphs(){
+	document.getElementById("content-wrapper").innerHTML = graph;
 	bargraph(),
 	rankUser(),
-	sumReports()
+	sumReports(),
 	totalAsset()
 }
-
