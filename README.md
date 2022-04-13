@@ -46,6 +46,7 @@ cd /home/studentuser/code
 git clone https://github.com/ucl-geospatial-21-22/cege0043-apps-21-22-GXT-xinn.git
 ```
 
+
 2. Clone the source code of the corresponding Node JS server from Github to CEGE server at ```home/studentuser/code```.
 
 ```
@@ -53,12 +54,14 @@ cd /home/studentuser/code
 git clone https://github.com/ucl-geospatial-21-22/cege0043-api-21-22-GXT-xinn.git
 ```
 
+
 3. Go to the cege0043-api-21-22-GXT-xinn folder and start the Node JS server.
 
 ```
 cd /home/studentuser/code/cege0043-api-21-22-GXT-xinn
 pm2 start dataAPI.js
 ```
+
 
 4. Make sure the Node JS server is successfully started. If any error occurs, you could enter the debug mode through the command line window by typing
 
@@ -71,24 +74,34 @@ node app.js
 <a name="3"></a>
 ### 3. Testing
 
+* Procedures to test this app:
 
-* How to run the program
-* Step-by-step bullets
-```
-code blocks for commands
-```
+1. Make sure your device is connected to UCL Wifi or UCL VPN.
+2. Make sure the Node JS server is active.
+3. In a browser that supports geolocation access via http connection (such as Chrome or Firefox),type the following address to use the asset condition assessment app. https://cege0043-2022-45.cs.ucl.ac.uk/app/bootStrap.html
+4. While testing the functionality of this map, use of Inspect or Developer mode of the browser to see if any error occurs.
+
+
 <a name="4"></a>
 ## 4. File description
 
-Any advise for common problems or issues.
-```
-command to run if program contains helper info
-```
+First Header  | Second Header
+------------- | -------------
+Content Cell  | Content Cell
+Content Cell  |  \| 
+
+
 <a name="5"></a>
 ## 5. Code reference & Acknowledgments
 
 
-Contributors names and contact info
+* A large proportion of codes are adapted from the lab notes of CEGE 0043 Web Mobile and GIS by Calire Ellul, including
+	* Basic structures of bootStrap.html
+	* Functions related to user location tracking, displaying/removing map layers and popup forms, data retreiving, data uploading, data processing, and getting port numbers.
+	* Template of the [README.md](https://moodle.ucl.ac.uk/pluginfile.php/2598095/mod_resource/content/1/technical-documentation-example.pdf)
 
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
+* Template of user guide page is an modified version of Template Visual'sDocumentation.
+* May layers of this app are based on [Leaflet](https://leafletjs.com/).
+* The histograms showing daily user participation and table showing a list of all assets with least one 'best-condition' report utilise [D3 JavaScript library](https://d3js.org/d3.v5.min.js).
+* The style of markers untilise the [leaflet awesome-markers Javascript](https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js)
+* The README.md file is developed with the help of [Markdown Cheatsheet](https://github.com/tchapi/markdown-cheatsheet/blob/master/README.md#TOP)
