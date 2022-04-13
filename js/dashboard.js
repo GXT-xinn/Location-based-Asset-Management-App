@@ -128,6 +128,9 @@ var graph = '<h2><strong>Graphs</strong></h2>'+
 '            <li class="nav-item">'+
 '              <a class="nav-link" href="#Radar" role="tab" aria-controls="Radar" aria-selected="false" onclick="Radar()" >Radar</a>'+
 '            </li>'+
+'            <li class="nav-item">'+
+'              <a class="nav-link" href="#Radar1" role="tab" aria-controls="Radar1" aria-selected="false" onclick="Radar1()" >Radar1</a>'+
+'            </li>'+
 '          </ul>'+
 '        </div>'+
 '        <div id="canvasContainer" class="card-body">'+
@@ -391,6 +394,98 @@ function Radar(){
 							pointHoverBackgroundColor: '#fff',
 							pointHoverBorderColor: 'rgb(54, 162, 235)',
 							data: [y1.length, y2.length, y3.length, y4.length, y5.length, y.length]
+						  }]
+					}
+			  });
+			}
+		});
+	} 
+	});
+}
+
+
+var douChart1 = '<h4 class="card-title" align="center">Radar Chart on Asset Condition</h4>      '+
+'   <div class="tab-content mt-3">'+
+'	<div class="tab-pane active" id="Radar" role="tabpanel">'+
+'		<canvas id="douChart1" height="200px"></canvas>'+
+'	</div>'+
+'  </div>';
+
+function Radar1(){
+	    // init the bar chart by binding a certain div
+	document.getElementById("canvasContainer").innerHTML = douChart1;
+
+	$.ajax({url: document.location.origin + "/api/getUserId", 
+			crossDomain: true,success: function(result){
+				var userID = JSON.stringify(result);
+				// Extract solely the ID number
+				userID = JSON.parse(userID);
+				for(var i = 0; i < userID.length; i++){
+					userID = userID[i]['user_id'];};
+				// AJAX call for assets inputted by specific user (current user)
+				pointURL = document.location.origin + "/api/geoJSONUserId/" + userID +"";
+				$.ajax({url: pointURL, crossDomain: true,success: function(result){
+            var data = result[0].features;
+            // lists used to store the x and y data
+            x = [];
+			y = [];
+			color = [];
+            // for each asset point
+            for (var i = 0; i < data.length; i++) {
+				var chartColors = {
+				  case1: 'rgba(255, 99, 132, 0.7)',
+				  case2: 'rgba(54, 162, 235, 0.7)',
+				  case3: 'rgba(255, 206, 86, 0.7)',
+				  case4: 'rgba(75, 192, 192, 0.7)',
+				  case5: 'rgba(153, 102, 255, 0.7)'
+				};
+				x.push(data[i].properties.asset_name);;
+                // push the condition 
+				var condition_value = ["Element is in very good condition", "Some aesthetic defects, needs minor repair",
+				"Functional degradation of some parts, needs maintenance","Not working and maintenance must be done as soon as reasonably possible",
+				"Not working and needs immediate, urgent maintenance", "Unknown"]
+                var condition = data[i].properties.condition_description;
+                if (condition == op1) {
+                    y.push(1);
+					color.push(chartColors.case1);
+					
+                }
+                else if (condition == op2) {
+					y.push(2);
+					color.push(chartColors.case2);
+                }
+                else if (condition == op3) {
+					y.push(3);
+					color.push(chartColors.case3);
+                }
+                else if (condition == op4) {
+					y.push(4);
+					color.push(chartColors.case4);
+                }
+                else if (condition == op5) {
+					y.push(5);
+					color.push(chartColors.case5);
+                }
+                else {
+					y.push(0);
+                }
+            }
+			var ctx = document.getElementById('douChart1');
+		    var douChart1 = new Chart(ctx, {
+				type: 'radar',
+				data: {
+						labels: x,
+						datasets : [
+						  {
+							label: "Asset Condition Value",
+							fill: true,
+							backgroundColor: 'rgba(255, 99, 132, 0.2)',
+							borderColor: 'rgb(255, 99, 132)',
+							pointBackgroundColor: "#fff",
+							pointBorderColor: color,
+							pointHoverBackgroundColor: color,
+							pointHoverBorderColor: color,
+							data: y
 						  }]
 					}
 			  });
