@@ -1,5 +1,5 @@
 # Asset Condition Assessment App
-
+<a name="top"></a>
 A technical guide for an asset condition assessment app. The asset condition assessment app contains two parts: Asset Creation App and Condition Assessment App. Asset Creation App only available on large or extra large screen devices, like browser. Condition Assessment App is only activated on a small or medium screen devices, like smartphone. This app allows the user to create a new asset by clicking on the map (through browser) and allows the user to capture the condition of an asset (through phone) by press on a marker on a Leaflet map. Asset Creation App is able to save new assets information, including location, asset name, and installation date, to the database. It is also able to retrieve asset information to serve the Condition Assessment App. The Condition Assessment App is able to save new condition report to the database and retrieve the conditions of existed assets information from the database.
 
 All assets are displayed as POINTS on the Leaflet map.
@@ -33,65 +33,83 @@ All assets are displayed as POINTS on the Leaflet map.
 
 * Another external library used is JQuery (version3.4.1). Most up-to-date major platform’s default browsers (such as Chrome, Edge, Firefox, Safari, Opera etc.) supports the used version of JQuery. For mobile users, browser on Android v4.0+ and Safari on iOS v7+ are recommended. Same requirement for library D3 v5+.
 
+[Go to Top](#top)
 
 <a name="2"></a>
 ### 2. Deployment
 
 * Procedures to deploy this app:
 
-	1. Clone the source code of this asset condition assessment app from Github to CEGE server at ```home/studentuser/code``` by typing in the command line (terminal) window for Ubuntu: 
+1. Clone the source code of this asset condition assessment app from Github to CEGE server at ```home/studentuser/code``` by typing in the command line (terminal) window for Ubuntu: 
 
-	```
-	cd /home/studentuser/code 
-	git clone https://github.com/ucl-geospatial-21-22/cege0043-apps-21-22-GXT-xinn.git
-	```
-
-
-	2. Clone the source code of the corresponding Node JS server from Github to CEGE server at ```home/studentuser/code```.
-
-	```
-	cd /home/studentuser/code
-	git clone https://github.com/ucl-geospatial-21-22/cege0043-api-21-22-GXT-xinn.git
-	```
+```
+cd /home/studentuser/code 
+git clone https://github.com/ucl-geospatial-21-22/cege0043-apps-21-22-GXT-xinn.git
+```
 
 
-	3. Go to the cege0043-api-21-22-GXT-xinn folder and start the Node JS server.
+2. Clone the source code of the corresponding Node JS server from Github to CEGE server at ```home/studentuser/code```.
 
-	```
-	cd /home/studentuser/code/cege0043-api-21-22-GXT-xinn
-	pm2 start dataAPI.js
-	```
+```
+cd /home/studentuser/code
+git clone https://github.com/ucl-geospatial-21-22/cege0043-api-21-22-GXT-xinn.git
+```
 
 
-	4. Make sure the Node JS server is successfully started. If any error occurs, you could enter the debug mode through the command line window by typing
+3. Go to the cege0043-api-21-22-GXT-xinn folder and start the Node JS server.
 
-	```
-	cd /home/studentuser/code/cege0043-apps-21-22-GXT-xinn
-	node app.js
-	```
+```
+cd /home/studentuser/code/cege0043-api-21-22-GXT-xinn
+pm2 start dataAPI.js
+```
 
+
+4. Make sure the Node JS server is successfully started. If any error occurs, you could enter the debug mode through the command line window by typing
+
+```
+cd /home/studentuser/code/cege0043-apps-21-22-GXT-xinn
+node app.js
+```
+
+[Go to Top](#top)
 
 <a name="3"></a>
 ### 3. Testing
 
 * Procedures to test this app:
 
-	1. Make sure your device is connected to UCL Wifi or UCL VPN.
-	2. Make sure the Node JS server is active.
-	3. In a browser that supports geolocation access via http connection (such as Chrome or Firefox),
-	type the following address to use the asset condition assessment app:
-	https://cege0043-2022-45.cs.ucl.ac.uk/app/bootStrap.html
-	4. While testing the functionality of this map, use of Inspect or Developer mode of the browser to see if any error occurs.
+1. Make sure your device is connected to UCL Wifi or UCL VPN.
+2. Make sure the Node JS server is active.
+3.1. Asset Creation App
+	* Make sure operating hardware has a width of the screen **Larger** than 994px
+3.2. Condition Assessment App
+	* Make sure operating hardware has a width of the screen **Smaller** than 994px
+4. In a browser that supports geolocation access via http connection (such as Chrome or Firefox),
+type the following address to use the asset condition assessment app:
+https://cege0043-2022-45.cs.ucl.ac.uk/app/bootStrap.html
+5. While testing the functionality of this map, use of Inspect or Developer mode of the browser to see if any error occurs.
 
+[Go to Top](#top)
 
 <a name="4"></a>
 ## 4. File description
 
-First Header  | Second Header
-------------- | -------------
-Content Cell  | Content Cell
-Content Cell  |  \| 
+The files associated to the Asset Condition Assessment App are located in the ```cege0043-apps-21-22-GXT-xinn``` folder and its subfolders.
+* ~/cege0043-apps-21-22-GXT-xinn
+	* ```bootStrap.html```: The main html file of this app, through which user could use both Asset Creation App and Condition Assessment App on demand. This file interconnects most resources within the ```~/cege0043-apps-21-22-GXT-xinn```(except the ```~/Build``` and ```dashboard.html```). This file constains several divs and menu buttons.
+		* DIV
 
+		|       id       |    description   |
+		| :------------: | :--------------  |
+		|wrapper         |  Hold all divs.  |
+		|sidebar         |  Hold the accordion Sidebar to disply list of assets with least one best condition report and D3 chart containing user's daily report rate for Asset Creation App. Hold the accordion Sidebar to add and remove layer for 5 closest asset, last 5 reports, or assets unrated in last 3 days. Additionally, User Rank message link and Help link for user guide webpage.|
+		|content-wrapper |  Hold content interconnected to the sidebar buttons. |
+		|mapContainer    |  Hold the leaf map.|
+		|listContainer   |  Hold D3 table containing a list of assets with least one best condition report. |
+		|graphContainer  |  Hold D3 multibar chart showing daily reporting rates for the past week. |
+
+
+[Go to Top](#top)
 
 <a name="5"></a>
 ## 5. Code reference & Acknowledgments
@@ -102,8 +120,10 @@ Content Cell  |  \|
 	* Functions related to user location tracking, displaying/removing map layers and popup forms, data retreiving, data uploading, data processing, and getting port numbers.
 	* Template of the [README.md](https://moodle.ucl.ac.uk/pluginfile.php/2598095/mod_resource/content/1/technical-documentation-example.pdf)
 
-* Template of user guide page is an modified version of Template Visual'sDocumentation.
+* Template of user guide page is an modified version of [Template Visual](https://github.com/surjithctly/documentation-html-template)'sDocumentation.
 * May layers of this app are based on [Leaflet](https://leafletjs.com/).
 * The histograms showing daily user participation and table showing a list of all assets with least one 'best-condition' report utilise [D3 JavaScript library](https://d3js.org/d3.v5.min.js).
 * The style of markers untilise the [leaflet awesome-markers Javascript](https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js)
 * The README.md file is developed with the help of [Markdown Cheatsheet](https://github.com/tchapi/markdown-cheatsheet/blob/master/README.md#TOP)
+
+[Go to Top](#top)
