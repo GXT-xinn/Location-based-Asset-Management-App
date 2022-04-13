@@ -50,6 +50,7 @@ function processconditionData(postString) {
 			async:false,
 			type: "POST",
 			success: function(data){
+				alert("Form Data has been inserted")
 				console.log(data);},
 			data: postString
 		});
@@ -80,23 +81,18 @@ function sumReports(){
 function saveNewAsset() {
 	// now get the values for userid, coordinates, installation date and asset name
 	// use triple equality operator (=== or !==) to check for null value
-	if(document.getElementById("AssetName").value === null){
-		if(document.getElementById("InstallDate").value === null){
-			alert("Please Enter the Asset Name and Installation Date");}
-		else{
-			alert("Please Enter an Asset Name");}
+	if(document.getElementById("AssetName").value.length == 0 || document.getElementById("InstallDate").value.length == 0){
+			alert("Making sure you have entered both asset name and installation date");
+			location.reload();
 	}
 	
-	if(document.getElementById("InstallDate").value === null){
-			alert("Please Enter the Installation Date");}
-			
-	else {		
-	var AssetName = document.getElementById("AssetName").value;
-	var postString = "AssetName=" + AssetName;
-	var InstallDate = document.getElementById("InstallDate").value;
-	postString = postString + "&InstallDate=" + InstallDate;
-	postString = postString + "&latitude=" + latitude + "&longitude=" + longitude;
-	processAssetData(postString);
+	else {	
+		var AssetName = document.getElementById("AssetName").value;
+		var postString = "AssetName=" + AssetName;
+		var InstallDate = document.getElementById("InstallDate").value;
+		postString = postString + "&InstallDate=" + InstallDate;
+		postString = postString + "&latitude=" + latitude + "&longitude=" + longitude;
+		processAssetData(postString);
 	}
 };
 
@@ -106,7 +102,8 @@ function processAssetData(postString) {
     url: theURL,
     crossDomain: true,
     type: "POST",
-    success: function(data){console.log(data); alert(JSON.stringify(data));},
+    success: function(data){
+		location.reload();},
 	data: postString
 	});
 }
