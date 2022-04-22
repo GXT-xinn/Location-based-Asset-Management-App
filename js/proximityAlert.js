@@ -1,9 +1,9 @@
 
-// Global variables
+// Set up Global variables
 var trackLocationLayer = [];
 var geoLocationID;
 
-// Condition Assessment: Track user's location automatically
+// Track user location consistently using watchPosition
 function getLocation() {
 	console.log("Start tracking")
 	if (navigator.geolocation) {
@@ -13,25 +13,23 @@ function getLocation() {
 		alert("Geolocation is not supported by this browser.");
 	}
 }
-
+// Extract coordinates for closest asset calculation
 function showPosition(position) {
 	lat = position.coords.latitude;
 	lon = position.coords.longitude;
 	trackLocationLayer.push(L.marker([lat, lon]).addTo(mymap)); 
 	closestFormPoint(lat, lon);
 }
-
+// Main function for closest point calculation 
 function closestFormPoint(latitude, longitude) {
-	console.log("Start calculate distance");
-    // take the leaflet form data layer
-    // go through each point one by one
-    // for the closest point show the pop up of that point
+	// set variable for minimum distance
+	// As the function is meant to find the closest asset, it is important to set a boundary value - minDistance
     var minDistance = 10000000;
+	// closestFormPoint variable will hold asset id
     var closestFormPoint = 0;
-    // for this example, use the latitude/longitude of warren street
-    // in your assignment replace this with the user's location
     var userlat = latitude;
     var userlng = longitude;
+	// Loop through all assets points on the map added to map previously
     mapPoint.eachLayer(function(layer) {
         var distance = calculateDistance(userlat,userlng,layer.getLatLng().lat, layer.getLatLng().lng, 'K');
         if (distance < minDistance){
@@ -39,19 +37,16 @@ function closestFormPoint(latitude, longitude) {
             closestFormPoint = layer.feature.properties.asset_id;
         }
     });
-    // for this to be a proximity alert, the minDistance must be 5 of 5
-    // closer than a given distance - you can check that here
-    // using an if statement
-    // show the popup for the closest point
+    // Show the popup for the closest point
 	
     mapPoint.eachLayer(function(layer) {
-		console.log("Found closest point")
         if (layer.feature.properties.asset_id == closestFormPoint){
             layer.openPopup();
         }
     });
 }
 
+// Distance calculation function adapted from coursework
 function calculateDistance(lat1, lon1, lat2, lon2, unit) {
     var radlat1 = Math.PI * lat1/180;
     var radlat2 = Math.PI * lat2/180;
