@@ -132,7 +132,7 @@ The files associated to the Asset Condition Assessment App are located in the ``
 	
 	* ```basicMap.js```: ```loadLeafletMap()``` loads the leaflet map and set the default view and zoom, as well as loading the basemap tiles
 	
-	* ```calculatedist.js```: Functions are designed to consistently track user's location and calculate the closest asset (as proximity alert)
+	* ```proximityAlert.js```: Functions are designed to consistently track user's location and calculate the closest asset (as proximity alert)
 	
 	| function       |   description    |
 	| ------------   |  --------------  |
@@ -142,7 +142,7 @@ The files associated to the Asset Condition Assessment App are located in the ``
 	|calculateDistance()    |  Calculates the distance between two points, requires 5 parameters: lat1, lon1, lat2, lon2, and unit.|
 	|removePositionPoints()   |  Disables the location tracking to remove all points created through tracking. |
 	
-	* ```assetCreation.js```: Save information submitted through Asset Creation App and Condition Assessment App.
+	* ```assetFunction.js```: Save information submitted through Asset Creation App and Condition Assessment App.
 	
 	| function       |   description    |
 	| ------------   |  --------------  |
@@ -152,7 +152,7 @@ The files associated to the Asset Condition Assessment App are located in the ``
 	|saveNewAsset()    |  Prepare the values entered through asset form for database insertion.|
 	|processAssetData()   |  Ajax call to insert new asset information to the PostgreSQL database. |
 	
-	* ```corefunc.js```: Functions create the default map layers for the asset condition assessment app.
+	* ```defaultMapLayers.js```: Functions create the default map layers for the asset condition assessment app.
 	
 	| function       |   description    |
 	| ------------   |  --------------  |
